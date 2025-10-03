@@ -30,6 +30,6 @@ public class Car
 
     public Model model { get; set; }
 
-
-}
+    public IList<PurchaseItem> PurchaseItems { get; set; }
+    }
 }
