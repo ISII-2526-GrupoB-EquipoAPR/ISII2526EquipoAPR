@@ -1,17 +1,16 @@
-﻿using System;
-
-public class Model
+﻿namespace AppForSEII2526.API.Models
 {
-	public Model()
-	{
-	}
-	public Model(string id, string name)
-	{
-		Id = id;
-		Name = name;
 
-	}
-	
-	
+	public class Model
+	{
+        public int Id { get; set; }
 
+        [StringLength(50, ErrorMessage = "Title name cannot be longer than 50 characters.", MinimumLength = 4)]
+        public string Name { get; set; }
+
+        public IList<Car> Cars { get; set; }= new List<Car>();
+
+
+
+    }
 }
