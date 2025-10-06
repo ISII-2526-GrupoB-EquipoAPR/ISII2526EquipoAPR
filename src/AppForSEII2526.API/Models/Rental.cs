@@ -34,6 +34,7 @@
         [Precision(10, 2)]
         public decimal totalPrice { get; set; }
 
+        public IList<RentalItem> rentalItems { get; set; } = new List<RentalItem>();
 
     }
 }
