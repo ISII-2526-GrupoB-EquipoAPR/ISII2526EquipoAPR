@@ -19,7 +19,7 @@
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency)]
         [Range(1, float.MaxValue, ErrorMessage = "El mínimo precio es 1.")]
-        [Display(Name = "Price For Purchase")]
+        [Display(Name = "Precio de compra")]
         [Precision(10, 2)]
         public decimal PurchasingPrice { get; set; }
 
