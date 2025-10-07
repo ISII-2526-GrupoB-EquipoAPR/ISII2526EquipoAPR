@@ -1,17 +1,18 @@
 ﻿namespace AppForSEII2526.API.Models
 {
-public class PurchaseItem
+    [PrimaryKey(nameof(CarId), nameof(PurchaseId))]
+    public class PurchaseItem
 {
-	public Car car { get; set; }
+	public Car Car { get; set; }
 
-    public int carId { get; set; }
+    public int CarId { get; set; }
 
-    public int purchaseId { get; set; }
+    public int PurchaseId { get; set; }
 
-    public Purchase purchase { get; set; }
+    public Purchase Purchase { get; set; }
 
     [Range(1, int.MaxValue, ErrorMessage = "La cantidad debe ser mayor que 1")]
-    public int quantity { get; set; }
+    public int Quantity { get; set; }
 
 
     }
