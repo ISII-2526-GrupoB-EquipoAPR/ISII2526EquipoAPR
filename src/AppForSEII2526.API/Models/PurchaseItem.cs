@@ -1,6 +1,7 @@
 ﻿namespace AppForSEII2526.API.Models
 {
-public class PurchaseItem
+    [PrimaryKey(nameof(CarId), nameof(PurchaseId))]
+    public class PurchaseItem
 {
 	public Car Car { get; set; }
 
