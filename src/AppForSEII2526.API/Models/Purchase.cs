@@ -7,7 +7,9 @@
 	}
     public class Purchase
 	{
-		public string DeliveryCarDealer { get; set; }
+        public int Id { get; set; }
+        
+        public string DeliveryCarDealer { get; set; }
 
         [EnumDataType(typeof(PaymentMethodTypes), ErrorMessage = "El tipo de coche no es válido.")]
 		public PaymentMethodTypes PaymentMethod { get; set; }
