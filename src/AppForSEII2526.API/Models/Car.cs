@@ -13,8 +13,6 @@ public class Car
 
     public int Id { get; set; }
 
-    
-
     [StringLength(20, MinimumLength = 1, ErrorMessage = "El fabricante debe tener entre 1 y 20 caracteres.")]
     public string Manufacturer { get; set; }
 
@@ -47,6 +45,8 @@ public class Car
     public Model Model { get; set; }
 
     public IList<PurchaseItem> PurchaseItems { get; set; } = new List<PurchaseItem>();
+    
+    public IList<ReviewItem> ReviewItems { get; set; } = new List<ReviewItem>();
 
     public IList<RentalItem> RentalItems { get; set; } = new List<RentalItem>();
     }
