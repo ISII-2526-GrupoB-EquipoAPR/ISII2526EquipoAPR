@@ -1,5 +1,6 @@
 ﻿namespace AppForSEII2526.API.Models
 {
+    [PrimaryKey(nameof(CarId), nameof(RentalId))]
     public class RentalItem
     {
         public Car Car { get; set; }
