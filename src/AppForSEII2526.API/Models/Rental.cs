@@ -9,7 +9,7 @@
 
     public class Rental
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string DeliveryCarDealer { get; set; }
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
