@@ -6,35 +6,37 @@
         GooglePay,
         PayPal
     }
+
     public class Rental
     {
-        public string deliveryCarDealer { get; set; }
+        public string Id { get; set; }
+        public string DeliveryCarDealer { get; set; }
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Fecha de finalización")]
-        public DateTime endDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Fecha de comienzo")]
-        public DateTime startDate { get; set; }
+        public DateTime StartDate { get; set; }
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Fecha de renta")]
-        public DateTime rentingDate { get; set; }
+        public DateTime RentingDate { get; set; }
 
         [EnumDataType(typeof(PaymentMethodTypes), ErrorMessage = "El tipo de pago no es válido.")]
-        public PaymentMethodTypes2 paymentMethod { get; set; }
+        public PaymentMethodTypes2 PaymentMethod { get; set; }
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency)]
         [Range(1, float.MaxValue, ErrorMessage = "El mínimo precio es 1.")]
         [Display(Name = "Precio total de renta")]
         [Precision(10, 2)]
-        public decimal totalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
 
-        public IList<RentalItem> rentalItems { get; set; } = new List<RentalItem>();
+        public IList<RentalItem> RentalItems { get; set; } = new List<RentalItem>();
 
     }
 }
