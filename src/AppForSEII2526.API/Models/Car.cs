@@ -48,6 +48,6 @@ public class Car
     
     public IList<ReviewItem> ReviewItems { get; set; } = new List<ReviewItem>();
 
-    public IList<RentalItem> RentalItem { get; set; } = new List<RentalItem>();
+    public IList<RentalItem> RentalItems { get; set; } = new List<RentalItem>();
     }
 }
