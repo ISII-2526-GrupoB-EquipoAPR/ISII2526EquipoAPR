@@ -19,5 +19,6 @@ public class ApplicationUser : IdentityUser {
         get;
         set;
     }
+    public IList<Review> Reviews { get; set; } = new List<Review>();
 
 }
