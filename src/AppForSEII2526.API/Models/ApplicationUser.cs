@@ -20,4 +20,6 @@ public class ApplicationUser : IdentityUser {
         set;
     }
 
+    public IList<Purchase> Purchases { get;set;} = new List<Purchase>();
+
 }
