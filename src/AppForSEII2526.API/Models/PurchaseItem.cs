@@ -1,17 +1,19 @@
-﻿using System;
-
-public class PurchaseItem
+﻿namespace AppForSEII2526.API.Models
 {
-	public PurchaseItem()
-	{
-		public PurchaseItem() { }
+    [PrimaryKey(nameof(CarId), nameof(PurchaseId))]
+    public class PurchaseItem
+{
+	public Car Car { get; set; }
 
-		public PurchaseItem(string carId, string purchaseId, int quantity)
-	{
-		CarId = carId;
-		PurchaseId = purchaseId;
-		Quantity = quantity;
-    }
+    public int CarId { get; set; }
+
+    public int PurchaseId { get; set; }
+
+    public Purchase Purchase { get; set; }
+
+    [Range(1, int.MaxValue, ErrorMessage = "La cantidad debe ser mayor que 1")]
+    public int Quantity { get; set; }
+
 
     }
 }
