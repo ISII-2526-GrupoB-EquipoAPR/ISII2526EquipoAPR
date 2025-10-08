@@ -19,5 +19,6 @@ public class ApplicationUser : IdentityUser {
         get;
         set;
     }
+    public IList<Purchase> Purchases { get;set;} = new List<Purchase>();
 
 }
