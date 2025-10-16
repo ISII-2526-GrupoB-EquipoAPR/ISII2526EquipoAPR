@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppForSEII2526.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251008175002_CreateIdentitySchema")]
+    [Migration("20251016202214_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {
         /// <inheritdoc />
@@ -191,6 +191,7 @@ namespace AppForSEII2526.API.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ApplicationUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("DeliveryCarDealer")
@@ -241,6 +242,7 @@ namespace AppForSEII2526.API.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ApplicationUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("DeliveryCarDealer")
@@ -297,6 +299,7 @@ namespace AppForSEII2526.API.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ApplicationUserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Country")
@@ -328,9 +331,6 @@ namespace AppForSEII2526.API.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");
@@ -488,9 +488,13 @@ namespace AppForSEII2526.API.Migrations
 
             modelBuilder.Entity("AppForSEII2526.API.Models.Purchase", b =>
                 {
-                    b.HasOne("AppForSEII2526.API.Models.ApplicationUser", null)
+                    b.HasOne("AppForSEII2526.API.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Purchases")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("AppForSEII2526.API.Models.PurchaseItem", b =>
@@ -514,9 +518,13 @@ namespace AppForSEII2526.API.Migrations
 
             modelBuilder.Entity("AppForSEII2526.API.Models.Rental", b =>
                 {
-                    b.HasOne("AppForSEII2526.API.Models.ApplicationUser", null)
+                    b.HasOne("AppForSEII2526.API.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Rentals")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("AppForSEII2526.API.Models.RentalItem", b =>
@@ -540,9 +548,13 @@ namespace AppForSEII2526.API.Migrations
 
             modelBuilder.Entity("AppForSEII2526.API.Models.Review", b =>
                 {
-                    b.HasOne("AppForSEII2526.API.Models.ApplicationUser", null)
+                    b.HasOne("AppForSEII2526.API.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Reviews")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("AppForSEII2526.API.Models.ReviewItem", b =>

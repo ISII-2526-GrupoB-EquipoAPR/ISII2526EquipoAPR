@@ -181,7 +181,7 @@ namespace AppForSEII2526.API.Migrations
                     PaymentMethod = table.Column<int>(type: "int", nullable: false),
                     PurchasingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PurchasingPrice = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -190,7 +190,8 @@ namespace AppForSEII2526.API.Migrations
                         name: "FK_Purchases_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -205,7 +206,7 @@ namespace AppForSEII2526.API.Migrations
                     RentingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PaymentMethod = table.Column<int>(type: "int", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -214,7 +215,8 @@ namespace AppForSEII2526.API.Migrations
                         name: "FK_Rentals_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -226,7 +228,7 @@ namespace AppForSEII2526.API.Migrations
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Country = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
                     DriverType = table.Column<int>(type: "int", nullable: false),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -235,7 +237,8 @@ namespace AppForSEII2526.API.Migrations
                         name: "FK_Reviews_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -325,7 +328,6 @@ namespace AppForSEII2526.API.Migrations
                     CarId = table.Column<int>(type: "int", nullable: false),
                     ReviewId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
                     Rating = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
