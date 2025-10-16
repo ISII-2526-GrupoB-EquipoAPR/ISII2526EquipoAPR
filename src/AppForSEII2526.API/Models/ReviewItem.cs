@@ -14,8 +14,6 @@
 
         public Review Review { get; set; }
 
-        [Range(1, int.MaxValue, ErrorMessage = "La cantidad debe ser mayor que 1")]
-        public int Quantity { get; set; }
         [Range(1, 5, ErrorMessage = "La valoración debe estar entre 1 y 5")]
         public int Rating { get; set; }
     }

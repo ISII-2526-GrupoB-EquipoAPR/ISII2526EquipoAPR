@@ -23,5 +23,6 @@ namespace AppForSEII2526.API.Models
         [EnumDataType(typeof(DriverTypes), ErrorMessage = "El tipo de conductor no es válido.")]
         public DriverTypes DriverType { get; set; }
         public IList<ReviewItem> ReviewItems { get; set; } =   new List<ReviewItem>();
-    }
+        public ApplicationUser ApplicationUser { get; set; }
+        }
 }
