@@ -22,6 +22,6 @@ public class ApplicationUser : IdentityUser {
     public IList<Purchase> Purchases { get;set;} = new List<Purchase>();
     public IList<Review> Reviews { get; set; } = new List<Review>();
     public IList<Rental> Rentals { get; set; } = new List<Rental>();
-
+    public Review Review { get; set; }
 
 }

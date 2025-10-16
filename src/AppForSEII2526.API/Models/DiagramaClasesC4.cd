@@ -15,10 +15,18 @@
   </Class>
   <Class Name="AppForSEII2526.API.Models.Review">
     <Position X="8.25" Y="1.5" Width="1.5" />
+    <AssociationLine Name="ApplicationUser" Type="AppForSEII2526.API.Models.ApplicationUser">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.232" Y="0.06" Height="0.182" Width="0.827" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAACAAAAACAAAAAAAAAAAAAAAAIAAAQAAAAAABAAAAA=</HashCode>
+      <HashCode>AAACAAAAACAAAAAQAAAAAAAAAAIAAAQAAAAAABAAAAA=</HashCode>
       <FileName>Models\Review.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ApplicationUser" />
+    </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="ReviewItems" />
     </ShowAsCollectionAssociation>
@@ -26,7 +34,7 @@
   <Class Name="AppForSEII2526.API.Models.ReviewItem">
     <Position X="6.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAQgAAAAAAAAAACAAAAAAAEAEACAgAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAQgAAAAAAAAAACAAAAAAAEAEACAAAAAAAA=</HashCode>
       <FileName>Models\ReviewItem.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -45,9 +53,9 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="AppForSEII2526.API.Models.ApplicationUser">
-    <Position X="10" Y="1.5" Width="1.5" />
+    <Position X="10.25" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAEAAAAAAAAAAAAAAAAQABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAwAAEAAAAAAAAAAAAAAAAQABAAAAAAAAACAAAAAAAA=</HashCode>
       <FileName>Models\ApplicationUser.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
