@@ -26,9 +26,12 @@
   <Class Name="AppForSEII2526.API.Models.Purchase">
     <Position X="10.75" Y="2.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAjAAAAAABAAAAAAAAAgAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <HashCode>AAAjAAAAAABAAAAQAAAAgAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Models\Purchase.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ApplicationUser" />
+    </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="PurchaseItems" />
     </ShowAsCollectionAssociation>
@@ -47,7 +50,7 @@
   <Class Name="AppForSEII2526.API.Models.ApplicationUser">
     <Position X="9.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAAAAAAAAAAQABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAwAAEAAAAAAAAAAAAAAAAQABAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\ApplicationUser.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
