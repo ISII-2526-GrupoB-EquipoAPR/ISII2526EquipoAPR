@@ -37,6 +37,7 @@
         public decimal TotalPrice { get; set; }
 
         public IList<RentalItem> RentalItems { get; set; } = new List<RentalItem>();
+        public ApplicationUser ApplicationUser { get; set; }
 
     }
 }

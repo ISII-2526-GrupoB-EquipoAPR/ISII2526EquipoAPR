@@ -26,9 +26,12 @@
   <Class Name="AppForSEII2526.API.Models.Rental">
     <Position X="10.25" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAADCAAAAAAAAAAAAAAAgAAgAAAAQAAAAAAAAEAAAAE=</HashCode>
+      <HashCode>AAADCAAAAAAAAAAQAAAAgAAgAAAAQAAAAAAAAEAAAAE=</HashCode>
       <FileName>Models\Rental.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ApplicationUser" />
+    </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="RentalItems" />
     </ShowAsCollectionAssociation>
