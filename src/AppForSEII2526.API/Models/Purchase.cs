@@ -27,6 +27,7 @@
 
         public IList<PurchaseItem> PurchaseItems { get; set; } = new List<PurchaseItem>();
 
+        public ApplicationUser ApplicationUser { get; set; }
 
 
 
