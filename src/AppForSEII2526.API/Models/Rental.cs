@@ -1,12 +1,6 @@
 ﻿namespace AppForSEII2526.API.Models
 {
-    public enum PaymentMethodTypes2
-    {
-        Visa,
-        GooglePay,
-        PayPal
-    }
-
+  
     public class Rental
     {
         public int Id { get; set; }
@@ -28,7 +22,7 @@
         public DateTime RentingDate { get; set; }
 
         [EnumDataType(typeof(PaymentMethodTypes), ErrorMessage = "El tipo de pago no es válido.")]
-        public PaymentMethodTypes2 PaymentMethod { get; set; }
+        public PaymentMethodTypes PaymentMethod { get; set; }
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency)]
         [Range(1, float.MaxValue, ErrorMessage = "El mínimo precio es 1.")]
