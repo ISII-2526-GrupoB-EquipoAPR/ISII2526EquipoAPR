@@ -3,7 +3,8 @@
 	public enum PaymentMethodTypes
 	{
 		Visa,
-		GooglePay
+		GooglePay,
+        Paypal
 	}
     public class Purchase
 	{
