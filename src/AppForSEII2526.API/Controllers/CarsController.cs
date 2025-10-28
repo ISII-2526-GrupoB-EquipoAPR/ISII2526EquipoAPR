@@ -108,5 +108,32 @@ namespace AppForSEII2526.API.Controllers
 
             return Ok(selectCars);
         }
+        public async Task<ActionResult> GetCarForRental(string? model, int? rentingPrice)
+        {
+            IList<CarForPurchaseDTO> selectCars = await _context.Cars
+
+                .Include(c => c.Model)
+                .Include(c => c.RentalItems).ThenInclude(pi => pi.Rental)
+
+                .Where(c => c.QuantityForRenting > 0 &&
+                   (model == null || c.Color.Contains(model))
+                    && (rentingPrice == null || c.Model.Name.Equals(rentingPrice))
+                    )
+
+                .OrderBy(c => c.Model)
+
+                .Select(c => new CarForPurchaseDTO
+                {
+                    Model = c.Model.Name,
+                    Color = c.Color,
+                    FuelType = c.FuelType,
+                    Manufacturer = c.Manufacturer,
+                    PurchasingPrice = c.PurchasingPrice
+                })
+
+                .ToListAsync();
+
+            return Ok(selectCars);
+        }
     }
 }
