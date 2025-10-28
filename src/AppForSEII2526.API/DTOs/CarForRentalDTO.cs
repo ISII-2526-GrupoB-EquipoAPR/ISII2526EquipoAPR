@@ -16,10 +16,11 @@
                 RentingDate = rentingDate;
                 PriceForRenting = priceForRenting;
             }
-            public CarForRentalDTO(int id, string model, string color, DateTime rentingDate, double priceForRenting, DateTime? lastRental) : this(id, model, color, rentingDate, priceForRenting)
+            public CarForRentalDTO(int id, string model, string color,string fuelType, DateTime rentingDate, decimal priceForRenting, DateTime? lastRental) : this(id, model, color,fuelType, rentingDate, priceForRenting)
             {
                 LastRental = lastRental;
             }
+
 
             public int Id { get; set; }
 
@@ -70,5 +71,6 @@
 
         }
     }
+
 
 
