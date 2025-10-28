@@ -9,9 +9,10 @@ namespace AppForSEII2526.API.DTOs
 
         }
 
-        public CarForReviewDTO(int id, string Modelo, string Manufacter, string Fueltype, string Color)
+        public CarForReviewDTO(int id, string Modelo,string CarClass; string Manufacter, string Fueltype, string Color)
         {
             Id = id;
+            CarClass = CarClass;
             Modelo = Modelo;
             Manufacter = Manufacter;
             FuelType = FuelType;
@@ -19,26 +20,30 @@ namespace AppForSEII2526.API.DTOs
         }
 
 
-        public int Id { get; set; }
+public int Id { get; set; }
 
-        [StringLength(50, ErrorMessage = "Modelo must have a maximun length of 50 characters")]
-        public string Modelo { get; set; }
+[StringLength(50, ErrorMessage = "El modelo debe tener una longitud máxima de 50 caracteres")]
+public string Modelo { get; set; }
+[StringLength(50, ErrorMessage = "La clase debe tener una longitud máxima de 50 caracteres")]
+public string CarClass { get; set; }
+[StringLength(50, ErrorMessage = "El fabricante debe tener una longitud máxima de 50 caracteres y mínima de 4", MinimumLength = 4)]
+public string Manufacter { get; set; }
 
-        [StringLength(50, ErrorMessage = "Manufacter must have a maximun length of 50 characters", MinimumLength = 4)]
-        public string Manufacter { get; set; }
+[StringLength(50, ErrorMessage = "El tipo de combustible debe tener una longitud máxima de 50 caracteres")]
+public string FuelType { get; set; }
 
-        [StringLength(50, ErrorMessage = "Fueltype must have a maximun length of 50 characters")]
-        public string FuelType { get; set; }
+[StringLength(50, ErrorMessage = "El color debe tener una longitud máxima de 50 caracteres")]
+public string Color { get; set; }
 
-        [StringLength(50, ErrorMessage = "Color must have a maximun length of 50 characters")]
-        public string Color { get; set; }
+        
 
 
 
         public override bool Equals(object? obj)
         {
             return obj is CarForReviewDTO dTO &&
-                   Id == dTO.Id &&
+                CarClass == dTO.CarClass
+I                   Id == dTO.Id &&
                    Modelo == dTO.Modelo &&
                    Manufacter == dTO.Manufacter &&
                  FuelType == dTO.FuelType &&
@@ -47,7 +52,7 @@ namespace AppForSEII2526.API.DTOs
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Id, Modelo, Manufacter, FuelType, Color);
+            return HashCode.Combine(Id, Modelo, CarClass, Manufacter, FuelType, Color);
         }
     }
 }
