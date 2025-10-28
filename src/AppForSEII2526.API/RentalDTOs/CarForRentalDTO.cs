@@ -24,24 +24,24 @@ namespace AppForSEII2526.API.DTOs
 
         public int Id { get; set; }
 
-        [StringLength(50, ErrorMessage = "Model must have a maximun length of 50 characters")]
+        [StringLength(50, ErrorMessage = "Modelo puede tener como maximo 50 caracteres")]
         public string Model { get; set; }
 
-        [StringLength(50, ErrorMessage = "Fuel type must have a maximun length of 50 characters")]
+        [StringLength(50, ErrorMessage = "Tipo de gasoil puede tener como maximo 50 caracteres")]
         public string FuelType { get; set; }
 
-        [StringLength(50, ErrorMessage = "Color must have a maximun length of 50 characters")]
+        [StringLength(50, ErrorMessage = "Color puede tener como maximo 50 caracteres")]
         public string Color { get; set; }
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Renting Date")]
+        [Display(Name = "Fecha para alquilar")]
         public DateTime RentingDate { get; set; }
 
         [Required]
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency)]
-        [Range(1, float.MaxValue, ErrorMessage = "Minimum price is 1 ")]
-        [Display(Name = "Price For Renting")]
+        [Range(1, float.MaxValue, ErrorMessage = "Precio minimo es 1")]
+        [Display(Name = "Precio para alquilar")]
         public decimal PriceForRenting { get; set; }
 
 
