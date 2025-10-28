@@ -26,7 +26,7 @@
             [StringLength(50, ErrorMessage = "Modelo puede tener como maximo 50 caracteres")]
             public string Model { get; set; }
 
-            [StringLength(50, ErrorMessage = "Tipo de gasoil puede tener como maximo 50 caracteres")]
+            [StringLength(10, ErrorMessage = "Tipo de gasoil puede tener como maximo 10 caracteres")]
             public string FuelType { get; set; }
 
             [StringLength(50, ErrorMessage = "Color puede tener como maximo 50 caracteres")]
