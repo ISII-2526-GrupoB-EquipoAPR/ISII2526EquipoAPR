@@ -111,15 +111,15 @@ namespace AppForSEII2526.API.Controllers
         [HttpGet]
         [Route("[action]")]
         [ProducesResponseType(typeof(IList<CarForReviewDTO>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult> GetCarForReview(string? carColor, string? carModel)
+        public async Task<ActionResult> GetCarForReview(string? Manufacter, string? Fueltype)
         {
             IList<CarForReviewDTO> selectCars = await _context.Cars
                 .Include(c => c.Model)
                 .Include(c => c.ReviewItems).ThenInclude(ri => ri.Review)
-                .Where(c => (carColor == null || c.Color.Contains(carColor))
-                    && (carModel == null || c.Model.Name.Equals(carModel))
+                .Where(c => (Manufacter == null || c.Manufacter.Contains(Manufacter))
+                    && (Fueltype == null || c.FuelType.Equals(Fueltype))
                     )
-                .OrderBy(c => c.Model)
+                .OrderBy(c => c.Manufacter)
                 .Select(c => new CarForReviewDTO
                 {
                     Id = c.Id,
