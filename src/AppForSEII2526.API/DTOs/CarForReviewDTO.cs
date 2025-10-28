@@ -9,8 +9,8 @@ namespace AppForSEII2526.API.DTOs
 
         }
 
-        public CarForReviewDTO(int id, string Modelo,string CarClass; string Manufacter, string Fueltype, string Color)
-        {
+        public CarForReviewDTO(int id, string Modelo, string CarClass, string Manufacter, string Fueltype, string Color)
+   {
             Id = id;
             CarClass = CarClass;
             Modelo = Modelo;
@@ -42,8 +42,9 @@ public string Color { get; set; }
         public override bool Equals(object? obj)
         {
             return obj is CarForReviewDTO dTO &&
-                CarClass == dTO.CarClass
-I                   Id == dTO.Id &&
+                CarClass == dTO.CarClass &&
+                
+                Id == dTO.Id &&
                    Modelo == dTO.Modelo &&
                    Manufacter == dTO.Manufacter &&
                  FuelType == dTO.FuelType &&
