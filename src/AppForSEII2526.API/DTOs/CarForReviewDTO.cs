@@ -6,6 +6,7 @@ namespace AppForSEII2526.API.DTOs
     {
         public CarForReviewDTO()
         {
+        
         }
 
         public CarForReviewDTO(int id, string Modelo, string Manufacter, string Fueltype,string Color)
