@@ -87,7 +87,7 @@ namespace AppForSEII2526.API.Controllers
             IList<CarForPurchaseDTO> selectCars = await _context.Cars
 
                 .Include(c => c.Model)
-                .Include (c => c.PurchaseItems).ThenInclude(pi => pi.Purchase)
+                .Include(c => c.PurchaseItems).ThenInclude(pi => pi.Purchase)
 
                 .Where(c => c.QuantityForPurchasing > 0 &&
                    (carColor == null || c.Color.Contains(carColor))
@@ -104,7 +104,7 @@ namespace AppForSEII2526.API.Controllers
                     Manufacturer = c.Manufacturer,
                     PurchasingPrice = c.PurchasingPrice
                 })
-                
+
                 .ToListAsync();
 
             return Ok(selectCars);
@@ -153,4 +153,34 @@ namespace AppForSEII2526.API.Controllers
         }
 
     }
+        
+       [HttpGet]
+[Route("[action]")]
+[ProducesResponseType(typeof(IList<CarForReviewDTO>), (int)HttpStatusCode.OK)]
+public async Task<ActionResult> GetCarForReview(string? Manufacturer, string? Fueltype)
+{
+    IList<CarForReviewDTO> selectCars = await _context.Cars
+        .Include(c => c.Model)
+        .Include(c => c.ReviewItems).ThenInclude(ri => ri.Review)
+        .Where(c => (Manufacturer == null || c.Manufacturer.Contains(Manufacturer))
+            && (Fueltype == null || c.FuelType.Equals(Fueltype))
+            )
+        .OrderBy(c => c.Model)
+        .Select(c => new CarForReviewDTO
+        {
+            Id = c.Id,
+            Modelo = c.Model.Name,
+            CarClass = c.CarClass,
+            Manufacturer = c.Manufacturer,
+            FuelType = c.FuelType,
+            Color = c.Color
+        })
+        .ToListAsync();
 }
+
+
+
+
+            return Ok(selectCars);
+        }
+    } }
