@@ -3,6 +3,23 @@
     [PrimaryKey(nameof(CarId), nameof(RentalId))]
     public class RentalItem
     {
+        public RentalItem()
+        {
+        }
+        public RentalItem(Car car, Rental rental)
+        {
+            Car = car;
+            CarId = car.Id;
+            Rental = rental;
+            RentalId = rental.Id;
+        }
+
+        public RentalItem(int carId, Rental rental, double priceForRenting)
+        {
+            CarId = carId;
+            Rental = rental;
+            PriceForRenting = priceForRenting;
+        }
         public Car Car { get; set; }
 
         public int CarId { get; set; }
@@ -13,5 +30,6 @@
 
         [Range(1, int.MaxValue, ErrorMessage = "La cantidad debe ser mayor que 1")]
         public int Quantity { get; set; }
+        public double PriceForRenting { get; set; }
     }
 }
