@@ -113,18 +113,8 @@ namespace AppForSEII2526.API.Controllers
         [HttpGet]
         [Route("[action]")]
         [ProducesResponseType(typeof(IList<CarForRentalDTO>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult> GetCarForRental(string? model, decimal? rentingPrice, DateTime fromDate, DateTime toDate)
+        public async Task<ActionResult> GetCarForRental(string? model, decimal? rentingPrice)
         {
-            if (fromDate != null && toDate != null && fromDate > toDate)
-            {
-                ModelState.AddModelError("Fecha de inicio y fecha de finalización",
-                    "La fecha de inicio debe ser antes que la fecha de finalización");
-                _logger.LogError($"{DateTime.Now} Error: Fecha de inicio debe ser antes que Fecha de finalización ");
-                return BadRequest(new ValidationProblemDetails(ModelState));
-            }
-
-            fromDate = DateTime.Today;
-            toDate = DateTime.Today.AddDays(7);
 
             IList<CarForRentalDTO> selectCars = await _context.Cars
                 .Include(c => c.Model)
@@ -132,10 +122,8 @@ namespace AppForSEII2526.API.Controllers
                 .Where(c =>
                 c.QuantityForRenting > 0 &&
                 (model == null || c.Model.Name.Contains(model)) &&
-                (rentingPrice == null || c.RentingPrice <= rentingPrice) &&
-                // comprobamos que los alquileres solapados sean menos que la cantidad disponible
-                (c.RentalItems.Where(ri => ri.Rental.StartDate <= toDate
-                            && ri.Rental.EndDate >= fromDate).Count() < c.QuantityForRenting)
+                (rentingPrice == null || c.RentingPrice <= rentingPrice) 
+             
 )
                 .OrderBy(c => c.Model.Name)
                 .Select(c => new CarForRentalDTO
