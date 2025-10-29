@@ -113,7 +113,7 @@ namespace AppForSEII2526.API.Controllers
         [HttpGet]
         [Route("[action]")]
         [ProducesResponseType(typeof(IList<CarForRentalDTO>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult> GetCarForRental(string? model, decimal? rentingPrice, DateTime? fromDate, DateTime? toDate)
+        public async Task<ActionResult> GetCarForRental(string? model, decimal? rentingPrice, DateTime fromDate, DateTime toDate)
         {
             if (fromDate != null && toDate != null && fromDate > toDate)
             {
@@ -123,8 +123,8 @@ namespace AppForSEII2526.API.Controllers
                 return BadRequest(new ValidationProblemDetails(ModelState));
             }
 
-            fromDate ??= DateTime.Today;
-            toDate ??= DateTime.Today.AddDays(7);
+            fromDate = DateTime.Today;
+            toDate = DateTime.Today.AddDays(7);
 
             IList<CarForRentalDTO> selectCars = await _context.Cars
                 .Include(c => c.Model)
