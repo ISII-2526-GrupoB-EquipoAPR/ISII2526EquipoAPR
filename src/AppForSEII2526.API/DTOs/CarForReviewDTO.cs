@@ -9,12 +9,12 @@ namespace AppForSEII2526.API.DTOs
 
         }
 
-        public CarForReviewDTO(int id, string Modelo,string CarClass, string Manufacter, string Fueltype, string Color)
+        public CarForReviewDTO(int id, string Modelo,string CarClass, string Manufacturer, string Fueltype, string Color)
         {
             Id = id;
             CarClass = CarClass;
             Modelo = Modelo;
-            Manufacter = Manufacter;
+            Manufacturer = Manufacturer;
             FuelType = FuelType;
             Color = Color;
         }
@@ -27,7 +27,7 @@ public string Modelo { get; set; }
 [StringLength(50, ErrorMessage = "La clase debe tener una longitud máxima de 50 caracteres")]
 public string CarClass { get; set; }
 [StringLength(50, ErrorMessage = "El fabricante debe tener una longitud máxima de 50 caracteres y mínima de 4", MinimumLength = 4)]
-public string Manufacter { get; set; }
+public string Manufacturer { get; set; }
 
 [StringLength(50, ErrorMessage = "El tipo de combustible debe tener una longitud máxima de 50 caracteres")]
 public string FuelType { get; set; }
@@ -42,17 +42,17 @@ public string Color { get; set; }
         public override bool Equals(object? obj)
         {
             return obj is CarForReviewDTO dTO &&
-                CarClass == dTO.CarClass
-I                   Id == dTO.Id &&
+                CarClass == dTO.CarClass &&
+                  Id == dTO.Id &&
                    Modelo == dTO.Modelo &&
-                   Manufacter == dTO.Manufacter &&
+                   Manufacturer == dTO.Manufacturer &&
                  FuelType == dTO.FuelType &&
                    Color == dTO.Color;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Id, Modelo, CarClass, Manufacter, FuelType, Color);
+            return HashCode.Combine(Id, Modelo, CarClass, Manufacturer, FuelType, Color);
         }
     }
 }
