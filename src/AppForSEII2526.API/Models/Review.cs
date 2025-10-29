@@ -24,5 +24,6 @@ namespace AppForSEII2526.API.Models
         public DriverTypes DriverType { get; set; }
         public IList<ReviewItem> ReviewItems { get; set; } =   new List<ReviewItem>();
         public ApplicationUser ApplicationUser { get; set; }
-        }
+        public string CustomerUserName { get; set; }
+    }
 }
