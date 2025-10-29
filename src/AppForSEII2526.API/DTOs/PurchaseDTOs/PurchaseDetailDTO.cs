@@ -9,14 +9,16 @@ namespace AppForSEII2526.API.DTOs.PurchaseDTOs
         {
         }
 
-        public PurchaseDetailDTO(string customerUserName, string customerNameSurname, PaymentMethodTypes paymentMethod, string deliveryAddress, IList<PurchaseItemDTO> purchaseItems)
+        public PurchaseDetailDTO(int id,string customerUserName, string customerNameSurname, PaymentMethodTypes paymentMethod, string deliveryAddress, IList<PurchaseItemDTO> purchaseItems)
         {
-            CustomerUserName = customerUserName;
-            CustomerNameSurname = customerNameSurname;
+            Id = id;
+            CustomerUserName = customerUserName ?? throw new ArgumentNullException(nameof(customerUserName));
+            CustomerNameSurname = customerNameSurname ?? throw new ArgumentNullException(nameof(customerNameSurname));
+            DeliveryAddress = deliveryAddress ?? throw new ArgumentNullException(nameof(deliveryAddress));
             PaymentMethod = paymentMethod;
-            DeliveryAddress = deliveryAddress;
             PurchaseItems = purchaseItems ?? throw new ArgumentNullException(nameof(purchaseItems));
         }
+        public int Id { get; set; }
 
         [EmailAddress]
         [Required]
