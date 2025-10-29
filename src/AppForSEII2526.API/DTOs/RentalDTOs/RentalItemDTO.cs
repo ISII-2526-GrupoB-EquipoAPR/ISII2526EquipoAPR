@@ -22,6 +22,7 @@ namespace AppForSEII2526.API.DTOs.RentalDTOs
 
         public decimal RentingPrice { get; set; }
 
+        [Required]
         public int Quantity { get; set; }
 
         public override bool Equals(object? obj)
