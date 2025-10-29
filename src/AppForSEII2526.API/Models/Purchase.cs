@@ -8,8 +8,41 @@
 	}
     public class Purchase
 	{
+        public Purchase()
+        {
+            PurchaseItems= new List<PurchaseItem>();
+        }
+
+        public Purchase(int id, decimal totalPrice, string customerUserName, string customerNameSurname, string deliveryAddress, string deliveryCarDealer, PaymentMethodTypes paymentMethod, DateTime purchasingDate, decimal purchasingPrice, IList<PurchaseItem> purchaseItems, ApplicationUser applicationUser)
+        {
+
+            TotalPrice = decimal.Round(purchaseItems.Sum(pi => pi.Price * pi.Quantity),2);
+
+            CustomerUserName = customerUserName;
+            CustomerNameSurname = customerNameSurname;
+            DeliveryAddress = deliveryAddress;
+            DeliveryCarDealer = deliveryCarDealer;
+            PaymentMethod = paymentMethod;
+            PurchasingDate = purchasingDate;
+            PurchasingPrice = purchasingPrice;
+            PurchaseItems = purchaseItems;
+            ApplicationUser = applicationUser;
+        }
+
         public int Id { get; set; }
-        
+
+        [Precision(10, 2)]
+        public decimal TotalPrice { get; set; }
+
+        public string CustomerUserName { get; set; }
+
+        public string CustomerNameSurname { get; set; } 
+
+        [DataType(System.ComponentModel.DataAnnotations.DataType.MultilineText)]
+        [Display(Name = "Dirección de envío")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Por favor, selecciona su dirección para el envío")]
+        public string DeliveryAddress { get; set; }
+
         public string DeliveryCarDealer { get; set; }
 
         [EnumDataType(typeof(PaymentMethodTypes), ErrorMessage = "El tipo de coche no es válido.")]
