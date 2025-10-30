@@ -2,15 +2,12 @@
 {
     public class RentalForCreateDTO
     {
-        public RentalForCreateDTO(string customerUserName, string customerNameSurname, string deliveryAddress, PaymentMethodTypes paymentMethod, DateTime startDate, DateTime endDate, IList<RentalItemDTO> rentalItems)
+        public RentalForCreateDTO(string customerUserName, string customerNameSurname, string deliveryAddress, PaymentMethodTypes paymentMethod)
         {
-
             CustomerUserName = customerUserName ?? throw new ArgumentNullException(nameof(customerUserName)); ;
             CustomerNameSurname = customerNameSurname ?? throw new ArgumentNullException(nameof(customerNameSurname)); ;
             DeliveryAddress = deliveryAddress ?? throw new ArgumentNullException(nameof(deliveryAddress)); ;
             PaymentMethod = paymentMethod;
-            StartDate = startDate;
-            EndDate = endDate;
         }
 
 
@@ -31,10 +28,7 @@
 
 
         public PaymentMethodTypes PaymentMethod { get; set; }
-        public DateTime StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
-        public IList<RentalItemDTO> RentalItems { get; set; }
 
         public override bool Equals(object? obj)
         {
