@@ -7,7 +7,7 @@
         {
         }
 
-        public Rental(string deliveryAddress, string customerUserName, string customerNameSurname, int id, string deliveryCarDealer, DateTime endDate, DateTime startDate, DateTime rentingDate, PaymentMethodTypes paymentMethod, decimal totalPrice, IList<RentalItem> rentalItems, ApplicationUser applicationUser)
+        public Rental(string deliveryAddress, string customerUserName, string customerNameSurname, int id, string deliveryCarDealer, DateTime endDate, DateTime startDate, DateTime rentingDate, PaymentMethodTypes paymentMethod, IList<RentalItem> rentalItems, ApplicationUser applicationUser)
         {
             TotalPrice = rentalItems.Sum(ri => ri.PriceForRenting * (endDate - startDate).Days);
 
