@@ -70,6 +70,8 @@ namespace AppForSEII2526.API.DTOs.RentalDTOs
         {
             return (date1.Subtract(date2) < new TimeSpan(0, 1, 0));
         }
+       
+
 
 
         public override bool Equals(object? obj)
