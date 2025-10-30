@@ -65,12 +65,10 @@ namespace AppForSEII2526.API.DTOs.RentalDTOs
             }
         }
 
-
         protected bool CompareDate(DateTime date1, DateTime date2)
         {
             return (date1.Subtract(date2) < new TimeSpan(0, 1, 0));
         }
-       
 
 
         public override bool Equals(object? obj)
