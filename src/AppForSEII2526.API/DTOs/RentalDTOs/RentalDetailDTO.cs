@@ -71,6 +71,7 @@ namespace AppForSEII2526.API.DTOs.RentalDTOs
         }
 
 
+
         public override bool Equals(object? obj)
         {
             return obj is RentalDetailDTO dTO
