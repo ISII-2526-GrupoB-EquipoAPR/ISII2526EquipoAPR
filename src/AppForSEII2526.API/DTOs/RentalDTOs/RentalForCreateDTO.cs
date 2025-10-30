@@ -2,12 +2,14 @@
 {
     public class RentalForCreateDTO
     {
-        public RentalForCreateDTO(string customerUserName, string customerNameSurname, string deliveryAddress, PaymentMethodTypes paymentMethod)
+        public RentalForCreateDTO(string customerUserName, string customerNameSurname, string deliveryAddress, PaymentMethodTypes paymentMethod, DateTime startDate, DateTime endDate, IList<RentalItemDTO> rentalItems)
         {
             CustomerUserName = customerUserName ?? throw new ArgumentNullException(nameof(customerUserName)); ;
             CustomerNameSurname = customerNameSurname ?? throw new ArgumentNullException(nameof(customerNameSurname)); ;
             DeliveryAddress = deliveryAddress ?? throw new ArgumentNullException(nameof(deliveryAddress)); ;
             PaymentMethod = paymentMethod;
+            StartDate = startDate;
+            EndDate = endDate;
         }
 
 
@@ -28,7 +30,14 @@
 
 
         public PaymentMethodTypes PaymentMethod { get; set; }
+        public DateTime StartDate { get; set; }
 
+        public DateTime EndDate { get; set; }
+        public IList<RentalItemDTO> RentalItems { get; set; }
+        protected bool CompareDate(DateTime date1, DateTime date2)
+        {
+            return (date1.Subtract(date2) < new TimeSpan(0, 1, 0));
+        }
 
         public override bool Equals(object? obj)
         {
@@ -36,7 +45,11 @@
                    && CustomerUserName == dTO.CustomerUserName
                    && CustomerNameSurname == dTO.CustomerNameSurname
                    && DeliveryAddress == dTO.DeliveryAddress
-                   && PaymentMethod == dTO.PaymentMethod;
+                   && PaymentMethod == dTO.PaymentMethod
+                   && CompareDate(StartDate, dTO.StartDate)
+                   && CompareDate(EndDate, dTO.EndDate)
+                   && EqualityComparer<IList<RentalItemDTO>>.Default.Equals(RentalItems, dTO.RentalItems);
+
 
 
         }
