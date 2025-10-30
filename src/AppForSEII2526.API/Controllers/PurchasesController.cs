@@ -16,7 +16,7 @@ namespace AppForSEII2526.API.Controllers
             _context = context;
             _logger = logger;
         }
-
+        /*
         [HttpGet]
         [Route("[action]")]
         [ProducesResponseType(typeof(PurchaseDetailDTO), (int)HttpStatusCode.OK)]
@@ -51,7 +51,9 @@ namespace AppForSEII2526.API.Controllers
 
             return Ok(rental);
         }
+        */
     }
+      
 
 }
 
