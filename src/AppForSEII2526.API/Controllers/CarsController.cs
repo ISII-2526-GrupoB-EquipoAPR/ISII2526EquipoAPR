@@ -115,7 +115,9 @@ namespace AppForSEII2526.API.Controllers
         [ProducesResponseType(typeof(IList<CarForRentalDTO>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> GetCarForRental(string? model, decimal? rentingPrice)
         {
-            
+            DateTime startDate = DateTime.Today;
+            DateTime endDate = DateTime.Today.AddDays(7);
+
 
             IList<CarForRentalDTO> selectCars = await _context.Cars
                 .Include(c => c.Model)
@@ -123,7 +125,11 @@ namespace AppForSEII2526.API.Controllers
                 .Where(c =>
                 c.QuantityForRenting > 0 &&
                 (model == null || c.Model.Name.Contains(model)) &&
-                (rentingPrice == null || c.RentingPrice <= rentingPrice) 
+                (rentingPrice == null || c.RentingPrice <= rentingPrice) &&
+                (c.RentalItems.Where(ri =>
+                ri.Rental.StartDate <= endDate &&
+                ri.Rental.EndDate >= startDate).Count() < c.QuantityForRenting)
+                
 )
                 .OrderBy(c => c.Model.Name)
                 .Select(c => new CarForRentalDTO
@@ -140,9 +146,11 @@ namespace AppForSEII2526.API.Controllers
             return Ok(selectCars);
         }
 
-    }
         
-       [HttpGet]
+
+
+
+        [HttpGet]
 [Route("[action]")]
 [ProducesResponseType(typeof(IList<CarForReviewDTO>), (int)HttpStatusCode.OK)]
 public async Task<ActionResult> GetCarForReview(string? Manufacturer, string? Fueltype)
