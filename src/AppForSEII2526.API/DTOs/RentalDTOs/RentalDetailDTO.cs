@@ -43,7 +43,7 @@ namespace AppForSEII2526.API.DTOs.RentalDTOs
         public DateTime EndDate { get; set; }
 
         public DateTime RentingDate { get; set; }
-        public IList<RentalDetailDTO> RentalItems { get; set; }
+        public IList<RentalItemDTO> RentalItems { get; set; }
 
         private int NumberOfDays
         {
@@ -82,7 +82,7 @@ namespace AppForSEII2526.API.DTOs.RentalDTOs
                    && CompareDate(EndDate, dTO.EndDate)
                    && CompareDate(RentingDate, dTO.RentingDate)
                    && TotalPrice == dTO.TotalPrice
-                   && EqualityComparer<IList<RentalDetailDTO>>.Default.Equals(RentalItems, dTO.RentalItems);
+                   && EqualityComparer<IList<RentalItemDTO>>.Default.Equals(RentalItems, dTO.RentalItems);
 
 
 
