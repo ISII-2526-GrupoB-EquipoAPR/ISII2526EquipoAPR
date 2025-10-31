@@ -128,8 +128,8 @@ namespace AppForSEII2526.API.Controllers
                 c.QuantityForRenting > 0 &&
                 (model == null || c.Model.Name.Contains(model)) &&
                 (rentingPrice == null || c.RentingPrice <= rentingPrice)&&
-                 (c.RentalItems.Where(ri => ri.Rental.StartDate <= endDate
-                                            && ri.Rental.EndDate >= startDate).Count() < c.QuantityForRenting)
+                 (c.RentalItems.Count(ri => ri.Rental.StartDate <= endDate
+                                            && ri.Rental.EndDate >= startDate) < c.QuantityForRenting)
 
 )
                 .OrderBy(c => c.Model.Name)
