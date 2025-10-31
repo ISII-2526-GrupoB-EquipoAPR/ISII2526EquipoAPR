@@ -3,6 +3,11 @@
 
 	public class Model
 	{
+        public Model() { }
+        public Model(string name)
+        {
+            Name = name;
+        }
         public int Id { get; set; }
 
         [StringLength(50, ErrorMessage = "Title name cannot be longer than 50 characters.", MinimumLength = 4)]
