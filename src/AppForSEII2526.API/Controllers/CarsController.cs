@@ -113,12 +113,12 @@ namespace AppForSEII2526.API.Controllers
         [HttpGet]
         [Route("[action]")]
         [ProducesResponseType(typeof(IList<CarForRentalDTO>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult> GetCarForRental(string? model, decimal? rentingPrice,DateTime startDate,DateTime endDate)
+        public async Task<ActionResult> GetCarForRental(string? model, decimal? rentingPrice)
         {
 
 
-            startDate = DateTime.Today;
-            endDate = DateTime.Today.AddDays(7);
+            DateTime startDate = DateTime.Today;
+            DateTime endDate = DateTime.Today.AddDays(7);
 
 
             IList<CarForRentalDTO> selectCars = await _context.Cars
@@ -126,7 +126,7 @@ namespace AppForSEII2526.API.Controllers
                 .Include(c => c.RentalItems).ThenInclude(ri => ri.Rental)
                 .Where(c =>
                 c.QuantityForRenting > 0 &&
-                (model == null || c.Model.Name.Contains(model)) &&
+                (model == null || c.Model.Name.Equals(model)) &&
                 (rentingPrice == null || c.RentingPrice <= rentingPrice)&&
                  (c.RentalItems.Count(ri => ri.Rental.StartDate <= endDate
                                             && ri.Rental.EndDate >= startDate) < c.QuantityForRenting)

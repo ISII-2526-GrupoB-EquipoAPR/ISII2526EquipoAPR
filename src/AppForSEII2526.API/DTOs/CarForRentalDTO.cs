@@ -16,10 +16,7 @@
             Manufacturer = manufacturer;
             PriceForRenting = priceForRenting;
         }
-        public CarForRentalDTO(int id, string model, string color, string fuelType, decimal priceForRenting, string manufacturer, DateTime? lastRental) : this(id, model, color, fuelType, priceForRenting, manufacturer)
-        {
-            LastRental = lastRental;
-        }
+       
 
 
         public int Id { get; set; }
@@ -42,7 +39,6 @@
         public decimal PriceForRenting { get; set; }
 
 
-        public DateTime? LastRental { get; set; }
 
         public override bool Equals(object? obj)
         {
@@ -52,13 +48,13 @@
                    FuelType == dTO.FuelType &&
                    Color == dTO.Color &&
                    Manufacturer == dTO.Manufacturer &&
-                   PriceForRenting == dTO.PriceForRenting &&
-                   LastRental == dTO.LastRental;
+                   PriceForRenting == dTO.PriceForRenting;
+                   
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Id, Model, FuelType, Color, Manufacturer, PriceForRenting, LastRental);
+            return HashCode.Combine(Id, Model, FuelType, Color, Manufacturer, PriceForRenting);
         }
     }
 }
