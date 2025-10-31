@@ -98,6 +98,7 @@ namespace AppForSEII2526.API.Controllers
 
                 .Select(c => new CarForPurchaseDTO
                 {
+                    Id = c.Id,
                     Model = c.Model.Name,
                     Color = c.Color,
                     FuelType = c.FuelType,
