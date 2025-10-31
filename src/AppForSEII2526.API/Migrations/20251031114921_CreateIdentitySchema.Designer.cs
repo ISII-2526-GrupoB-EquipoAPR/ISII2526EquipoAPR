@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppForSEII2526.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251017095036_CreateIdentitySchema")]
+    [Migration("20251031114921_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {
         /// <inheritdoc />
@@ -194,6 +194,18 @@ namespace AppForSEII2526.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("CustomerNameSurname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerUserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeliveryAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("DeliveryCarDealer")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -223,6 +235,10 @@ namespace AppForSEII2526.API.Migrations
                     b.Property<int>("PurchaseId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Price")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
@@ -245,6 +261,18 @@ namespace AppForSEII2526.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("CustomerNameSurname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerUserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeliveryAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("DeliveryCarDealer")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -258,12 +286,12 @@ namespace AppForSEII2526.API.Migrations
                     b.Property<DateTime>("RentingDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("TotalPrice")
+                    b.Property<decimal>("RentingPrice")
                         .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -279,6 +307,9 @@ namespace AppForSEII2526.API.Migrations
 
                     b.Property<int>("RentalId")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("PriceForRenting")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
