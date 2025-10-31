@@ -38,7 +38,7 @@ namespace AppForSEII2526.API.Controllers
                     p.CustomerNameSurname, p.PaymentMethod ,p.DeliveryAddress, p.PurchaseItems
                         .Select(pi => new PurchaseItemDTO(pi.Car.Id,
                                 pi.Car.Color, pi.Car.Model.Name,
-                                pi.Car.PurchasingPrice,pi.Car.QuantityForPurchasing, "")).ToList<PurchaseItemDTO>()))
+                                pi.Car.PurchasingPrice,pi.Car.QuantityForPurchasing, pi.Description)).ToList<PurchaseItemDTO>()))
              .FirstOrDefaultAsync();
 
 

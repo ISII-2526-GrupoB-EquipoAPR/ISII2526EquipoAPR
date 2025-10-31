@@ -42,7 +42,7 @@ namespace AppForSEII2526.API.Controllers
                     r.StartDate,
                     r.EndDate,
                     r.RentingDate,
-                    r.RentingPrice,
+                    (decimal)r.TotalPrice,
                     r.RentalItems.Select(ri => new RentalItemDTO(
                     ri.Car.Id,
                     ri.Car.Model.Name,
