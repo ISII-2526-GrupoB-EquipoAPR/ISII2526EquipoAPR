@@ -13,10 +13,10 @@
             PurchaseItems= new List<PurchaseItem>();
         }
 
-        public Purchase(int id, string customerUserName, string customerNameSurname, string deliveryAddress, string deliveryCarDealer, PaymentMethodTypes paymentMethod, DateTime purchasingDate, IList<PurchaseItem> purchaseItems, ApplicationUser applicationUser)
+        public Purchase(int id, decimal totalPrice, string customerUserName, string customerNameSurname, string deliveryAddress, string deliveryCarDealer, PaymentMethodTypes paymentMethod, DateTime purchasingDate, decimal purchasingPrice, IList<PurchaseItem> purchaseItems, ApplicationUser applicationUser)
         {
 
-            PurchasingPrice = decimal.Round(purchaseItems.Sum(pi => pi.Price * pi.Quantity),2);
+            TotalPrice = decimal.Round(purchaseItems.Sum(pi => pi.Price * pi.Quantity),2);
 
             CustomerUserName = customerUserName;
             CustomerNameSurname = customerNameSurname;
@@ -24,11 +24,15 @@
             DeliveryCarDealer = deliveryCarDealer;
             PaymentMethod = paymentMethod;
             PurchasingDate = purchasingDate;
+            PurchasingPrice = purchasingPrice;
             PurchaseItems = purchaseItems;
             ApplicationUser = applicationUser;
         }
 
         public int Id { get; set; }
+
+        [Precision(10, 2)]
+        public decimal TotalPrice { get; set; }
 
         public string CustomerUserName { get; set; }
 

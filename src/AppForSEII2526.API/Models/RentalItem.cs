@@ -14,7 +14,7 @@
             RentalId = rental.Id;
         }
 
-        public RentalItem(int carId, Rental rental, decimal priceForRenting)
+        public RentalItem(int carId, Rental rental, double priceForRenting)
         {
             CarId = carId;
             Rental = rental;
@@ -30,6 +30,6 @@
 
         [Range(1, int.MaxValue, ErrorMessage = "La cantidad debe ser mayor que 1")]
         public int Quantity { get; set; }
-        public decimal PriceForRenting { get; set; }
+        public double PriceForRenting { get; set; }
     }
 }
