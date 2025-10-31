@@ -177,6 +177,9 @@ namespace AppForSEII2526.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerUserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CustomerNameSurname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DeliveryAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DeliveryCarDealer = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PaymentMethod = table.Column<int>(type: "int", nullable: false),
                     PurchasingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -200,12 +203,15 @@ namespace AppForSEII2526.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    DeliveryAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CustomerUserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CustomerNameSurname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DeliveryCarDealer = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RentingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PaymentMethod = table.Column<int>(type: "int", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    RentingPrice = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
@@ -277,6 +283,7 @@ namespace AppForSEII2526.API.Migrations
                 {
                     CarId = table.Column<int>(type: "int", nullable: false),
                     PurchaseId = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -302,7 +309,8 @@ namespace AppForSEII2526.API.Migrations
                 {
                     CarId = table.Column<int>(type: "int", nullable: false),
                     RentalId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false)
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    PriceForRenting = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
