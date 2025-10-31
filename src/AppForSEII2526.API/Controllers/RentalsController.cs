@@ -34,22 +34,10 @@ namespace AppForSEII2526.API.Controllers
                     .ThenInclude(ri => ri.Car)
                         .ThenInclude(car => car.Model)
                 .Select(r => new RentalDetailDTO(
-                    r.Id,
-                    r.CustomerUserName,
-                    r.CustomerNameSurname,
-                    r.DeliveryAddress,
-                    (PaymentMethodTypes)r.PaymentMethod,
-                    r.StartDate,
-                    r.EndDate,
-                    r.RentingDate,
-                    r.RentingPrice,
-                    r.RentalItems.Select(ri => new RentalItemDTO(
-                    ri.Car.Id,
-                    ri.Car.Model.Name,
-                    ri.Car.Manufacturer,
-                    ri.Car.RentingPrice,
-                    ri.Car.QuantityForRenting
-                )).ToList()
+                    r.Id,r.CustomerUserName,r.CustomerNameSurname,r.DeliveryAddress,
+                    (PaymentMethodTypes)r.PaymentMethod,r.StartDate,r.EndDate,r.RentingDate,r.RentingPrice,r.RentalItems
+                    .Select(ri => new RentalItemDTO( ri.Car.Id,ri.Car.Model.Name,ri.Car.Manufacturer,ri.Car.RentingPrice,ri.Car.QuantityForRenting
+                )).ToList<RentalItemDTO>()
                 ))
                 .FirstOrDefaultAsync();
 
