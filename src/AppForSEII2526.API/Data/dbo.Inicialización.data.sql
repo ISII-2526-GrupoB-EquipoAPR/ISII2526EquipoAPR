@@ -1,5 +1,27 @@
-﻿INSERT INTO [dbo].[AspNetUsers] ([Id], [Name], [Surname], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'12', N'guest', N'guest', N'guest', N'guest', N'test@test.com', N'test@test.com', 1, N'guest', N'guest', N'guest', N'123', 1, 0, N'12/12/2024 0:00:00 +01:00', 1, 12)
-INSERT INTO [dbo].[AspNetUsers] ([Id], [Name], [Surname], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'13', N'test', N'test', N'test', N'test', N'tester@test.com', N'tester@test.com', 1, N'test', N'test', N'test', N'1234', 1, 0, N'31/10/2025 0:00:00 +01:00', 1, 13)
+﻿INSERT INTO [dbo].[AspNetUsers] 
+([Id], [Name], [Surname], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) 
+VALUES 
+(N'12', N'guest', N'guest', N'guest', N'guest', N'test@test.com', N'test@test.com', 1, N'guest', N'guest', N'guest', N'123', 1, 0, '2024-12-12 00:00:00', 1, 12);
+
+INSERT INTO [dbo].[AspNetUsers] 
+([Id], [Name], [Surname], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) 
+VALUES 
+(N'13', N'Juan', N'Pérez', N'juanp', N'JUANP', N'juan.perez@email.com', N'JUAN.PEREZ@EMAIL.COM', 1, N'hash123', N'stamp123', N'concur123', N'600123456', 1, 0, '2025-03-01 00:00:00', 1, 0);
+
+INSERT INTO [dbo].[AspNetUsers] 
+([Id], [Name], [Surname], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) 
+VALUES 
+(N'14', N'María', N'López', N'mlopez', N'MLOPEZ', N'maria.lopez@email.com', N'MARIA.LOPEZ@EMAIL.COM', 1, N'hash456', N'stamp456', N'concur456', N'600654321', 1, 0, '2025-05-05 00:00:00', 1, 0);
+
+INSERT INTO [dbo].[AspNetUsers] 
+([Id], [Name], [Surname], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) 
+VALUES 
+(N'15', N'Carlos', N'García', N'cgarcia', N'CGARCIA', N'carlos.garcia@email.com', N'CARLOS.GARCIA@EMAIL.COM', 1, N'hash789', N'stamp789', N'concur789', N'600777888', 1, 0, '2025-06-10 00:00:00', 1, 0);
+
+INSERT INTO [dbo].[AspNetUsers] 
+([Id], [Name], [Surname], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) 
+VALUES 
+(N'16', N'Sofía', N'Ramos', N'sramos', N'SRAMOS', N'sofia.ramos@email.com', N'SOFIA.RAMOS@EMAIL.COM', 1, N'hash999', N'stamp999', N'concur999', N'600999000', 1, 0, '2025-07-20 00:00:00', 1, 0);
 
 SET IDENTITY_INSERT [dbo].[Models] ON
 INSERT INTO [dbo].[Models] ([Id], [Name]) VALUES (9, N'Civic')
@@ -7,6 +29,10 @@ INSERT INTO [dbo].[Models] ([Id], [Name]) VALUES (10, N'Corolla')
 INSERT INTO [dbo].[Models] ([Id], [Name]) VALUES (11, N'Model 3')
 INSERT INTO [dbo].[Models] ([Id], [Name]) VALUES (12, N'CX-5')
 INSERT INTO [dbo].[Models] ([Id], [Name]) VALUES (13, N'A-Class')
+INSERT INTO [dbo].[Models] ([Id], [Name]) VALUES (14, N'CX-30')
+INSERT INTO [dbo].[Models] ([Id], [Name]) VALUES (15, N'Q3')
+INSERT INTO [dbo].[Models] ([Id], [Name]) VALUES (16, N'Golf')
+INSERT INTO [dbo].[Models] ([Id], [Name]) VALUES (17, N'Fiesta')
 SET IDENTITY_INSERT [dbo].[Models] OFF
 
 SET IDENTITY_INSERT [dbo].[Cars] ON
@@ -15,33 +41,71 @@ INSERT INTO [dbo].[Cars] ([Id], [CarClass], [Color], [Description], [EngDisplace
 INSERT INTO [dbo].[Cars] ([Id], [CarClass], [Color], [Description], [EngDisplacement], [Manufacturer], [PurchasingPrice], [RentingPrice], [QuantityForPurchasing], [QuantityForRenting], [FuelType], [RimSize], [ModelId]) VALUES (8, N'Sedan', N'Blanco', N'Électrico premium', N'0', N'Tesla', CAST(38000.00 AS Decimal(10, 2)), CAST(4000.00 AS Decimal(10, 2)), 5, 1, N'Eléctrico', N'18', 11)
 INSERT INTO [dbo].[Cars] ([Id], [CarClass], [Color], [Description], [EngDisplacement], [Manufacturer], [PurchasingPrice], [RentingPrice], [QuantityForPurchasing], [QuantityForRenting], [FuelType], [RimSize], [ModelId]) VALUES (9, N'SUV', N'Gris', N'Familiar espacioso', N'2', N'Mazda', CAST(26000.00 AS Decimal(10, 2)), CAST(3000.00 AS Decimal(10, 2)), 7, 1, N'Gasolina', N'17', 12)
 INSERT INTO [dbo].[Cars] ([Id], [CarClass], [Color], [Description], [EngDisplacement], [Manufacturer], [PurchasingPrice], [RentingPrice], [QuantityForPurchasing], [QuantityForRenting], [FuelType], [RimSize], [ModelId]) VALUES (12, N'Compacto', N'Negro', N'Pequeño y económico', N'1.6', N'Mercedes-Benz', CAST(24000.00 AS Decimal(10, 2)), CAST(2500.00 AS Decimal(10, 2)), 6, 1, N'Diésel', N'16', 13)
+INSERT INTO [dbo].[Cars] ([Id], [CarClass], [Color], [Description], [EngDisplacement], [Manufacturer], [PurchasingPrice], [RentingPrice], [QuantityForPurchasing], [QuantityForRenting], [FuelType], [RimSize], [ModelId]) VALUES (13, N'SUV', N'Azul', N'Compacto y moderno', N'2.0', N'Mazda', CAST(25000.00 AS Decimal(10,2)), CAST(3500.00 AS Decimal(10,2)), 5, 2, N'Gasolina', N'17', 14);
+INSERT INTO [dbo].[Cars] ([Id], [CarClass], [Color], [Description], [EngDisplacement], [Manufacturer], [PurchasingPrice], [RentingPrice], [QuantityForPurchasing], [QuantityForRenting], [FuelType], [RimSize], [ModelId]) VALUES (14, N'SUV', N'Blanco', N'Lujo compacto', N'2.0', N'Audi', CAST(42000.00 AS Decimal(10,2)), CAST(4500.00 AS Decimal(10,2)), 3, 1, N'Diésel', N'18', 15);
+INSERT INTO [dbo].[Cars] ([Id], [CarClass], [Color], [Description], [EngDisplacement], [Manufacturer], [PurchasingPrice], [RentingPrice], [QuantityForPurchasing], [QuantityForRenting], [FuelType], [RimSize], [ModelId]) VALUES (15, N'Hatchback', N'Rojo', N'Económico y fiable', N'1.4', N'Volkswagen', CAST(20000.00 AS Decimal(10,2)), CAST(1800.00 AS Decimal(10,2)), 6, 2, N'Gasolina', N'16', 16);
+INSERT INTO [dbo].[Cars] ([Id], [CarClass], [Color], [Description], [EngDisplacement], [Manufacturer], [PurchasingPrice], [RentingPrice], [QuantityForPurchasing], [QuantityForRenting], [FuelType], [RimSize], [ModelId]) VALUES (16, N'Hatchback', N'Negro', N'Ideal para ciudad', N'1.0', N'Ford', CAST(17000.00 AS Decimal(10,2)), CAST(1500.00 AS Decimal(10,2)), 8, 2, N'Gasolina', N'15', 17);
+
 SET IDENTITY_INSERT [dbo].[Cars] OFF
 
+SET IDENTITY_INSERT [dbo].[PurchaseItems] ON
 INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Price], [Quantity]) VALUES (6, 15, CAST(18000.00 AS Decimal(10, 2)), 1)
 INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Price], [Quantity]) VALUES (7, 16, CAST(17000.00 AS Decimal(10, 2)), 2)
 INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Price], [Quantity]) VALUES (8, 17, CAST(38000.00 AS Decimal(10, 2)), 1)
+INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Price], [Quantity]) VALUES (13, 18, CAST(25000.00 AS Decimal(10,2)), 1);
+INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Price], [Quantity]) VALUES (14, 19, CAST(42000.00 AS Decimal(10,2)), 1);
+INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Price], [Quantity]) VALUES (15, 20, CAST(20000.00 AS Decimal(10,2)), 1);
+INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Price], [Quantity]) VALUES (16, 21, CAST(17000.00 AS Decimal(10,2)), 1);
+SET IDENTITY_INSERT [dbo].[PurchaseItems] OFF
+
 
 SET IDENTITY_INSERT [dbo].[Purchases] ON
 INSERT INTO [dbo].[Purchases] ([Id], [CustomerUserName], [CustomerNameSurname], [DeliveryAddress], [DeliveryCarDealer], [PaymentMethod], [PurchasingDate], [PurchasingPrice], [ApplicationUserId]) VALUES (15, N'test', N'test', N'test address', N'4 días', 0, N'2025-01-15 00:00:00', CAST(18000.00 AS Decimal(10, 2)), N'13')
 INSERT INTO [dbo].[Purchases] ([Id], [CustomerUserName], [CustomerNameSurname], [DeliveryAddress], [DeliveryCarDealer], [PaymentMethod], [PurchasingDate], [PurchasingPrice], [ApplicationUserId]) VALUES (16, N'guest', N'guest', N'guest address', N'5 días', 1, N'2025-01-16 00:00:00', CAST(34000.00 AS Decimal(10, 2)), N'12')
 INSERT INTO [dbo].[Purchases] ([Id], [CustomerUserName], [CustomerNameSurname], [DeliveryAddress], [DeliveryCarDealer], [PaymentMethod], [PurchasingDate], [PurchasingPrice], [ApplicationUserId]) VALUES (17, N'guest', N'guest', N'guest address', N'3 días', 2, N'2025-01-17 00:00:00', CAST(38000.00 AS Decimal(10, 2)), N'12')
+INSERT INTO [dbo].[Purchases] ([Id], [CustomerUserName], [CustomerNameSurname], [DeliveryAddress], [DeliveryCarDealer], [PaymentMethod], [PurchasingDate], [PurchasingPrice], [ApplicationUserId]) VALUES (18, N'juanp', N'Juan Pérez', N'Av. Madrid 25', N'3 días', 0, N'2025-02-20 00:00:00', CAST(25000.00 AS Decimal(10,2)), N'13');
+INSERT INTO [dbo].[Purchases] ([Id], [CustomerUserName], [CustomerNameSurname], [DeliveryAddress], [DeliveryCarDealer], [PaymentMethod], [PurchasingDate], [PurchasingPrice], [ApplicationUserId]) VALUES (19, N'mlopez', N'María López', N'Calle Valencia 10', N'5 días', 1, N'2025-03-15 00:00:00', CAST(42000.00 AS Decimal(10,2)), N'14');
+INSERT INTO [dbo].[Purchases] ([Id], [CustomerUserName], [CustomerNameSurname], [DeliveryAddress], [DeliveryCarDealer], [PaymentMethod], [PurchasingDate], [PurchasingPrice], [ApplicationUserId]) VALUES (20, N'cgarcia', N'Carlos García', N'Calle Sevilla 5', N'2 días', 2, N'2025-04-10 00:00:00', CAST(20000.00 AS Decimal(10,2)), N'15');
+INSERT INTO [dbo].[Purchases] ([Id], [CustomerUserName], [CustomerNameSurname], [DeliveryAddress], [DeliveryCarDealer], [PaymentMethod], [PurchasingDate], [PurchasingPrice], [ApplicationUserId]) VALUES (21, N'sramos', N'Sofía Ramos', N'Calle Granada 8', N'Entrega hotel', 1, N'2025-05-05 00:00:00', CAST(17000.00 AS Decimal(10,2)), N'16');
+
 SET IDENTITY_INSERT [dbo].[Purchases] OFF
 
+SET IDENTITY_INSERT [dbo].[RentalItems] ON
 INSERT INTO [dbo].[RentalItems] ([CarId], [RentalId], [Quantity], [PriceForRenting]) VALUES (6, 4, 1, CAST(55.00 AS Decimal(18, 2)))
 INSERT INTO [dbo].[RentalItems] ([CarId], [RentalId], [Quantity], [PriceForRenting]) VALUES (7, 5, 2, CAST(80.00 AS Decimal(18, 2)))
 INSERT INTO [dbo].[RentalItems] ([CarId], [RentalId], [Quantity], [PriceForRenting]) VALUES (8, 8, 1, CAST(85.00 AS Decimal(18, 2)))
+INSERT INTO [dbo].[RentalItems] ([CarId], [RentalId], [Quantity], [PriceForRenting]) VALUES (13, 9, 1, CAST(55.00 AS Decimal(10,2)));
+INSERT INTO [dbo].[RentalItems] ([CarId], [RentalId], [Quantity], [PriceForRenting]) VALUES (14, 10, 1, CAST(90.00 AS Decimal(10,2)));
+INSERT INTO [dbo].[RentalItems] ([CarId], [RentalId], [Quantity], [PriceForRenting]) VALUES (15, 11, 1, CAST(45.00 AS Decimal(10,2)));
+INSERT INTO [dbo].[RentalItems] ([CarId], [RentalId], [Quantity], [PriceForRenting]) VALUES (16, 12, 1, CAST(35.00 AS Decimal(10,2)));
+SET IDENTITY_INSERT [dbo].[RentalItems] OFF
 
 
 SET IDENTITY_INSERT [dbo].[Rentals] ON
 INSERT INTO [dbo].[Rentals] ([Id], [DeliveryAddress], [CustomerUserName], [CustomerNameSurname], [DeliveryCarDealer], [EndDate], [StartDate], [RentingDate], [PaymentMethod], [RentingPrice], [ApplicationUserId]) VALUES (4, N'test address', N'test', N'test', N'Inmediata', N'2025-06-01 00:00:00', N'2025-06-07 00:00:00', N'2025-05-28 00:00:00', 0, CAST(330.00 AS Decimal(10, 2)), N'13')
 INSERT INTO [dbo].[Rentals] ([Id], [DeliveryAddress], [CustomerUserName], [CustomerNameSurname], [DeliveryCarDealer], [EndDate], [StartDate], [RentingDate], [PaymentMethod], [RentingPrice], [ApplicationUserId]) VALUES (5, N'guest address', N'guest', N'guest', N'Aeropuesto', N'2025-07-15 00:00:00', N'2025-07-25 00:00:00', N'2025-07-10 00:00:00', 1, CAST(1120.00 AS Decimal(10, 2)), N'12')
 INSERT INTO [dbo].[Rentals] ([Id], [DeliveryAddress], [CustomerUserName], [CustomerNameSurname], [DeliveryCarDealer], [EndDate], [StartDate], [RentingDate], [PaymentMethod], [RentingPrice], [ApplicationUserId]) VALUES (8, N'test address', N'test', N'test', N'Entrega hotel', N'2025-08-10 00:00:00', N'2025-08-15 00:00:00', N'2025-08-05 00:00:00', 2, CAST(425.00 AS Decimal(10, 2)), N'13')
+INSERT INTO [dbo].[Rentals] ([Id], [DeliveryAddress], [CustomerUserName], [CustomerNameSurname], [DeliveryCarDealer], [EndDate], [StartDate], [RentingDate], [PaymentMethod], [RentingPrice], [ApplicationUserId]) VALUES (9, N'Calle Barcelona 12', N'juanp', N'Juan Pérez', N'Aeropuerto', N'2025-08-10 00:00:00', N'2025-08-01 00:00:00', N'2025-07-28 00:00:00', 0, CAST(450.00 AS Decimal(10,2)), N'13');
+INSERT INTO [dbo].[Rentals] ([Id], [DeliveryAddress], [CustomerUserName], [CustomerNameSurname], [DeliveryCarDealer], [EndDate], [StartDate], [RentingDate], [PaymentMethod], [RentingPrice], [ApplicationUserId]) VALUES (10, N'Calle Valencia 22', N'mlopez', N'María López', N'Inmediata', N'2025-09-15 00:00:00', N'2025-09-10 00:00:00', N'2025-09-05 00:00:00', 1, CAST(700.00 AS Decimal(10,2)), N'14');
+INSERT INTO [dbo].[Rentals] ([Id], [DeliveryAddress], [CustomerUserName], [CustomerNameSurname], [DeliveryCarDealer], [EndDate], [StartDate], [RentingDate], [PaymentMethod], [RentingPrice], [ApplicationUserId]) VALUES (11, N'Calle Sevilla 33', N'cgarcia', N'Carlos García', N'Entrega hotel', N'2025-10-05 00:00:00', N'2025-09-28 00:00:00', N'2025-09-25 00:00:00', 2, CAST(300.00 AS Decimal(10,2)), N'15');
+INSERT INTO [dbo].[Rentals] ([Id], [DeliveryAddress], [CustomerUserName], [CustomerNameSurname], [DeliveryCarDealer], [EndDate], [StartDate], [RentingDate], [PaymentMethod], [RentingPrice], [ApplicationUserId]) VALUES (12, N'Calle Granada 44', N'sramos', N'Sofía Ramos', N'Aeropuerto', N'2025-11-10 00:00:00', N'2025-11-01 00:00:00', N'2025-10-28 00:00:00', 1, CAST(250.00 AS Decimal(10,2)), N'16');
+
 SET IDENTITY_INSERT [dbo].[Rentals] OFF
 
 SET IDENTITY_INSERT [dbo].[Reviews] ON
 INSERT INTO [dbo].[Reviews] ([Id], [Created], [Country], [DriverType], [ApplicationUserId]) VALUES (1, N'2025-01-20 00:00:00', N'España', 0, N'12')
 INSERT INTO [dbo].[Reviews] ([Id], [Created], [Country], [DriverType], [ApplicationUserId]) VALUES (2, N'2025-02-25 00:00:00', N'Francia', 1, N'13')
+INSERT INTO [dbo].[Reviews] ([Id], [Created], [Country], [DriverType], [ApplicationUserId]) VALUES (3, N'2025-03-05 00:00:00', N'Italia', 0, N'13');
+INSERT INTO [dbo].[Reviews] ([Id], [Created], [Country], [DriverType], [ApplicationUserId]) VALUES (4, N'2025-04-12 00:00:00', N'Alemania', 1, N'14');
+INSERT INTO [dbo].[Reviews] ([Id], [Created], [Country], [DriverType], [ApplicationUserId]) VALUES (5, N'2025-05-20 00:00:00', N'Portugal', 0, N'15');
+INSERT INTO [dbo].[Reviews] ([Id], [Created], [Country], [DriverType], [ApplicationUserId]) VALUES (6, N'2025-06-18 00:00:00', N'España', 1, N'16');
+
 SET IDENTITY_INSERT [dbo].[Reviews] OFF
 
 INSERT INTO [dbo].[ReviewItems] ([CarId], [ReviewId], [Description], [Rating]) VALUES (6, 1, N'Excelento coche, económico y fiable', 5)
 INSERT INTO [dbo].[ReviewItems] ([CarId], [ReviewId], [Description], [Rating]) VALUES (7, 2, N'Muy buen coche híbrido', 4)
+INSERT INTO [dbo].[ReviewItems] ([CarId], [ReviewId], [Description], [Rating]) VALUES (13, 3, N'Muy cómodo para viajes largos', 5);
+INSERT INTO [dbo].[ReviewItems] ([CarId], [ReviewId], [Description], [Rating]) VALUES (14, 4, N'Lujo y confort excelentes', 4);
+INSERT INTO [dbo].[ReviewItems] ([CarId], [ReviewId], [Description], [Rating]) VALUES (15, 5, N'Muy eficiente y económico', 4);
+INSERT INTO [dbo].[ReviewItems] ([CarId], [ReviewId], [Description], [Rating]) VALUES (16, 6, N'Perfecto para ciudad, fácil de aparcar', 5);
+
