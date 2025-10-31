@@ -48,17 +48,6 @@ INSERT INTO [dbo].[Cars] ([Id], [CarClass], [Color], [Description], [EngDisplace
 
 SET IDENTITY_INSERT [dbo].[Cars] OFF
 
-SET IDENTITY_INSERT [dbo].[PurchaseItems] ON
-INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Price], [Quantity]) VALUES (6, 15, CAST(18000.00 AS Decimal(10, 2)), 1)
-INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Price], [Quantity]) VALUES (7, 16, CAST(17000.00 AS Decimal(10, 2)), 2)
-INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Price], [Quantity]) VALUES (8, 17, CAST(38000.00 AS Decimal(10, 2)), 1)
-INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Price], [Quantity]) VALUES (13, 18, CAST(25000.00 AS Decimal(10,2)), 1);
-INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Price], [Quantity]) VALUES (14, 19, CAST(42000.00 AS Decimal(10,2)), 1);
-INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Price], [Quantity]) VALUES (15, 20, CAST(20000.00 AS Decimal(10,2)), 1);
-INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Price], [Quantity]) VALUES (16, 21, CAST(17000.00 AS Decimal(10,2)), 1);
-SET IDENTITY_INSERT [dbo].[PurchaseItems] OFF
-
-
 SET IDENTITY_INSERT [dbo].[Purchases] ON
 INSERT INTO [dbo].[Purchases] ([Id], [CustomerUserName], [CustomerNameSurname], [DeliveryAddress], [DeliveryCarDealer], [PaymentMethod], [PurchasingDate], [PurchasingPrice], [ApplicationUserId]) VALUES (15, N'test', N'test', N'test address', N'4 días', 0, N'2025-01-15 00:00:00', CAST(18000.00 AS Decimal(10, 2)), N'13')
 INSERT INTO [dbo].[Purchases] ([Id], [CustomerUserName], [CustomerNameSurname], [DeliveryAddress], [DeliveryCarDealer], [PaymentMethod], [PurchasingDate], [PurchasingPrice], [ApplicationUserId]) VALUES (16, N'guest', N'guest', N'guest address', N'5 días', 1, N'2025-01-16 00:00:00', CAST(34000.00 AS Decimal(10, 2)), N'12')
@@ -70,16 +59,14 @@ INSERT INTO [dbo].[Purchases] ([Id], [CustomerUserName], [CustomerNameSurname], 
 
 SET IDENTITY_INSERT [dbo].[Purchases] OFF
 
-SET IDENTITY_INSERT [dbo].[RentalItems] ON
-INSERT INTO [dbo].[RentalItems] ([CarId], [RentalId], [Quantity], [PriceForRenting]) VALUES (6, 4, 1, CAST(55.00 AS Decimal(18, 2)))
-INSERT INTO [dbo].[RentalItems] ([CarId], [RentalId], [Quantity], [PriceForRenting]) VALUES (7, 5, 2, CAST(80.00 AS Decimal(18, 2)))
-INSERT INTO [dbo].[RentalItems] ([CarId], [RentalId], [Quantity], [PriceForRenting]) VALUES (8, 8, 1, CAST(85.00 AS Decimal(18, 2)))
-INSERT INTO [dbo].[RentalItems] ([CarId], [RentalId], [Quantity], [PriceForRenting]) VALUES (13, 9, 1, CAST(55.00 AS Decimal(10,2)));
-INSERT INTO [dbo].[RentalItems] ([CarId], [RentalId], [Quantity], [PriceForRenting]) VALUES (14, 10, 1, CAST(90.00 AS Decimal(10,2)));
-INSERT INTO [dbo].[RentalItems] ([CarId], [RentalId], [Quantity], [PriceForRenting]) VALUES (15, 11, 1, CAST(45.00 AS Decimal(10,2)));
-INSERT INTO [dbo].[RentalItems] ([CarId], [RentalId], [Quantity], [PriceForRenting]) VALUES (16, 12, 1, CAST(35.00 AS Decimal(10,2)));
-SET IDENTITY_INSERT [dbo].[RentalItems] OFF
 
+INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Price], [Quantity]) VALUES (6, 15, CAST(18000.00 AS Decimal(10, 2)), 1)
+INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Price], [Quantity]) VALUES (7, 16, CAST(17000.00 AS Decimal(10, 2)), 2)
+INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Price], [Quantity]) VALUES (8, 17, CAST(38000.00 AS Decimal(10, 2)), 1)
+INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Price], [Quantity]) VALUES (13, 18, CAST(25000.00 AS Decimal(10,2)), 1);
+INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Price], [Quantity]) VALUES (14, 19, CAST(42000.00 AS Decimal(10,2)), 1);
+INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Price], [Quantity]) VALUES (15, 20, CAST(20000.00 AS Decimal(10,2)), 1);
+INSERT INTO [dbo].[PurchaseItems] ([CarId], [PurchaseId], [Price], [Quantity]) VALUES (16, 21, CAST(17000.00 AS Decimal(10,2)), 1);
 
 SET IDENTITY_INSERT [dbo].[Rentals] ON
 INSERT INTO [dbo].[Rentals] ([Id], [DeliveryAddress], [CustomerUserName], [CustomerNameSurname], [DeliveryCarDealer], [EndDate], [StartDate], [RentingDate], [PaymentMethod], [RentingPrice], [ApplicationUserId]) VALUES (4, N'test address', N'test', N'test', N'Inmediata', N'2025-06-01 00:00:00', N'2025-06-07 00:00:00', N'2025-05-28 00:00:00', 0, CAST(330.00 AS Decimal(10, 2)), N'13')
@@ -91,6 +78,15 @@ INSERT INTO [dbo].[Rentals] ([Id], [DeliveryAddress], [CustomerUserName], [Custo
 INSERT INTO [dbo].[Rentals] ([Id], [DeliveryAddress], [CustomerUserName], [CustomerNameSurname], [DeliveryCarDealer], [EndDate], [StartDate], [RentingDate], [PaymentMethod], [RentingPrice], [ApplicationUserId]) VALUES (12, N'Calle Granada 44', N'sramos', N'Sofía Ramos', N'Aeropuerto', N'2025-11-10 00:00:00', N'2025-11-01 00:00:00', N'2025-10-28 00:00:00', 1, CAST(250.00 AS Decimal(10,2)), N'16');
 
 SET IDENTITY_INSERT [dbo].[Rentals] OFF
+
+INSERT INTO [dbo].[RentalItems] ([CarId], [RentalId], [Quantity], [PriceForRenting]) VALUES (6, 4, 1, CAST(55.00 AS Decimal(18, 2)))
+INSERT INTO [dbo].[RentalItems] ([CarId], [RentalId], [Quantity], [PriceForRenting]) VALUES (7, 5, 2, CAST(80.00 AS Decimal(18, 2)))
+INSERT INTO [dbo].[RentalItems] ([CarId], [RentalId], [Quantity], [PriceForRenting]) VALUES (8, 8, 1, CAST(85.00 AS Decimal(18, 2)))
+INSERT INTO [dbo].[RentalItems] ([CarId], [RentalId], [Quantity], [PriceForRenting]) VALUES (13, 9, 1, CAST(55.00 AS Decimal(10,2)));
+INSERT INTO [dbo].[RentalItems] ([CarId], [RentalId], [Quantity], [PriceForRenting]) VALUES (14, 10, 1, CAST(90.00 AS Decimal(10,2)));
+INSERT INTO [dbo].[RentalItems] ([CarId], [RentalId], [Quantity], [PriceForRenting]) VALUES (15, 11, 1, CAST(45.00 AS Decimal(10,2)));
+INSERT INTO [dbo].[RentalItems] ([CarId], [RentalId], [Quantity], [PriceForRenting]) VALUES (16, 12, 1, CAST(35.00 AS Decimal(10,2)));
+
 
 SET IDENTITY_INSERT [dbo].[Reviews] ON
 INSERT INTO [dbo].[Reviews] ([Id], [Created], [Country], [DriverType], [ApplicationUserId]) VALUES (1, N'2025-01-20 00:00:00', N'España', 0, N'12')
