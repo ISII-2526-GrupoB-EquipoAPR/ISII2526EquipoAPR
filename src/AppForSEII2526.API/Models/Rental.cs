@@ -7,9 +7,10 @@
         {
         }
 
-        public Rental(string deliveryAddress, string customerUserName, string customerNameSurname, int id, string deliveryCarDealer, DateTime endDate, DateTime startDate, DateTime rentingDate, PaymentMethodTypes paymentMethod, IList<RentalItem> rentalItems, ApplicationUser applicationUser)
+        public Rental(string deliveryAddress, string customerUserName, string customerNameSurname, int id, 
+            string deliveryCarDealer, DateTime endDate, DateTime startDate, DateTime rentingDate, PaymentMethodTypes paymentMethod, IList<RentalItem> rentalItems, ApplicationUser applicationUser)
         {
-            TotalPrice = rentalItems.Sum(ri => ri.PriceForRenting * (endDate - startDate).Days);
+            RentingPrice = rentalItems.Sum(ri => ri.PriceForRenting * (endDate - startDate).Days);
 
             DeliveryAddress = deliveryAddress;
             CustomerUserName = customerUserName;
@@ -56,8 +57,8 @@
         [Range(1, float.MaxValue, ErrorMessage = "El mínimo precio es 1.")]
         [Display(Name = "Precio total de renta")]
         [Precision(10, 2)]
-        public double TotalPrice { get; set; }
-
+        
+        public decimal RentingPrice { get; set; }   
         public IList<RentalItem> RentalItems { get; set; } = new List<RentalItem>();
         public ApplicationUser ApplicationUser { get; set; }
 
