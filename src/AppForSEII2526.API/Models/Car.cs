@@ -2,6 +2,24 @@
 { 
 public class Car
 {
+        public Car() { }
+
+        public Car(string carClass, string color, string? description, string engDisplacement, int id, string manufacturer, decimal purchasingPrice, decimal rentingPrice, int quantityForPurchasing, int quantityForRenting, string fuelType, string rimSize, Model model)
+        {
+            CarClass = carClass;
+            Color = color;
+            Description = description;
+            EngDisplacement = engDisplacement;
+            Id = id;
+            Manufacturer = manufacturer;
+            PurchasingPrice = purchasingPrice;
+            RentingPrice = rentingPrice;
+            QuantityForPurchasing = quantityForPurchasing;
+            QuantityForRenting = quantityForRenting;
+            FuelType = fuelType;
+            RimSize = rimSize;
+            Model = model;
+        }
 
     [StringLength(10, MinimumLength = 1, ErrorMessage = "La clase del coche debe tener entre 1 y 10 caracteres.")]
     public string CarClass { get; set; }
