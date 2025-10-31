@@ -2,13 +2,14 @@
 { 
 public class Car
 {
+
     [StringLength(10, MinimumLength = 1, ErrorMessage = "La clase del coche debe tener entre 1 y 10 caracteres.")]
     public string CarClass { get; set; }
     [StringLength(10, MinimumLength = 1, ErrorMessage = "El color debe tener entre 1 y 10 caracteres.")]
     public string Color { get; set; }
 
     [StringLength(200, ErrorMessage = "La descripción no puede ser mayor de 200 caracteres.")]
-    public string Description { get; set; }
+    public string? Description { get; set; }
     public string EngDisplacement { get; set; }
 
     public int Id { get; set; }
