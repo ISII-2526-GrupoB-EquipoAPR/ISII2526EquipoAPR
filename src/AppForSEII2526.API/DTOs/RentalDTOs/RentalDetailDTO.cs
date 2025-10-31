@@ -1,5 +1,4 @@
-﻿
-using AppForSEII2526.API.Models;
+﻿using AppForSEII2526.API.Models;
 
 namespace AppForSEII2526.API.DTOs.RentalDTOs
 {
@@ -7,8 +6,9 @@ namespace AppForSEII2526.API.DTOs.RentalDTOs
     {
 
 
-        public RentalDetailDTO(int id, string customerUserName, string customerNameSurname, string deliveryAddress, PaymentMethodTypes paymentMethod, DateTime startDate, DateTime endDate, DateTime rentingDate, decimal totalPrice, IList<RentalItemDTO> rentalItems)
+        public RentalDetailDTO(int id, string customerUserName, string customerNameSurname, string deliveryAddress, PaymentMethodTypes paymentMethod, DateTime startDate, DateTime endDate, DateTime rentingDate, IList<RentalItemDTO> rentalItems)
         {
+            Id = id;
             CustomerUserName = customerUserName ?? throw new ArgumentNullException(nameof(customerUserName)); ;
             CustomerNameSurname = customerNameSurname ?? throw new ArgumentNullException(nameof(customerNameSurname)); ;
             DeliveryAddress = deliveryAddress ?? throw new ArgumentNullException(nameof(deliveryAddress)); ;
@@ -16,9 +16,11 @@ namespace AppForSEII2526.API.DTOs.RentalDTOs
             StartDate = startDate;
             EndDate = endDate;
             RentingDate = rentingDate;
+            RentalItems = rentalItems ?? throw new ArgumentNullException(nameof(rentalItems)); ;
+        }
 
-            }
-      
+        public int Id { get; set; }
+
 
 
         [EmailAddress]
@@ -82,18 +84,15 @@ namespace AppForSEII2526.API.DTOs.RentalDTOs
                    && CompareDate(EndDate, dTO.EndDate)
                    && CompareDate(RentingDate, dTO.RentingDate)
                    && TotalPrice == dTO.TotalPrice
-                   && EqualityComparer<IList<RentalItemDTO>>.Default.Equals(RentalItems, dTO.RentalItems);
-
-
-
+                   && RentalItems.SequenceEqual(dTO.RentalItems);
 
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(CustomerUserName, CustomerNameSurname, DeliveryAddress, PaymentMethod, StartDate, EndDate,RentalItems, TotalPrice);
+            return HashCode.Combine(CustomerUserName, CustomerNameSurname, DeliveryAddress, PaymentMethod, StartDate, EndDate, RentalItems, TotalPrice);
         }
     }
-   }
+}
 
 
