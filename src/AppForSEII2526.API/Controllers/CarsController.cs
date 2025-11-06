@@ -94,7 +94,7 @@ namespace AppForSEII2526.API.Controllers
                     && (carModel == null || c.Model.Name.Equals(carModel))
                     )
 
-                .OrderBy(c => c.Model)
+                
 
                 .Select(c => new CarForPurchaseDTO
                 {
