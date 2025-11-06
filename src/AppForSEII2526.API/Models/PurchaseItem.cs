@@ -8,13 +8,11 @@
         {
 
         }
-        public PurchaseItem(Car car, Purchase purchase, int quantity)
+        public PurchaseItem(int carID, Purchase purchase, decimal price, int quantity)
         {
-            Car = car;
-            CarId = car.Id;
-            PurchaseId = purchase.Id;
+            CarId = carID;
             Purchase = purchase;
-            Price = car.PurchasingPrice;
+            Price = price;
             Quantity = quantity;
         }
 
