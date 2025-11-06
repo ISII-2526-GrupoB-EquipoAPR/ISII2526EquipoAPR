@@ -1,28 +1,4 @@
-﻿INSERT INTO [dbo].[AspNetUsers] 
-([Id], [Name], [Surname], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) 
-VALUES 
-(N'12', N'guest', N'guest', N'guest', N'guest', N'test@test.com', N'test@test.com', 1, N'guest', N'guest', N'guest', N'123', 1, 0, '2024-12-12 00:00:00', 1, 12);
-
-INSERT INTO [dbo].[AspNetUsers] 
-([Id], [Name], [Surname], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) 
-VALUES 
-(N'13', N'Juan', N'Pérez', N'juanp', N'JUANP', N'juan.perez@email.com', N'JUAN.PEREZ@EMAIL.COM', 1, N'hash123', N'stamp123', N'concur123', N'600123456', 1, 0, '2025-03-01 00:00:00', 1, 0);
-
-INSERT INTO [dbo].[AspNetUsers] 
-([Id], [Name], [Surname], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) 
-VALUES 
-(N'14', N'María', N'López', N'mlopez', N'MLOPEZ', N'maria.lopez@email.com', N'MARIA.LOPEZ@EMAIL.COM', 1, N'hash456', N'stamp456', N'concur456', N'600654321', 1, 0, '2025-05-05 00:00:00', 1, 0);
-
-INSERT INTO [dbo].[AspNetUsers] 
-([Id], [Name], [Surname], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) 
-VALUES 
-(N'15', N'Carlos', N'García', N'cgarcia', N'CGARCIA', N'carlos.garcia@email.com', N'CARLOS.GARCIA@EMAIL.COM', 1, N'hash789', N'stamp789', N'concur789', N'600777888', 1, 0, '2025-06-10 00:00:00', 1, 0);
-
-INSERT INTO [dbo].[AspNetUsers] 
-([Id], [Name], [Surname], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) 
-VALUES 
-(N'16', N'Sofía', N'Ramos', N'sramos', N'SRAMOS', N'sofia.ramos@email.com', N'SOFIA.RAMOS@EMAIL.COM', 1, N'hash999', N'stamp999', N'concur999', N'600999000', 1, 0, '2025-07-20 00:00:00', 1, 0);
-
+﻿
 SET IDENTITY_INSERT [dbo].[Models] ON
 INSERT INTO [dbo].[Models] ([Id], [Name]) VALUES (9, N'Civic')
 INSERT INTO [dbo].[Models] ([Id], [Name]) VALUES (10, N'Corolla')
