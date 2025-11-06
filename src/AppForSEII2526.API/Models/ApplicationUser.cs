@@ -5,6 +5,18 @@ namespace AppForSEII2526.API.Models;
 
 // Add profile data for application users by adding properties to the ApplicationUser class
 public class ApplicationUser : IdentityUser {
+    private string v1;
+    private string v2;
+    private string v3;
+
+    public ApplicationUser() { }
+
+    public ApplicationUser(string id, string name, string surname, string email) 
+    {
+        Id = id;
+        Name = name;
+        Surname = surname;
+    }
 
     [Display(Name = "Name")]
     public string Name
