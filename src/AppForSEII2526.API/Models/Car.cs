@@ -2,13 +2,45 @@
 { 
 public class Car
 {
+        public Car() { }
+        public Car(string carClass, string color, string description, string engDisplacement, string manufacturer, decimal purchasingPrice, int quantity, string fuelType, string rimSize, Model model)
+        {
+            CarClass = carClass;
+            Color = color;
+            Description = description;
+            EngDisplacement = engDisplacement;
+            Manufacturer = manufacturer;
+            PurchasingPrice = purchasingPrice;
+            QuantityForPurchasing = quantity;
+            FuelType = fuelType;
+            RimSize = rimSize;
+            Model = model;
+        }
+
+        public Car(string carClass, string color, string? description, string engDisplacement, int id, string manufacturer, decimal purchasingPrice, decimal rentingPrice, int quantityForPurchasing, int quantityForRenting, string fuelType, string rimSize, Model model)
+        {
+            CarClass = carClass;
+            Color = color;
+            Description = description;
+            EngDisplacement = engDisplacement;
+            Id = id;
+            Manufacturer = manufacturer;
+            PurchasingPrice = purchasingPrice;
+            RentingPrice = rentingPrice;
+            QuantityForPurchasing = quantityForPurchasing;
+            QuantityForRenting = quantityForRenting;
+            FuelType = fuelType;
+            RimSize = rimSize;
+            Model = model;
+        }
+
     [StringLength(10, MinimumLength = 1, ErrorMessage = "La clase del coche debe tener entre 1 y 10 caracteres.")]
     public string CarClass { get; set; }
     [StringLength(10, MinimumLength = 1, ErrorMessage = "El color debe tener entre 1 y 10 caracteres.")]
     public string Color { get; set; }
 
     [StringLength(200, ErrorMessage = "La descripción no puede ser mayor de 200 caracteres.")]
-    public string Description { get; set; }
+    public string? Description { get; set; }
     public string EngDisplacement { get; set; }
 
     public int Id { get; set; }

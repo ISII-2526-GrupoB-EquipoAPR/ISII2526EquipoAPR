@@ -94,7 +94,7 @@ namespace AppForSEII2526.API.Controllers
                     && (carModel == null || c.Model.Name.Equals(carModel))
                     )
 
-                .OrderBy(c => c.Model)
+                
 
                 .Select(c => new CarForPurchaseDTO
                 {
@@ -117,14 +117,21 @@ namespace AppForSEII2526.API.Controllers
         public async Task<ActionResult> GetCarForRental(string? model, decimal? rentingPrice)
         {
 
+
+            DateTime startDate = DateTime.Today;
+            DateTime endDate = DateTime.Today.AddDays(7);
+
+
             IList<CarForRentalDTO> selectCars = await _context.Cars
                 .Include(c => c.Model)
                 .Include(c => c.RentalItems).ThenInclude(ri => ri.Rental)
                 .Where(c =>
                 c.QuantityForRenting > 0 &&
-                (model == null || c.Model.Name.Contains(model)) &&
-                (rentingPrice == null || c.RentingPrice <= rentingPrice) 
-             
+                (model == null || c.Model.Name.Equals(model)) &&
+                (rentingPrice == null || c.RentingPrice <= rentingPrice)&&
+                 (c.RentalItems.Count(ri => ri.Rental.StartDate <= endDate
+                                            && ri.Rental.EndDate >= startDate) < c.QuantityForRenting)
+
 )
                 .OrderBy(c => c.Model.Name)
                 .Select(c => new CarForRentalDTO

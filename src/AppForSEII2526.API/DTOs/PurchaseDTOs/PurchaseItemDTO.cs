@@ -3,14 +3,14 @@ namespace AppForSEII2526.API.DTOs.PurchaseDTOs
 {
     public class PurchaseItemDTO
     {
-        public PurchaseItemDTO(int carID, string model, string color, decimal purchasingPrice, int quantity, string description)
+        public PurchaseItemDTO(int carID, string model, string color, decimal purchasingPrice, int quantity, string description = "")
         {
             CarID = carID;
             Model = model;
             Color = color;
             PurchasingPrice = purchasingPrice;
-            Description = description;
             Quantity = quantity;
+            Description = description;
         }
 
         public int CarID { get; set; }

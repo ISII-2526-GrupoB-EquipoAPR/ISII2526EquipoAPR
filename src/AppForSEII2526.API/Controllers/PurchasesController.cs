@@ -1,4 +1,5 @@
 ﻿using AppForSEII2526.API.DTOs.PurchaseDTOs;
+using AppForSEII2526.API.DTOs.RentalDTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,7 @@ namespace AppForSEII2526.API.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [ProducesResponseType(typeof(PurchaseDetailDTO), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(RentalDetailDTO), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult> GetPurchase(int id)
         {
@@ -29,28 +30,28 @@ namespace AppForSEII2526.API.Controllers
                 return NotFound();
             }
 
-            var rental = await _context.Purchases
+            var purchase = await _context.Purchases
              .Where(p => p.Id == id)
                  .Include(p => p.PurchaseItems) //join table PurchaseItems
                     .ThenInclude(pi => pi.Car) //then join table Car
                         .ThenInclude(car => car.Model) //then join table Model
              .Select(p => new PurchaseDetailDTO(p.Id, p.CustomerUserName,
-                    p.CustomerNameSurname, p.PaymentMethod ,p.DeliveryAddress, p.PurchaseItems
-                        .Select(pi => new PurchaseItemDTO(pi.Car.Id,
-                                pi.Car.Color, pi.Car.Model.Name,
-                                pi.Car.PurchasingPrice,pi.Car.QuantityForPurchasing, pi.Car.Description)).ToList<PurchaseItemDTO>()))
+                    p.CustomerNameSurname, (PaymentMethodTypes)p.PaymentMethod, p.DeliveryAddress, p.PurchaseItems
+                        .Select(pi => new PurchaseItemDTO(pi.Car.Id, pi.Car.Model.Name, pi.Car.Color, pi.Car.PurchasingPrice, pi.Quantity, pi.Car.Description)).ToList<PurchaseItemDTO>()))
              .FirstOrDefaultAsync();
 
 
-            if (rental == null)
+            if (purchase == null)
             {
-                _logger.LogError($"Error: Rental with id {id} does not exist");
+                _logger.LogError($"Error: Purchase with id {id} does not exist");
                 return NotFound();
             }
 
 
-            return Ok(rental);
+            return Ok(purchase);
         }
+
+        
     }
 
 }
