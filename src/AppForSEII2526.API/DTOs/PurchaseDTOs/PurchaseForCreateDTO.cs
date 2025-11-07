@@ -55,7 +55,7 @@ namespace AppForSEII2526.API.DTOs.PurchaseDTOs
                    DeliveryAddress == dTO.DeliveryAddress &&
                    CustomerUserName == dTO.CustomerUserName &&
                    CustomerNameSurname == dTO.CustomerNameSurname &&
-                   EqualityComparer<IList<PurchaseItemDTO>>.Default.Equals(PurchaseItems, dTO.PurchaseItems) &&
+                   PurchaseItems.SequenceEqual(dTO.PurchaseItems) &&
                    PaymentMethod == dTO.PaymentMethod &&
                    TotalPrice == dTO.TotalPrice;
         }
