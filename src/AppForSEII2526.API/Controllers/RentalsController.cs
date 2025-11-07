@@ -73,12 +73,12 @@ namespace AppForSEII2526.API.Controllers
             if (ModelState.ErrorCount > 0)
                 return BadRequest(new ValidationProblemDetails(ModelState));
 
-            var carModels = rentalForCreate.RentalItems.Select(ri => ri.Model).ToList();
+            var carIds = rentalForCreate.RentalItems.Select(ri => ri.CarId).ToList();
 
             var cars = _context.Cars
                 .Include(c => c.RentalItems)
                     .ThenInclude(ri => ri.Rental)
-                .Where(c => carModels.Contains(c.Model.Name))
+                .Where(c => carIds.Contains(c.Id))
                 .Select(c => new
                 {
                     c.Id,
@@ -123,7 +123,7 @@ namespace AppForSEII2526.API.Controllers
                 }
             }
 
-            // rental.RentingPrice = rental.RentalItems.Sum(ri => ri.PriceForRenting * numDays);
+             rental.RentingPrice = rental.RentalItems.Sum(ri => ri.PriceForRenting * (decimal)numDays);
 
             if (ModelState.ErrorCount > 0)
                 return BadRequest(new ValidationProblemDetails(ModelState));
