@@ -9,13 +9,14 @@ namespace AppForSEII2526.API.DTOs.PurchaseDTOs
         {
         }
 
-        public PurchaseDetailDTO(int id,string customerUserName, string customerNameSurname, PaymentMethodTypes paymentMethod, string deliveryAddress, IList<PurchaseItemDTO> purchaseItems)
+        public PurchaseDetailDTO(int id,string customerUserName, string customerNameSurname, PaymentMethodTypes paymentMethod, string deliveryAddress, DateTime purchasingDate, IList<PurchaseItemDTO> purchaseItems)
         {
             Id = id;
             CustomerUserName = customerUserName ?? throw new ArgumentNullException(nameof(customerUserName));
             CustomerNameSurname = customerNameSurname ?? throw new ArgumentNullException(nameof(customerNameSurname));
             DeliveryAddress = deliveryAddress ?? throw new ArgumentNullException(nameof(deliveryAddress));
             PaymentMethod = paymentMethod;
+            PurchasingDate = purchasingDate;
             PurchaseItems = purchaseItems ?? throw new ArgumentNullException(nameof(purchaseItems));
         }
         public int Id { get; set; }
@@ -37,6 +38,7 @@ namespace AppForSEII2526.API.DTOs.PurchaseDTOs
         [Required(AllowEmptyStrings = false, ErrorMessage = "Por favor, introduzca su dirección para el envío")]
         public string DeliveryAddress { get; set; }
 
+        public DateTime PurchasingDate { get; set; }
         public IList<PurchaseItemDTO> PurchaseItems { get; set; }
 
         [Display(Name = "Precio total")]
