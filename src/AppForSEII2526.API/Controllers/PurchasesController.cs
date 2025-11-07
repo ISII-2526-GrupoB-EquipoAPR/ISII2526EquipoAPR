@@ -36,7 +36,7 @@ namespace AppForSEII2526.API.Controllers
                     .ThenInclude(pi => pi.Car) //then join table Car
                         .ThenInclude(car => car.Model) //then join table Model
              .Select(p => new PurchaseDetailDTO(p.Id, p.CustomerUserName,
-                    p.CustomerNameSurname, (PaymentMethodTypes)p.PaymentMethod, p.DeliveryAddress, p.PurchaseItems
+                    p.CustomerNameSurname, (PaymentMethodTypes)p.PaymentMethod, p.DeliveryAddress, p.PurchasingDate, p.PurchaseItems
                         .Select(pi => new PurchaseItemDTO(pi.Car.Id, pi.Car.Model.Name, pi.Car.Color, pi.Car.PurchasingPrice, pi.Quantity, pi.Car.Description)).ToList<PurchaseItemDTO>()))
              .FirstOrDefaultAsync();
 
@@ -147,6 +147,7 @@ namespace AppForSEII2526.API.Controllers
                 purchase.CustomerNameSurname,
                 purchase.PaymentMethod,
                 purchase.DeliveryAddress,
+                purchase.PurchasingDate,
                 purchaseForCreate.PurchaseItems
             );
 
