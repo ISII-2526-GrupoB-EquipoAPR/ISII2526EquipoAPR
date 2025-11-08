@@ -110,7 +110,7 @@ namespace AppForSEII2526.API.Controllers
 
                 else if (item.Quantity > (car.QuantityForPurchasing - car.NumberOfPurchasedItems))
                 {
-                    ModelState.AddModelError("PurchaseItems", $"Error! Car '{car.Model}' does not have enough stock. Available: {car.QuantityForPurchasing - car.NumberOfPurchasedItems}, Requested: {item.Quantity}");
+                    ModelState.AddModelError("PurchaseItems", $"Error! Car '{car.Model.Name}' does not have enough stock. Available: {car.QuantityForPurchasing - car.NumberOfPurchasedItems}, Requested: {item.Quantity}");
                 }
                 else
                 {
