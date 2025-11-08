@@ -8,6 +8,19 @@
         {
 
         }
+        public PurchaseItem(Car car, Purchase purchase)
+        {
+            Car = car;
+            CarId = car.Id;
+            Purchase = purchase;
+            PurchaseId = purchase.Id;
+        }
+        
+        public PurchaseItem(Car car, Purchase purchase, int quantity) : this (car, purchase)
+        {
+            Price = car.PurchasingPrice;
+            Quantity = quantity;
+        }
         public PurchaseItem(int carID, Purchase purchase, decimal price, int quantity)
         {
             CarId = carID;
