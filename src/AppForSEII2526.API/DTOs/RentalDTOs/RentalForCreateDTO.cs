@@ -10,7 +10,9 @@
             PaymentMethod = paymentMethod;
             StartDate = startDate;
             EndDate = endDate;
+            RentalItems = rentalItems ?? throw new ArgumentNullException(nameof(rentalItems)); ;
         }
+       
 
 
 
