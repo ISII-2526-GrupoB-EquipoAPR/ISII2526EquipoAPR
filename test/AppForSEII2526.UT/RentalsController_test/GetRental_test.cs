@@ -41,9 +41,9 @@ namespace AppForSEII2526.UT.RentalsController_test
             ApplicationUser = applicationUser;
              */
 
-            ApplicationUser user = new ApplicationUser("1", "Adela", "Jerez Sanchez", "adela@uclm.es", "Avda. España s/n, Albacete");
+            ApplicationUser user = new ApplicationUser("18", "Adela", "Jerez Sanchez", "adela@uclm.es", "Avda. España s/n, Albacete");
 
-            var rental = new Rental("Avda. España s/n, Albacete", "adela@uclm.es", "Jere Sanchez", 17, "Paco", DateTime.Today.AddDays(5), DateTime.Today.AddDays(2), DateTime.Now, AppForSEII2526.API.Models.PaymentMethodTypes.Visa, new List<RentalItem>(), user);
+            var rental = new Rental("Avda. España s/n, Albacete", "adela@uclm.es", "Jerez Sanchez", 17, "Paco", DateTime.Today.AddDays(5), DateTime.Today.AddDays(2), DateTime.Now, AppForSEII2526.API.Models.PaymentMethodTypes.Visa, new List<RentalItem>(), user);
             rental.RentalItems.Add(new RentalItem(cars[0], rental)); 
 
             _context.ApplicationUsers.Add(user);
@@ -82,8 +82,8 @@ namespace AppForSEII2526.UT.RentalsController_test
 
             var controller = new RentalsController(_context,logger);
 
-            var expectedRental = new RentalDetailDTO();
-            expectedRental.RentalItems.Add(new RentalItemDTO());
+            var expectedRental = new RentalDetailDTO(18,"adela@uclm.es","Jerez Sanchez", "Avda. España s/n, Albacete", AppForSEII2526.API.Models.PaymentMethodTypes.Visa, DateTime.Today.AddDays(5), DateTime.Today.AddDays(2),DateTime.Now,new List<RentalItemDTO>());
+            expectedRental.RentalItems.Add(new RentalItemDTO(19,"Civic","Paco", 18000m,2));
             //Act
             var result = await controller.GetRental(1);
 
