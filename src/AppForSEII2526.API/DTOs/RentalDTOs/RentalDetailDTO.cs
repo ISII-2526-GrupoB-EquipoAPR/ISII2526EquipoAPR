@@ -4,7 +4,7 @@ namespace AppForSEII2526.API.DTOs.RentalDTOs
 {
     public class RentalDetailDTO
     {
-
+        public RentalDetailDTO() { }
 
         public RentalDetailDTO(int id, string customerUserName, string customerNameSurname, string deliveryAddress, PaymentMethodTypes paymentMethod, DateTime startDate, DateTime endDate, DateTime rentingDate, IList<RentalItemDTO> rentalItems)
         {
