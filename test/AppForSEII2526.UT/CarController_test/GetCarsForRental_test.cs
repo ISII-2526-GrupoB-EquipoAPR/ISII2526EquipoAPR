@@ -23,11 +23,11 @@ namespace AppForSEII2526.UT.CarController_test
 
             var cars = new List<Car>
             {
-
-                new Car("Sedan", "Rojo", "Honda Civic 1.8 Gasolina", "1.8", "Honda", 50000, 5, "Gasolina", "16", models[0]),
-                new Car("Hatchback", "Azul", "Toyota Yaris 1.5 Híbrido", "1.5", "Toyota", 45000, 4, "Híbrido", "15", models[1]), 
-                new Car("Sedan", "Blanco", "Tesla Model 3 Eléctrico", "0", "Tesla", 80000, 3, "Eléctrico", "18", models[2]),
+                new Car("Hatchback", "Azul", "Toyota Yaris 1.5 Híbrido", "1.5", "Toyota", 45000, 4, "Híbrido", "15", models[1]),     // ← Azul (primero)
+                new Car("Sedan", "Blanco", "Tesla Model 3 Eléctrico", "0", "Tesla", 80000, 3, "Eléctrico", "18", models[2]),        // ← Blanco (segundo)
+                new Car("Sedan", "Rojo", "Honda Civic 1.8 Gasolina", "1.8", "Honda", 50000, 5, "Gasolina", "16", models[0]),        // ← Rojo (tercero)
                 new Car("SUV", "Gris", "Mazda CX-5 2.0 Gasolina", "2.0", "Mazda", 60000, 6, "Gasolina", "17", models[3])
+
             };
 
             _context.AddRange(models);
@@ -40,22 +40,35 @@ namespace AppForSEII2526.UT.CarController_test
 
             var carDTOs = new List<CarForRentalDTO>()
             {
-                new CarForRentalDTO(1, "Civic",   "Gasolina", "Rojo",   50000, "Honda"),
-                new CarForRentalDTO(2, "Yaris",   "Híbrido",  "Azul",   45000, "Toyota"),
-                new CarForRentalDTO(3, "Model 3", "Eléctrico","Blanco", 80000, "Tesla"),
+
+
+                new CarForRentalDTO(1, "Yaris",   "Híbrido",  "Azul",   45000, "Toyota"),
+                new CarForRentalDTO(2, "Model 3", "Eléctrico","Blanco", 80000, "Tesla"),
+                new CarForRentalDTO(3, "Civic",   "Gasolina", "Rojo",   50000, "Honda"),
                 new CarForRentalDTO(4, "CX-5",    "Gasolina", "Gris",   60000, "Mazda")
+
+                /*
+                 new CarForRentalDTO(4, "CX-5",    "Gasolina", "Gris",   60000, "Mazda"),     // ← Primero en la respuesta 0
+                new CarForRentalDTO(1, "Yaris",   "Híbrido",  "Azul",   45000, "Toyota"),    // ← Segundo 1
+                new CarForRentalDTO(3, "Civic",   "Gasolina", "Rojo",   50000, "Honda"),     // ← Tercero 2
+                new CarForRentalDTO(2, "Model 3", "Eléctrico","Blanco", 80000, "Tesla")      // ← Cuarto 3
+
+/*
+                
+                */
             };
+
 
             var carDTOsTC1 = new List<CarForRentalDTO>() { carDTOs[0], carDTOs[1], carDTOs[2], carDTOs[3] };
 
             var carDTOsTC2 = new List<CarForRentalDTO>() { carDTOs[0] };
-            var carDTOsTC3 = new List<CarForRentalDTO>() { carDTOs[2] };
+            var carDTOsTC3 = new List<CarForRentalDTO>() { carDTOs[1] };
 
             var allTests = new List<object[]>
             {             //filters to apply - expected cars
                 new object[] { null, null, carDTOsTC1 },
-                new object[] { "Civic", null, carDTOsTC2},
-                new object[] { null, 8000, carDTOsTC3},
+                new object[] { "Yaris", null, carDTOsTC2},
+                new object[] { null, 80000, carDTOsTC3},
             };
 
             return allTests;
@@ -78,6 +91,11 @@ namespace AppForSEII2526.UT.CarController_test
             var okResult = Assert.IsType<OkObjectResult>(result);
             //and obtain the list of cars
             var carDTOsActual = Assert.IsType<List<CarForRentalDTO>>(okResult.Value);
+
+            // ORDENA AMBAS LISTAS POR ID ANTES DE COMPARAR
+            var expectedSorted = expectedCars.OrderBy(c => c.Id).ToList();
+            var actualSorted = carDTOsActual.OrderBy(c => c.Id).ToList();
+
             Assert.Equal(expectedCars, carDTOsActual);
 
         }
