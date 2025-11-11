@@ -23,10 +23,10 @@ namespace AppForSEII2526.UT.CarController_test
 
             var cars = new List<Car>
             {
-                new Car("Sedan", "Rojo", "Honda Civic 1.8 Gasolina", "1.8", "Honda", 18000m, 5, "Gasolina", "16", models[0]),
-                new Car("Hatchback", "Azul", "Toyota Yaris 1.5 Híbrido", "1.5", "Toyota", 17000m, 4, "Híbrido", "15", models[1]),
-                new Car("Sedan", "Blanco", "Tesla Model 3 Eléctrico", "0", "Tesla", 38000m, 3, "Eléctrico", "18", models[2]),
-                new Car("SUV", "Gris", "Mazda CX-5 2.0 Gasolina", "2.0", "Mazda", 26000m, 6, "Gasolina", "17", models[3])
+                new Car("Sedan", "Rojo", "Honda Civic 1.8 Gasolina", "1.8", "Honda", 18000, 5, "Gasolina", "16", models[0]),
+                new Car("Hatchback", "Azul", "Toyota Yaris 1.5 Híbrido", "1.5", "Toyota", 17000, 4, "Híbrido", "15", models[1]),
+                new Car("Sedan", "Blanco", "Tesla Model 3 Eléctrico", "0", "Tesla", 38000, 3, "Eléctrico", "18", models[2]),
+                new Car("SUV", "Gris", "Mazda CX-5 2.0 Gasolina", "2.0", "Mazda", 26000, 6, "Gasolina", "17", models[3])
             };
                         _context.AddRange(models);
             _context.AddRange(cars);
@@ -37,10 +37,10 @@ namespace AppForSEII2526.UT.CarController_test
 
             var carDTOs = new List<CarForRentalDTO>()
             {
-                new CarForRentalDTO(1, "Civic",   "Gasolina", "Rojo",   5000.00m, "Honda"),
-                new CarForRentalDTO(2, "Yaris",   "Híbrido",  "Azul",   4500.00m, "Toyota"),
-                new CarForRentalDTO(3, "Model 3", "Eléctrico","Blanco", 8000.00m, "Tesla"),
-                new CarForRentalDTO(4, "CX-5",    "Gasolina", "Gris",   6000.00m, "Mazda")
+                new CarForRentalDTO(1, "Civic",   "Gasolina", "Rojo",   5000, "Honda"),
+                new CarForRentalDTO(2, "Yaris",   "Híbrido",  "Azul",   4500, "Toyota"),
+                new CarForRentalDTO(3, "Model 3", "Eléctrico","Blanco", 8000, "Tesla"),
+                new CarForRentalDTO(4, "CX-5",    "Gasolina", "Gris",   6000, "Mazda")
             };
 
             var carDTOsTC1 = new List<CarForRentalDTO>() { carDTOs[0], carDTOs[1], carDTOs[2], carDTOs[3] };
@@ -52,7 +52,7 @@ namespace AppForSEII2526.UT.CarController_test
             {             //filters to apply - expected cars
                 new object[] { null, null, carDTOsTC1 },
                 new object[] { "Civic", null, carDTOsTC2},
-                new object[] { null, 8000.00m, carDTOsTC3},
+                new object[] { null, 8000, carDTOsTC3},
             };
 
             return allTests;
