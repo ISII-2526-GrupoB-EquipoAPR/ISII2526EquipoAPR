@@ -25,21 +25,7 @@ namespace AppForSEII2526.UT.RentalsController_test
              new Car("Hatchback", "Azul", "Toyota Yaris 1.5 Híbrido", "1.5", "Toyota", 17000, 4, "Híbrido", "15", models[1]),
             };
 
-
-            /*
-             * 
-            DeliveryAddress = deliveryAddress;
-            CustomerUserName = customerUserName;
-            CustomerNameSurname = customerNameSurname;
-            Id = id;
-            DeliveryCarDealer = deliveryCarDealer;
-            EndDate = endDate;
-            StartDate = startDate;
-            RentingDate = rentingDate;
-            PaymentMethod = paymentMethod;
-            RentalItems = rentalItems;
-            ApplicationUser = applicationUser;
-             */
+           
 
             ApplicationUser user = new ApplicationUser("1", "Adela", "Jerez Sanchez", "adela@uclm.es", "Avda. España s/n, Albacete");
 
@@ -93,7 +79,7 @@ namespace AppForSEII2526.UT.RentalsController_test
             var rentalDTOActual = Assert.IsType<RentalDetailDTO>(okResult.Value);
             var eq = expectedRental.Equals(rentalDTOActual);
 
-            Assert.Equal(expectedRental, rentalDTOActual);
+            Assert.Equal(expectedRental, rentalDTOActual);  //no me lo coge porq necesito mi constructor, si comento el de patri si me va 100%
         }
 
     }

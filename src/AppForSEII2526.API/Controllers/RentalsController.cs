@@ -36,7 +36,7 @@ namespace AppForSEII2526.API.Controllers
                 .Select(r => new RentalDetailDTO(
                     r.Id, r.CustomerUserName, r.CustomerNameSurname, r.DeliveryAddress,
                     (PaymentMethodTypes)r.PaymentMethod, r.StartDate, r.EndDate, r.RentingDate,r.RentalItems
-                    .Select(ri => new RentalItemDTO(ri.Car.Id, ri.Car.Model.Name, ri.Car.Manufacturer, ri.Car.RentingPrice, ri.Car.QuantityForRenting
+                    .Select(ri => new RentalItemDTO(ri.Car.Id, ri.Car.Model.Name, ri.Car.Manufacturer, ri.Car.RentingPrice, ri.Quantity
                 )).ToList<RentalItemDTO>()
                 ))
                 .FirstOrDefaultAsync();

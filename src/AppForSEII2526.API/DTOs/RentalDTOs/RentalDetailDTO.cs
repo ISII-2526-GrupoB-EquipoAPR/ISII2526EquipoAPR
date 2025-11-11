@@ -63,7 +63,7 @@ namespace AppForSEII2526.API.DTOs.RentalDTOs
         {
             get
             {
-                return RentalItems.Sum(item => item.RentingPrice * NumberOfDays);
+                return RentalItems.Sum(item => item.RentingPrice * item.Quantity * NumberOfDays);
             }
         }
 
