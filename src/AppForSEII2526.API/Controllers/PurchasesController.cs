@@ -116,7 +116,10 @@ namespace AppForSEII2526.API.Controllers
                 {
                     ModelState.AddModelError("PurchaseItems", $"Error! Car with id {item.CarID} does not exist");
                 }
-
+                else if (item.Quantity <= 0)
+                {
+                    ModelState.AddModelError("PurchaseItems", $"Error! Quantity for car '{car.Model.Name}' must be greater than zero");
+                }
                 else if (item.Quantity > (car.QuantityForPurchasing - car.NumberOfPurchasedItems))
                 {
                     ModelState.AddModelError("PurchaseItems", $"Error! Car '{car.Model.Name}' does not have enough stock. Available: {car.QuantityForPurchasing - car.NumberOfPurchasedItems}, Requested: {item.Quantity}");
