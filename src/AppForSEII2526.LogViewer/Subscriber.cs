@@ -1,7 +1,9 @@
 ﻿using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using System.Text;
 using System.Threading.Channels;
 
-namespace AppForSEII2526.Web.LogViewer
+namespace AppForSEII2526.LogViewer
 {
     public class Subscriber
     {
@@ -15,6 +17,8 @@ namespace AppForSEII2526.Web.LogViewer
         private readonly IConnection _connection;
         private readonly IModel _channel;
         private readonly IBasicProperties _properties;
+
+        private string _queueName;
 
         public Subscriber()
         {
@@ -30,7 +34,7 @@ namespace AppForSEII2526.Web.LogViewer
 
             _channel = _connection.CreateModel();
 
-            _channel.ExchangeDeclare(_exchangeName, ExchangeType.Fanout);
+            _channel.ExchangeDeclare(_exchangeName, ExchangeType.Fanout, true);
 
             var tempQueue = _channel.QueueDeclare(
                 queue: "",  
@@ -40,13 +44,26 @@ namespace AppForSEII2526.Web.LogViewer
                 arguments: null
             );
 
-            var queueName = tempQueue.QueueName;
+            _queueName = tempQueue.QueueName;
+            _channel.QueueBind(queue: _queueName, exchange: _exchangeName, routingKey: "");
 
-            _channel.QueueBind(queue: queueName, exchange: _exchangeName, routingKey: "");
+        }
+        public void StartConsuming()
+        {
+            var consumer = new EventingBasicConsumer(_channel);
+            consumer.Received += (model, ea) =>
+            {
+                var body = ea.Body.ToArray(); //contenido del mensaje (array de bytes)
+                var message = Encoding.UTF8.GetString(body); //se convierte de vuelta a string
+                Console.WriteLine(message);
+                
+            };
 
-
-
-
+            _channel.BasicConsume(
+            queue: _queueName,
+            autoAck: true,
+            consumer: consumer// Confirmación automática de recepción del mensaje
+            );
         }
     }
 }
