@@ -153,6 +153,7 @@ namespace AppForSEII2526.API.Controllers
               rentalForCreate.RentalItems
             );
 
+
             return CreatedAtAction("GetRental", new { id = rental.Id }, rentalDetail);
         }
 
