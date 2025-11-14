@@ -59,7 +59,9 @@ namespace AppForSEII2526.API.DTOs.PurchaseDTOs
                    PaymentMethod == dTO.PaymentMethod &&
                    DeliveryAddress == dTO.DeliveryAddress &&
                    PurchaseItems.SequenceEqual(dTO.PurchaseItems) &&
+                   PurchasingDate.Subtract(dTO.PurchasingDate) > new TimeSpan(0, -1, 0) &&
                    TotalPrice == dTO.TotalPrice;
+                   
         }
 
         public override int GetHashCode()

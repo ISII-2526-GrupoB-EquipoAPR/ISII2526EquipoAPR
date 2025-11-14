@@ -3,7 +3,7 @@
 public class Car
 {
         public Car() { }
-        public Car(string carClass, string color, string description, string engDisplacement, string manufacturer, decimal purchasingPrice, int quantity, string fuelType, string rimSize, Model model)
+       public Car(string carClass, string color, string description, string engDisplacement, string manufacturer, decimal purchasingPrice, int quantity, string fuelType, string rimSize, Model model)
         {
             CarClass = carClass;
             Color = color;
@@ -17,7 +17,6 @@ public class Car
             Model = model;
         }
         
-
         public Car(string carClass, string color, string? description, string engDisplacement, int id, string manufacturer, decimal purchasingPrice, decimal rentingPrice, int quantityForPurchasing, int quantityForRenting, string fuelType, string rimSize, Model model)
         {
             CarClass = carClass;
