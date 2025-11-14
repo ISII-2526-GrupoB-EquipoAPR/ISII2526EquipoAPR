@@ -50,7 +50,7 @@
                    && PaymentMethod == dTO.PaymentMethod
                    && CompareDate(StartDate, dTO.StartDate)
                    && CompareDate(EndDate, dTO.EndDate)
-                   && EqualityComparer<IList<RentalItemDTO>>.Default.Equals(RentalItems, dTO.RentalItems);
+                   && RentalItems.SequenceEqual(dTO.RentalItems);   
 
 
 

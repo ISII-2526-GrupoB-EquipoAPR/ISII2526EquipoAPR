@@ -13,7 +13,7 @@
             PurchaseItems= new List<PurchaseItem>();
         }
 
-        public Purchase(int id, string customerUserName, string customerNameSurname, string deliveryAddress, string deliveryCarDealer, PaymentMethodTypes paymentMethod, DateTime purchasingDate, IList<PurchaseItem> purchaseItems, ApplicationUser applicationUser)
+        public Purchase(string customerUserName, string customerNameSurname, string deliveryAddress, string deliveryCarDealer, PaymentMethodTypes paymentMethod, DateTime purchasingDate, IList<PurchaseItem> purchaseItems, ApplicationUser applicationUser)
         {
 
             PurchasingPrice = decimal.Round(purchaseItems.Sum(pi => pi.Price * pi.Quantity),2);

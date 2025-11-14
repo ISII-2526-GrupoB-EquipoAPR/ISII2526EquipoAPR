@@ -4,6 +4,7 @@ namespace AppForSEII2526.API.DTOs.RentalDTOs
 {
     public class RentalItemDTO
     {
+        public RentalItemDTO() { }
         public RentalItemDTO(int carId,string model, string manufacturer, decimal rentingPrice,int quantity)
         {
             CarId = carId;
