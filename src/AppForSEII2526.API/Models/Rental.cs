@@ -7,40 +7,26 @@
         {
         }
 
-        /*
-         *  public Rental(string deliveryAddress,int id, string customerUserName, string customerNameSurname, string deliveryCarDealer,
-            DateTime endDate, DateTime startDate, DateTime rentingDate, PaymentMethodTypes paymentMethod, IList<RentalItem> rentalItems, ApplicationUser applicationUser)
-        {
-            RentingPrice = rentalItems.Sum(ri => ri.PriceForRenting * (endDate - startDate).Days);
-            Id=id;
-            DeliveryAddress = deliveryAddress;
-            CustomerUserName = customerUserName;
-            CustomerNameSurname = customerNameSurname;
-            DeliveryCarDealer = deliveryCarDealer;
-            EndDate = endDate;
-            StartDate = startDate;
-            RentingDate = rentingDate;
-            PaymentMethod = paymentMethod;
-            RentalItems = rentalItems;
-            ApplicationUser = applicationUser;
-        }
-         */
-        public Rental(string deliveryAddress, string customerUserName, string customerNameSurname, string deliveryCarDealer,
-            DateTime endDate, DateTime startDate, DateTime rentingDate, PaymentMethodTypes paymentMethod, IList<RentalItem> rentalItems, ApplicationUser applicationUser)
-        {
-            RentingPrice = rentalItems.Sum(ri => ri.PriceForRenting * (endDate - startDate).Days);
+        
+         public Rental(string deliveryAddress, string customerUserName, string customerNameSurname, int id, string deliveryCarDealer,
+             DateTime endDate, DateTime startDate, DateTime rentingDate, PaymentMethodTypes paymentMethod, IList<RentalItem> rentalItems, ApplicationUser applicationUser)
+         {
+             RentingPrice = rentalItems.Sum(ri => ri.PriceForRenting * (endDate - startDate).Days);
 
-            DeliveryAddress = deliveryAddress;
-            CustomerUserName = customerUserName;
-            CustomerNameSurname = customerNameSurname;
-            DeliveryCarDealer = deliveryCarDealer;
-            EndDate = endDate;
-            StartDate = startDate;
-            RentingDate = rentingDate;
-            PaymentMethod = paymentMethod;
-            RentalItems = rentalItems;
-            ApplicationUser = applicationUser;
-        }
+             DeliveryAddress = deliveryAddress;
+             CustomerUserName = customerUserName;
+             CustomerNameSurname = customerNameSurname;
+             Id = id;
+             DeliveryCarDealer = deliveryCarDealer;
+             EndDate = endDate;
+             StartDate = startDate;
+             RentingDate = rentingDate;
+             PaymentMethod = paymentMethod;
+             RentalItems = rentalItems;
+             ApplicationUser = applicationUser;
+         }
+         
+        
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.MultilineText)]
         [Display(Name = "Dirección de envío")]

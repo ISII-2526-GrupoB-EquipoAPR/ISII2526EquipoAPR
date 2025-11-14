@@ -21,8 +21,8 @@ namespace AppForSEII2526.UT.RentalsController_test
 
             var cars = new List<Car>
             {
-             new Car("Sedan", "Rojo", "Honda Civic 1.8 Gasolina", "1.8", "Honda", 18000, 5, "Gasolina", "16", models[0]),
-             new Car("Hatchback", "Azul", "Toyota Yaris 1.5 Híbrido", "1.5", "Toyota", 17000, 4, "Híbrido", "15", models[1]),
+             new Car(18000, "Sedan", "Rojo", "Honda Civic 1.8 Gasolina", "1.8", "Honda", 5, "Gasolina", "16", models[0]),
+             new Car(17000,"Hatchback", "Azul", "Toyota Yaris 1.5 Híbrido", "1.5", "Toyota",  4, "Híbrido", "15", models[1]),
             };
 
            
