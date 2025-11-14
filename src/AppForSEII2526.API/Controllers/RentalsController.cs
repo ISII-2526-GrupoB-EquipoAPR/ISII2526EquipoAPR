@@ -68,7 +68,7 @@ namespace AppForSEII2526.API.Controllers
 
             var user = _context.ApplicationUsers.FirstOrDefault(au => au.UserName == rentalForCreate.CustomerUserName);
             if (user == null)
-                ModelState.AddModelError("RentalApplicationUser", "Error! El nombre de usuario no está registrado");
+                ModelState.AddModelError("CustomerUserName", "Error! El nombre de usuario no está registrado");
 
             if (ModelState.ErrorCount > 0)
                 return BadRequest(new ValidationProblemDetails(ModelState));
