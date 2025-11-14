@@ -33,24 +33,19 @@ public class Car
             RimSize = rimSize;
             Model = model;
         }
-
-        public Car(string carClass, string color, string? description, string engDisplacement, string manufacturer, decimal rentingPrice, int quantityForRenting, string fuelType, string rimSize, Model model)
+        public Car(decimal rentingPrice, string carClass, string color, string? description, string engDisplacement, string manufacturer, int quantityForRenting, string fuelType, string rimSize, Model model)
         {
             CarClass = carClass;
             Color = color;
             Description = description;
             EngDisplacement = engDisplacement;
-            Manufacturer = manufacturer;
-            RentingPrice = rentingPrice;
+            Manufacturer = manufacturer;          
+            RentingPrice = rentingPrice;          
             QuantityForRenting = quantityForRenting;
             FuelType = fuelType;
             RimSize = rimSize;
             Model = model;
-
-           
         }
-
-
 
 
         [StringLength(10, MinimumLength = 1, ErrorMessage = "La clase del coche debe tener entre 1 y 10 caracteres.")]
