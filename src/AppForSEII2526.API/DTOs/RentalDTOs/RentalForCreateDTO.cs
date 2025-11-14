@@ -10,7 +10,9 @@
             PaymentMethod = paymentMethod;
             StartDate = startDate;
             EndDate = endDate;
+            RentalItems = rentalItems ?? throw new ArgumentNullException(nameof(rentalItems)); ;
         }
+       
 
 
 
@@ -48,7 +50,7 @@
                    && PaymentMethod == dTO.PaymentMethod
                    && CompareDate(StartDate, dTO.StartDate)
                    && CompareDate(EndDate, dTO.EndDate)
-                   && EqualityComparer<IList<RentalItemDTO>>.Default.Equals(RentalItems, dTO.RentalItems);
+                   && RentalItems.SequenceEqual(dTO.RentalItems);   
 
 
 
