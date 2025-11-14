@@ -59,7 +59,7 @@ namespace AppForSEII2526.UT.CarController_test
             {             //filters to apply - expected cars
                 new object[] { null, null, carDTOsTC1 },
                 new object[] { "Yaris", null, carDTOsTC2},
-                new object[] { null, 50000m, carDTOsTC3},
+                new object[] { null, 50000, carDTOsTC3},
             };
 
             return allTests;
@@ -84,9 +84,10 @@ namespace AppForSEII2526.UT.CarController_test
             var carDTOsActual = Assert.IsType<List<CarForRentalDTO>>(okResult.Value);
 
             // ORDENA AMBAS LISTAS POR ID ANTES DE COMPARAR
+           /*
             var expectedSorted = expectedCars.OrderBy(c => c.Id).ToList();
             var actualSorted = carDTOsActual.OrderBy(c => c.Id).ToList();
-
+           */
             Assert.Equal(expectedCars, carDTOsActual);
 
         }
