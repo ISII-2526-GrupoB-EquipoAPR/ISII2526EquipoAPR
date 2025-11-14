@@ -34,7 +34,7 @@ public class Car
             RimSize = rimSize;
             Model = model;
         }
-        public Car(string carClass, string color, string? description, string engDisplacement, string manufacturer,decimal rentingPrice, int quantityForRenting, string fuelType, string rimSize, Model model)
+        public Car(decimal rentingPrice, string carClass, string color, string? description, string engDisplacement, string manufacturer, int quantityForRenting, string fuelType, string rimSize, Model model)
         {
             CarClass = carClass;
             Color = color;

@@ -23,10 +23,10 @@ namespace AppForSEII2526.UT.CarController_test
 
             var cars = new List<Car>
             {
-                new Car("Hatchback", "Azul", "Toyota Yaris 1.5 Híbrido", "1.5", "Toyota", 45000, 4, "Híbrido", "15", models[0]),    // ← Azul (primero)
-                new Car("Sedan", "Blanco", "Tesla Model 3 Eléctrico", "0", "Tesla", 80000, 3, "Eléctrico", "18", models[1]),       // ← Blanco (segundo)
-                new Car("Sedan", "Rojo", "Honda Civic 1.8 Gasolina", "1.8", "Honda", 50000, 5, "Gasolina", "16", models[2]),       // ← Rojo (tercero)
-                new Car("SUV", "Gris", "Mazda CX-5 2.0 Gasolina", "2.0", "Mazda", 60000, 6, "Gasolina", "17", models[3])
+                new Car(45000,"Hatchback", "Azul", "Toyota Yaris 1.5 Híbrido", "1.5", "Toyota", 4, "Híbrido", "15", models[0]),    // ← Azul (primero)
+                new Car(80000,"Sedan", "Blanco", "Tesla Model 3 Eléctrico", "0", "Tesla",  3, "Eléctrico", "18", models[1]),       // ← Blanco (segundo)
+                new Car(50000,"Sedan", "Rojo", "Honda Civic 1.8 Gasolina", "1.8", "Honda", 5, "Gasolina", "16", models[2]),       // ← Rojo (tercero)
+                new Car(60000,"SUV", "Gris", "Mazda CX-5 2.0 Gasolina", "2.0", "Mazda",  6, "Gasolina", "17", models[3])
 
             };
 
