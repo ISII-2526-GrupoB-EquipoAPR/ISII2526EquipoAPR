@@ -6,7 +6,6 @@
         public Rental()
         {
         }
-
         public Rental(string deliveryAddress, string customerUserName, string customerNameSurname, int id, string deliveryCarDealer,
             DateTime endDate, DateTime startDate, DateTime rentingDate, PaymentMethodTypes paymentMethod, IList<RentalItem> rentalItems, ApplicationUser applicationUser)
         {
