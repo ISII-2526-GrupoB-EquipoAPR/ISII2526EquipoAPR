@@ -26,6 +26,25 @@
              ApplicationUser = applicationUser;
          }
          
+        public Rental(string deliveryAddress, string customerUserName, string customerNameSurname,string deliveryCarDealer,
+             DateTime endDate, DateTime startDate, DateTime rentingDate, PaymentMethodTypes paymentMethod, IList<RentalItem> rentalItems,
+             ApplicationUser applicationUser)
+        {
+            RentingPrice = rentalItems.Sum(ri => ri.PriceForRenting * (endDate - startDate).Days);
+
+            DeliveryAddress = deliveryAddress;
+            CustomerUserName = customerUserName;
+            CustomerNameSurname = customerNameSurname;
+            DeliveryCarDealer = deliveryCarDealer;
+            EndDate = endDate;
+            StartDate = startDate;
+            RentingDate = rentingDate;
+            PaymentMethod = paymentMethod;
+            RentalItems = rentalItems;
+            ApplicationUser = applicationUser;
+
+
+        }
         
 
         [DataType(System.ComponentModel.DataAnnotations.DataType.MultilineText)]
