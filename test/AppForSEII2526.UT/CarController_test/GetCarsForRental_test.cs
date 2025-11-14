@@ -41,11 +41,10 @@ namespace AppForSEII2526.UT.CarController_test
             var carDTOs = new List<CarForRentalDTO>()
             {
 
-
-                new CarForRentalDTO(1, "Yaris",   "Híbrido",  "Azul",   45000, "Toyota"),
-                new CarForRentalDTO(2, "Model 3", "Eléctrico","Blanco", 80000, "Tesla"),
-                new CarForRentalDTO(3, "Civic",   "Gasolina", "Rojo",   50000, "Honda"),
-                new CarForRentalDTO(4, "CX-5",    "Gasolina", "Gris",   60000, "Mazda")
+                    new CarForRentalDTO(4, "CX-5",    "Gasolina", "Gris",   60000, "Mazda"),     // ← Posición 0
+                    new CarForRentalDTO(1, "Yaris",   "Híbrido",  "Azul",   45000, "Toyota"),    // ← Posición 1  
+                    new CarForRentalDTO(3, "Civic",   "Gasolina", "Rojo",   50000, "Honda"),     // ← Posición 2
+                    new CarForRentalDTO(2, "Model 3", "Eléctrico","Blanco", 80000, "Tesla")      // ← Posición 3
 
                 
             };
@@ -60,7 +59,7 @@ namespace AppForSEII2526.UT.CarController_test
             {             //filters to apply - expected cars
                 new object[] { null, null, carDTOsTC1 },
                 new object[] { "Yaris", null, carDTOsTC2},
-                new object[] { null, 50000, carDTOsTC3},
+                new object[] { null, 50000m, carDTOsTC3},
             };
 
             return allTests;
