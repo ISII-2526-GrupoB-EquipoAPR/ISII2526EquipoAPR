@@ -40,7 +40,7 @@ namespace AppForSEII2526.UT.RentalsController_test
                 DateTime.Today.AddDays(5), DateTime.Today.AddDays(2), DateTime.Now,
                 AppForSEII2526.API.Models.PaymentMethodTypes.Visa, new List<RentalItem>(), user);
 
-            rental.RentalItems.Add(new RentalItem(cars[0], rental, 50000));
+            rental.RentalItems.Add(new RentalItem(cars[0], rental, 2));
 
             _context.ApplicationUsers.Add(user);
             _context.AddRange(models);

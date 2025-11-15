@@ -125,6 +125,7 @@ namespace AppForSEII2526.API.Controllers
                 else if (item.Quantity > (car.QuantityForRenting - car.NumberOfRentedItems))
                 {
                     ModelState.AddModelError("RentalItems", $"Error! El coche '{car.ModelName}' no tiene suficiente stock");
+                    //Disponible: {car.QuantityForRenting - car.NumberOfRentedItems}, Solicitado: {item.Quantity}" 
                 }
                 else if (car.NumberOfRentedItems >= car.QuantityForRenting) //no se si es necesario
                 {                
