@@ -40,7 +40,7 @@ namespace AppForSEII2526.UT.RentalsController_test
                 DateTime.Today.AddDays(5), DateTime.Today.AddDays(2), DateTime.Now,
                 AppForSEII2526.API.Models.PaymentMethodTypes.Visa, new List<RentalItem>(), user);
 
-            rental.RentalItems.Add(new RentalItem(cars[0], rental, 2));
+            rental.RentalItems.Add(new RentalItem(cars[0], rental, 50000));
 
             _context.ApplicationUsers.Add(user);
             _context.AddRange(models);
@@ -57,7 +57,7 @@ namespace AppForSEII2526.UT.RentalsController_test
 
                 var rentalItems = new List<RentalItemDTO>() {
                 new RentalItemDTO(2, _car2Model, "Toyota", 45000, 1)
-        };
+                };
 
                 var rentalApplicationUser = new RentalForCreateDTO("patricia@uclm.es", _customerNameSurname, _deliveryAddress,
                     PaymentMethodTypes.Visa, DateTime.Today.AddDays(2), DateTime.Today.AddDays(5), rentalItems);
@@ -71,12 +71,13 @@ namespace AppForSEII2526.UT.RentalsController_test
                     new List<RentalItemDTO>() { new RentalItemDTO(1, _car1Model, "Honda", 50000, 10) });
 
                 var allTest = new List<object[]>
-        {
-                new object[] { rentalNoItems, "Error! Debes seleccionar al menos un coche para alquilar" },
-                new object[] { rentalApplicationUser, "Error! El nombre de usuario no está registrado" },
-                new object[] { rentalCarNonExistent, "Error! El coche 'Model 3' no está disponible" },
-                new object[] { rentalCarNotAvailable, "Error! El coche 'Civic' no tiene suficiente stock. Disponible: 5, Solicitado: 10" },
-        };
+                {
+                 new object[] { rentalNoItems, "Error! Debes seleccionar al menos un coche para alquilar" },
+                 new object[] { rentalApplicationUser, "Error! El nombre de usuario no está registrado" },
+                 new object[] { rentalCarNonExistent, "Error! El coche con id 3 no existe" }, 
+                 new object[] { rentalCarNotAvailable, "Error! El coche 'Civic' no tiene suficiente stock" }, 
+   
+                };
 
                 return allTest;
         }
@@ -102,7 +103,7 @@ namespace AppForSEII2526.UT.RentalsController_test
             var errorActual = problemDetails.Errors.First().Value[0];
 
             // We check that the expected error message and actual are the same
-            Assert.Equal(errorExpected, errorActual);
+            Assert.Equal(errorExpected, errorActual); 
         }
 
         [Fact]

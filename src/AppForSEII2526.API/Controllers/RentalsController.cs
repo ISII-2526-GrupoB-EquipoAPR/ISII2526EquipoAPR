@@ -85,9 +85,10 @@ namespace AppForSEII2526.API.Controllers
                     ModelName = c.Model.Name,
                     c.QuantityForRenting,
                     c.RentingPrice,
-                    NumberOfRentedItems = c.RentalItems.Count(ri =>
-                        ri.Rental.StartDate <= rentalForCreate.EndDate &&
-                        ri.Rental.EndDate >= rentalForCreate.StartDate)
+                    NumberOfRentedItems = c.RentalItems
+                        .Where(ri => ri.Rental.StartDate <= rentalForCreate.EndDate &&
+                                     ri.Rental.EndDate >= rentalForCreate.StartDate)
+                        .Sum(ri => ri.Quantity)
                 })
                 .ToList();
 
@@ -111,19 +112,28 @@ namespace AppForSEII2526.API.Controllers
 
             foreach (var item in rentalForCreate.RentalItems)
             {
-                var car = cars.FirstOrDefault(c => c.ModelName == item.Model);
-                if (car == null || car.NumberOfRentedItems >= car.QuantityForRenting)
+                var car = cars.FirstOrDefault(c => c.Id == item.CarId);
+
+                if (car == null)
                 {
-                    ModelState.AddModelError("RentalItems", $"Error! El coche '{item.Model}' no está disponible entre {rentalForCreate.StartDate.ToShortDateString()} y {rentalForCreate.EndDate.ToShortDateString()}");
+                    ModelState.AddModelError("RentalItems", $"Error! El coche con id {item.CarId} no existe");
+                }
+                else if (item.Quantity <= 0)
+                {
+                    ModelState.AddModelError("RentalItems", $"Error! La cantidad para el coche '{car.ModelName}' debe ser mayor que cero");
+                }
+                else if (item.Quantity > (car.QuantityForRenting - car.NumberOfRentedItems))
+                {
+                    ModelState.AddModelError("RentalItems", $"Error! El coche '{car.ModelName}' no tiene suficiente stock");
                 }
                 else
                 {
-                    rental.RentalItems.Add(new RentalItem(car.Id, rental, car.RentingPrice)); //item.description
+                    rental.RentalItems.Add(new RentalItem(car.Id, rental,car.RentingPrice));
                     item.RentingPrice = car.RentingPrice;
                 }
             }
 
-             rental.RentingPrice = rental.RentalItems.Sum(ri => ri.PriceForRenting * (decimal)numDays);
+            rental.RentingPrice = rental.RentalItems.Sum(ri => ri.PriceForRenting * (decimal)numDays);
 
             if (ModelState.ErrorCount > 0)
                 return BadRequest(new ValidationProblemDetails(ModelState));
