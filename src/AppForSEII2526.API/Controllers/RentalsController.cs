@@ -126,6 +126,10 @@ namespace AppForSEII2526.API.Controllers
                 {
                     ModelState.AddModelError("RentalItems", $"Error! El coche '{car.ModelName}' no tiene suficiente stock");
                 }
+                else if (car.NumberOfRentedItems >= car.QuantityForRenting) //no se si es necesario
+                {                
+                    ModelState.AddModelError("RentalItems", $"Error! El coche '{car.ModelName}' no está disponible entre {rentalForCreate.StartDate.ToShortDateString()} y {rentalForCreate.EndDate.ToShortDateString()}");
+                }
                 else
                 {
                     rental.RentalItems.Add(new RentalItem(car.Id, rental,car.RentingPrice));
