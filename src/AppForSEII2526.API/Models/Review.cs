@@ -7,8 +7,24 @@ namespace AppForSEII2526.API.Models
           Novato,
           Experto
     }
+   
     public class Review
     {
+        public Review()
+        {
+            ReviewItems = new List<ReviewItem>();
+        }
+
+        public  Review(DateTime created,int id , string country, DriverTypes driverType, IList<ReviewItem> reviewItems, ApplicationUser applicationUser)
+        {
+            Created = created;
+            Id = id;
+            Country = country ?? throw new ArgumentNullException(nameof(country));
+            DriverType = driverType;
+            ReviewItems = reviewItems ?? throw new ArgumentNullException(nameof(reviewItems));
+            ApplicationUser = applicationUser ?? throw new ArgumentNullException(nameof(applicationUser));
+
+        }
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Fecha de creación")]

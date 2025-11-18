@@ -9,10 +9,10 @@ namespace AppForSEII2526.API.DTOs
 
         }
 
-        public CarForReviewDTO(int id, string Modelo,string CarClass, string Manufacturer, string Fueltype, string Color)
+        public CarForReviewDTO(int id, string Modelo, string Manufacturer, string Fueltype, string Color)
         {
             Id = id;
-            CarClass = CarClass;
+           
             Modelo = Modelo;
             Manufacturer = Manufacturer;
             FuelType = FuelType;
@@ -24,8 +24,7 @@ public int Id { get; set; }
 
 [StringLength(50, ErrorMessage = "El modelo debe tener una longitud máxima de 50 caracteres")]
 public string Modelo { get; set; }
-[StringLength(50, ErrorMessage = "La clase debe tener una longitud máxima de 50 caracteres")]
-public string CarClass { get; set; }
+
 [StringLength(50, ErrorMessage = "El fabricante debe tener una longitud máxima de 50 caracteres y mínima de 4", MinimumLength = 4)]
 public string Manufacturer { get; set; }
 
@@ -42,7 +41,7 @@ public string Color { get; set; }
         public override bool Equals(object? obj)
         {
             return obj is CarForReviewDTO dTO &&
-                CarClass == dTO.CarClass &&
+                
                   Id == dTO.Id &&
                    Modelo == dTO.Modelo &&
                    Manufacturer == dTO.Manufacturer &&
@@ -52,7 +51,7 @@ public string Color { get; set; }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Id, Modelo, CarClass, Manufacturer, FuelType, Color);
+            return HashCode.Combine(Id, Modelo, Manufacturer, FuelType, Color);
         }
     }
 }

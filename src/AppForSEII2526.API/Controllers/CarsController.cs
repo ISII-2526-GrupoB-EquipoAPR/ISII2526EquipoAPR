@@ -166,7 +166,6 @@ namespace AppForSEII2526.API.Controllers
                 {
                     Id = c.Id,
                     Modelo = c.Model.Name,
-                    CarClass = c.CarClass,
                     Manufacturer = c.Manufacturer,
                     FuelType = c.FuelType,
                     Color = c.Color

@@ -1,8 +1,18 @@
 ﻿namespace AppForSEII2526.API.Models
 {
     [PrimaryKey(nameof(CarId), nameof(ReviewId))]
+   
     public class ReviewItem
     {
+        public ReviewItem(Car car,Review review)
+        {
+            Car = car ?? throw new ArgumentNullException(nameof(car));
+           CarId = car.Id;
+            ReviewId = review.Id;
+            Review = review ?? throw new ArgumentNullException(nameof(review));
+            
+        }
+       
         public Car Car { get; set; }
 
         [StringLength(200, ErrorMessage = "La descripción no puede ser mayor de 200 caracteres.")]
@@ -15,6 +25,6 @@
         public Review Review { get; set; }
 
         [Range(1, 5, ErrorMessage = "La valoración debe estar entre 1 y 5")]
-        public int Rating { get; set; }
+        public int ? Rating { get; set; }
     }
 }
