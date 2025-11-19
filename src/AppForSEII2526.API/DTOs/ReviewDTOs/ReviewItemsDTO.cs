@@ -2,6 +2,10 @@
 {
     public class ReviewItemsDTO
     {
+        private string name;
+        private int? rating;
+        private string? description;
+
         public ReviewItemsDTO(int carId, string name, string color, string fuelType, string manufacturer, int rating, string? description)
         {
            CarID = carId;
@@ -13,8 +17,18 @@
            ReviewDescription = description;
         }
 
-      
-       public int CarID { get; set; }
+        public ReviewItemsDTO(int carId, string name, string color, string fuelType, string manufacturer, int? rating, string? description)
+        {
+            CarID = carId;
+            this.name = name;
+            Color = color;
+            Fueltype = fuelType;
+            Manufacturer = manufacturer;
+            this.rating = rating;
+            this.description = description;
+        }
+
+        public int CarID { get; set; }
 
             [StringLength(50, ErrorMessage = "El modelo debe tener una longitud máxima de 50 caracteres")]
             public string Model { get; set; }

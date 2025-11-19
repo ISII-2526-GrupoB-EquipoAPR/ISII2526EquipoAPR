@@ -2,11 +2,7 @@
 
 namespace AppForSEII2526.API.Models
 {
-    public enum DriverTypes
-    {
-          Novato,
-          Experto
-    }
+ 
    
     public class Review
     {
@@ -15,10 +11,15 @@ namespace AppForSEII2526.API.Models
             ReviewItems = new List<ReviewItem>();
         }
 
-        public  Review(DateTime created,int id , string country, DriverTypes driverType, IList<ReviewItem> reviewItems, ApplicationUser applicationUser)
+        public Review(string customerUserName, string country, string driverType)
+        {
+            Country = country;
+        }
+
+        public  Review(DateTime created ,string customerusername, string country, string driverType, IList<ReviewItem> reviewItems, ApplicationUser applicationUser)
         {
             Created = created;
-            Id = id;
+            CustomerUserName = customerusername ?? throw new ArgumentNullException(nameof(customerusername));
             Country = country ?? throw new ArgumentNullException(nameof(country));
             DriverType = driverType;
             ReviewItems = reviewItems ?? throw new ArgumentNullException(nameof(reviewItems));
@@ -29,6 +30,7 @@ namespace AppForSEII2526.API.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Fecha de creación")]
         public DateTime Created { get; set; }
+        public string CustomerUserName { get; set; }
 
         public int Id { get; set; }
 
@@ -36,8 +38,10 @@ namespace AppForSEII2526.API.Models
         [StringLength(25, ErrorMessage = "El nombre del país no puede superar los 25 caracteres.")]
         public string Country { get; set; }
 
-        [EnumDataType(typeof(DriverTypes), ErrorMessage = "El tipo de conductor no es válido.")]
-        public DriverTypes DriverType { get; set; }
+
+        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "El país solo puede contener letras.")]
+        [StringLength(25, ErrorMessage = "El nombre del país no puede superar los 25 caracteres.")]
+        public string DriverType { get; set; }
         public IList<ReviewItem> ReviewItems { get; set; } =   new List<ReviewItem>();
         public ApplicationUser ApplicationUser { get; set; }
         }

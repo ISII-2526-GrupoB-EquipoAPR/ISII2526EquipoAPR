@@ -26,7 +26,7 @@ namespace AppForSEII2526.UT.PurchasesController_test
 
             ApplicationUser user = new ApplicationUser("1", "Ruben", "Cuesta", "ruben@uclm.es", "Calle OBISPOs s/n, Albacete");
 
-            var review = new Review(DateTime.Now,1,"Spain",DriverTypes.Novato, new List<ReviewItem>(), user);
+            var review = new Review(DateTime.Now,"Spain","Novato","Gasolina", new List<ReviewItem>(), user);
             review.ReviewItems.Add(new ReviewItem(cars[0],review));
 
             _context.ApplicationUsers.Add(user);

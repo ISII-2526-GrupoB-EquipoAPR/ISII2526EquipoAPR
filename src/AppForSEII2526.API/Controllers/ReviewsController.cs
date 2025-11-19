@@ -1,4 +1,7 @@
-﻿using AppForSEII2526.API.DTOs.ReviewDTOs;
+﻿
+using AppForSEII2526.API.DTOs.RentalDTOs;
+using AppForSEII2526.API.DTOs.ReviewDTOs;
+using System.Linq;
 
 namespace AppForSEII2526.API.Controllers
 {
@@ -56,9 +59,99 @@ namespace AppForSEII2526.API.Controllers
 
             return Ok(review);
         }
+        [HttpPost]
+        [Route("[action]")]
+        [ProducesResponseType(typeof(ReviewDetailDTO), (int)HttpStatusCode.Created)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.Conflict)]
+        public async Task<ActionResult> CreateReview(ReviewForCreateDTO reviewForCreate)
+        {
+
+            if (reviewForCreate.ReviewItems == null || reviewForCreate.ReviewItems.Count == 0)
+                ModelState.AddModelError("ReviewItems", "Error! Debes seleccionar al menos un coche para reseñar");
+
+            var user = _context.ApplicationUsers.FirstOrDefault(au => au.UserName == reviewForCreate.CustomerUserName);
+            if (user == null)
+                ModelState.AddModelError("ReviewApplicationUser", "Error! El nombre de usuario no está registrado");
+
+            if (ModelState.ErrorCount > 0)
+                return BadRequest(new ValidationProblemDetails(ModelState));
+
+            var carIds = reviewForCreate.ReviewItems.Select(ri => ri.CarID).ToList();
+
+            var cars = _context.Cars
+                .Include(c => c.ReviewItems)
+                    .ThenInclude(ri => ri.Review)
+                .Where(c => carIds.Contains(c.Id))
+                .Select(c => new
+                {
+                   c.Id,
+                   c.Model.Name,
+                   c.FuelType,
+                   c.Manufacturer,
+                   c.Color,
 
 
-         
+
+                })
+                 .ToList();
+
+            var review = new Review(
+                DateTime.Now,
+               reviewForCreate.CustomerUserName,
+               reviewForCreate.Country,
+               reviewForCreate.DriverType,
+                new List<ReviewItem>(),
+                user
+
+
+         );
+
+               foreach (var item in reviewForCreate.ReviewItems)
+            {
+                var car = cars.FirstOrDefault(c => c.Id == item.CarID);
+                if (car == null )
+                {
+                    ModelState.AddModelError("ReviewItems", $"Error! El coche '{item.Model}' no está disponible");
+                }
+                else if (item.Rating > 5 || item.Rating < 1)
+                {
+                    ModelState.AddModelError("ReviewItems", $"Error! Rating must be greater than 0 and smaller than 6");
+                }
+                else
+                {
+                    review.ReviewItems.Add(new ReviewItem(item.CarID,review,item.ReviewDescription,item.Rating)); //item.description
+                    
+                }
+            }
+
+
+            if (ModelState.ErrorCount > 0)
+                return BadRequest(new ValidationProblemDetails(ModelState));
+
+            _context.Add(review);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                ModelState.AddModelError("Review", "Error al guardar la reseña, inténtelo de nuevo más tarde");
+                return Conflict("Error: " + ex.Message);
+            }
+
+            var reviewDetail = new ReviewDetailDTO(
+             
+            );
+
+            return CreatedAtAction("GetReview", new { id = review.Id }, reviewDetail);
+        }
 
     }
+
+
+
+
 }

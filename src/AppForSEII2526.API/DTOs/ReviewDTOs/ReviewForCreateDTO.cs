@@ -15,8 +15,17 @@ namespace AppForSEII2526.API.DTOs.ReviewDTOs
             CustomerUserName = customerUserName ?? throw new ArgumentNullException(nameof(customerUserName));
             Country = country ?? throw new ArgumentNullException(nameof(country));
             DriverType = driverType ?? throw new ArgumentNullException(nameof(driverType));
+            ReviewItems= reviewItems ?? throw new ArgumentNullException(nameof(reviewItems)); ;
         }
-        
+        public ReviewForCreateDTO( string customerUserName, string country, string driverType, IList<ReviewItemsDTO> reviewItems)
+        {
+         
+            CustomerUserName = customerUserName ?? throw new ArgumentNullException(nameof(customerUserName));
+            Country = country ?? throw new ArgumentNullException(nameof(country));
+            DriverType = driverType ?? throw new ArgumentNullException(nameof(driverType));
+            ReviewItems = reviewItems ?? throw new ArgumentNullException(nameof(reviewItems)); ;
+        }
+
         public int Id { get; set; }
 
         [EmailAddress]
@@ -31,7 +40,7 @@ namespace AppForSEII2526.API.DTOs.ReviewDTOs
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Por favor, introduzca su tipo de conductor")]
         public string DriverType { get; set; }
-       IList<ReviewItemsDTO> ReviewItems{ get; set; }  
+       public IList<ReviewItemsDTO> ReviewItems{ get; set; }  
 
 
 
