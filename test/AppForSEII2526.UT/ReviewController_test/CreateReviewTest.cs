@@ -118,7 +118,7 @@ namespace AppForSEII2526.UT.ReviewsController_test
             var expectedDTO = new ReviewDetailDTO(2, _userName, _country, _driverType,
                 new List<ReviewItemsDTO>()
                 {
-                    new ReviewItemsDTO(2, _car2Model, "Azul", "Gasolina", "Volkswagen", 5, "Excelente")
+                    new ReviewItemsDTO(2, _car2Model, "Azul", "Gasolina", "Volkswagen", 5, "Excelente") 
                 });
 
             var result = await controller.CreateReview(reviewDTO);
