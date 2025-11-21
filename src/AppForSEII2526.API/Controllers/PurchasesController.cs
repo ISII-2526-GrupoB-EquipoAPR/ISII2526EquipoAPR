@@ -124,6 +124,10 @@ namespace AppForSEII2526.API.Controllers
                 {
                     ModelState.AddModelError("PurchaseItems", $"Error! Car '{car.Model.Name}' does not have enough stock. Available: {car.QuantityForPurchasing - car.NumberOfPurchasedItems}, Requested: {item.Quantity}");
                 }
+                else if (item.Description == "" && item.Quantity == 2)
+                {
+                    ModelState.AddModelError("PurchaseItems", $"Error! Estás comprando demasiados coches sin descripción");
+                }
                 else
                 {
                     purchase.PurchaseItems.Add(new PurchaseItem(
