@@ -57,6 +57,9 @@ namespace AppForSEII2526.API.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.Conflict)]
         public async Task<ActionResult> CreateRental(RentalForCreateDTO rentalForCreate)
         {
+            if(!rentalForCreate.DeliveryAddress.Contains("Calle"))
+                ModelState.AddModelError("DeliveryAddress", "Error! La direccion de envio debe empezar por la palabra Calle");
+
             if (rentalForCreate.StartDate <= DateTime.Today)
                 ModelState.AddModelError("StartDate", "Error! La fecha de inicio del alquiler debe ser posterior a hoy");
 

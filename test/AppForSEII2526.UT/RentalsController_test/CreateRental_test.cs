@@ -15,7 +15,7 @@ namespace AppForSEII2526.UT.RentalsController_test
     {
         private const string _userName = "adela@uclm.es";
         private const string _customerNameSurname = "Adela Jerez Sanchez";
-        private const string _deliveryAddress = "Avda. España s/n, Albacete";
+        private const string _deliveryAddress = "Calle Avda. España s/n, Albacete";
 
         private const string _car1Model = "Civic";
         private const string _car2Model = "Yaris";
@@ -69,13 +69,16 @@ namespace AppForSEII2526.UT.RentalsController_test
                 var rentalCarNotAvailable = new RentalForCreateDTO(_userName, _customerNameSurname, _deliveryAddress,
                     PaymentMethodTypes.Visa, DateTime.Today.AddDays(2), DateTime.Today.AddDays(5),
                     new List<RentalItemDTO>() { new RentalItemDTO(1, _car1Model, "Honda", 50000, 10) });
+                var rentalCarNoAddress = new RentalForCreateDTO(_userName, _customerNameSurname, "Avn Turron",
+               PaymentMethodTypes.Visa, DateTime.Today.AddDays(2), DateTime.Today.AddDays(5), rentalItems);
 
-                var allTest = new List<object[]>
+            var allTest = new List<object[]>
                 {
                  new object[] { rentalNoItems, "Error! Debes seleccionar al menos un coche para alquilar" },
                  new object[] { rentalApplicationUser, "Error! El nombre de usuario no está registrado" },
                  new object[] { rentalCarNonExistent, "Error! El coche con id 3 no existe" }, 
                  new object[] { rentalCarNotAvailable, "Error! El coche 'Civic' no tiene suficiente stock" }, 
+                 new object[] {rentalCarNoAddress, "Error! La direccion de envio debe empezar por la palabra Calle" }
    
                 };
 
