@@ -61,6 +61,8 @@ namespace AppForSEII2526.UT.PurchasesController_test
 
             var purchaseCarZero = new PurchaseForCreateDTO(_deliveryAddress, _userName, _customerNameSurname, new List<PurchaseItemDTO>() { new PurchaseItemDTO(1, _car1Model, "Negro", 45000, 0) }, PaymentMethodTypes.Visa);
 
+            var purchaseTwoNullDescription = new PurchaseForCreateDTO(_deliveryAddress, _userName, _customerNameSurname, new List<PurchaseItemDTO>() { new PurchaseItemDTO(2, _car2Model,"Azul",0,2,"") }, PaymentMethodTypes.Visa);
+
             var allTest = new List<object[]>
             {
                 new object[] { purchaseNoITem, "Error! You must include at least one car to be purchased"},
@@ -68,6 +70,7 @@ namespace AppForSEII2526.UT.PurchasesController_test
                 new object[] { purchaseCarNonExistent, "Error! Car with id 3 does not exist" },
                 new object[] { purchaseCarNotAvailable, "Error! Car 'Q3' does not have enough stock. Available: 1, Requested: 3" },
                 new object[] { purchaseCarZero, "Error! Quantity for car 'Q3' must be greater than zero" },
+                new object[] { purchaseTwoNullDescription, "Error! Estás comprando demasiados coches sin descripción" }
             };
 
             return allTest;
