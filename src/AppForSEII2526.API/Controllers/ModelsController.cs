@@ -2,6 +2,8 @@
 
 namespace AppForSEII2526.API.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class ModelsController : Controller
     {
         private readonly ApplicationDbContext _context;
