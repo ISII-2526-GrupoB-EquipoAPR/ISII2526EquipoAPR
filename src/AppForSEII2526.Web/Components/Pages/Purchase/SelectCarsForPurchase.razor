@@ -9,7 +9,7 @@
 
 @attribute [Authorize]
 
-<h3>Select Cars For Purchase</h3>
+<h3>Seleccione los coches que desea comprar</h3>
 <div class="container-fluid">
     <div class="row alert alert-danger" role="alert" hidden="@hideErrors">
         <p id="ErrorsShown">Errors: @errors</p>
@@ -19,24 +19,24 @@
             <div class="row">
                 <div class="col">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Filtrado color</span>
-                        <input type="text" id="inputTitle" @bind=carColor class="form-control" placeholder="Filtrado por color" aria-label="Filtrado por color" aria-describedby="basic-addon1">
+                        <span class="input-group-text" id="basic-addon1">Filtre por color</span>
+                        <input type="text" id="inputTitle" @bind=carColor class="form-control" placeholder="Color" aria-label="Color" aria-describedby="basic-addon1">
                     </div>
                 </div>
                 <div class="col">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Filtrado modelo</span>
-                        <input type="text" id="inputTitle" @bind=carModel class="form-control" placeholder="Filtrado por modelo" aria-label="Filtrado por modelo" aria-describedby="basic-addon1">
+                        <span class="input-group-text" id="basic-addon1">Filtre por modelo</span>
+                        <input type="text" id="inputTitle" @bind=carModel class="form-control" placeholder="Modelo" aria-label="Modelo" aria-describedby="basic-addon1">
                     </div>
                 </div>
                 <div class="col">
-                    <button type="button" class="btn btn-primary" @onclick=@SearchCars id="searchCars">Search cars</button>
+                    <button type="button" class="btn btn-primary" @onclick=@SearchCars id="searchCars">Buscar coches</button>
                 </div>
 
             </div>
             <div class="row">
                 @if (cars == null) {
-                    <p>Loading cars....</p>
+                    <p>Cargando coches....</p>
                 }
                 else
                 {
@@ -60,7 +60,7 @@
                                         <td>@car.PurchasingPrice</td>
                                         <td>@car.FuelType</td>
                                         <td>
-                                            <button class="btn btn-outline-secondary" id="movieToRent_@car.Model" @onclick="@(() => AddCar(car))">Add</button>
+                                            <button class="btn btn-outline-secondary" id="carToPurchase_@car.Model" @onclick="@(() => AddCar(car))">Añadir</button>
                                         </td>
                                     </tr>
                                 }
@@ -73,15 +73,15 @@
         </div>
         <div class="col-2" hidden="@hidePurchasingCart">
             <div class="row">
-                <h3>Shopping Cart</h3>
+                <h3>Carrito de compra</h3>
             </div>
             @foreach (PurchaseItemDTO item in purchase.PurchaseItems) {
                 <div class="row">
-                    <button type="button" class="btn btn-light" id="removeMovie_@item.Model" @onclick="@(() => RemovePurchaseItem(item))">x @item.Model - @item.PurchasingPrice€</button>
+                    <button type="button" class="btn btn-light" id="removeCar_@item.Model" @onclick="@(() => RemovePurchaseItem(item))">x @item.Model - @item.PurchasingPrice€</button>
                 </div>
             }
             <div class="row">
-                <button type="button" class="btn btn-primary" id="purchaseMovieButton" @onclick=@PurchaseCars>Comprar coche</button>
+                <button type="button" class="btn btn-primary" id="purchaseCarButton" @onclick=@PurchaseCars>Comprar coche/s</button>
             </div>
         </div>
 
