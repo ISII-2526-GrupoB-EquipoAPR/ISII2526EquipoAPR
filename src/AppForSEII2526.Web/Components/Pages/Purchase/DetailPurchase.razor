@@ -5,7 +5,7 @@
 @inject AppForSEII2526APIClient apiclient
 
 
-<h3>DetailPurchase</h3>
+<h3>Detalles de su compra</h3>
 
 @attribute [Authorize]
 
@@ -17,19 +17,19 @@ else
 {
     <table class="table table-borderless table-sm">
         <tr>
-            <th>Name and Surname</th>
+            <th>Nombre y apellidos</th>
             <td id="NameSurname">@purchase.CustomerUserName @purchase.CustomerUserName</td>
         </tr>
         <tr>
-            <th>Delivery Address</th>
+            <th>Dirección</th>
             <td id="DeliveryAddress">@purchase.DeliveryAddress</td>
         </tr>
         <tr>
-            <th>Payment Method</th>
+            <th>Método de pago</th>
             <td id="PaymentMethod">@purchase.PaymentMethod</td>
         </tr>
         <tr>
-            <th>Purchase Date</th>
+            <th>Fecha de compra</th>
             <td id="PurchaseDate">@purchase.PurchasingDate.ToString("dd/MM/yyyy hh:mm:ss")</td>
         </tr>
     </table>

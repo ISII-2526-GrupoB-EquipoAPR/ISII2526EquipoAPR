@@ -10,7 +10,7 @@
 
 @attribute [Authorize]
 
-<h3>Create Purchase</h3>
+<h3>Realizar compra</h3>
 @* purchase is the object that will be edited thanks to the form *@
 <EditForm Model="purchase" OnValidSubmit="OpenDialog">
     <div class="row">
@@ -23,14 +23,14 @@
     <div class="row g-3">
         <div class="col-md">
             <div class="form-floating mb-3">
-                <InputText @bind-Value="purchase.CustomerUserName" class="form-control" id="Nombre" />
-                <label for="Nombre">Nombre </label>
+                <InputText @bind-Value="purchase.CustomerUserName" class="form-control" id="Email" />
+                <label for="Email">Email </label>
             </div>
         </div>
         <div class="col-md">
             <div class="form-floating mb-3">
                 <InputText @bind-Value="purchase.CustomerNameSurname" class="form-control" id="Apellidos" />
-                <label for="Nombre">Nombre </label>
+                <label for="Nombre y apellidos">Nombre y apellidos </label>
             </div>
         </div>
         <div class="col-md">
@@ -49,7 +49,7 @@
                     <option value="@PaymentMethodTypes.Paypal"> PayPal</option>
                     <option value="@PaymentMethodTypes.GooglePay"> Google Pay</option>
                 </InputSelect>
-                <label for="PaymentMethod">Payment Method</label>
+                <label for="PaymentMethod">Método de pago</label>
             </div>
         </div>
         <div class="col-md">
