@@ -4,6 +4,10 @@
    
     public class ReviewItem
     {
+
+        public ReviewItem()
+        {
+        }
         public ReviewItem(Car car,Review review)
         {
             Car = car ?? throw new ArgumentNullException(nameof(car));

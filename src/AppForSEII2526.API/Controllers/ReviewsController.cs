@@ -23,22 +23,25 @@ namespace AppForSEII2526.API.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult> GetReviews(int id)
         {
-            if (_context.Reviews == null)
+            try
             {
-                _logger.LogError("Error:Reviews table does not exist");
-                return NotFound();
-            }
+                if (_context.Reviews == null)
+                {
+                    _logger.LogError("Error:Reviews table does not exist");
+                    return NotFound();
+                }
 
-            var review = await _context.Reviews
+                var review = await _context.Reviews
     .Where(r => r.Id == id)
     .Include(r => r.ReviewItems)
         .ThenInclude(ri => ri.Car)
             .ThenInclude(car => car.Model)
+    .Include(r => r.ApplicationUser) 
     .Select(r => new ReviewDetailDTO(
         r.Id,
-        r.ApplicationUser.UserName,
-        r.Country,
-        r.DriverType.ToString(),
+        r.ApplicationUser.Name,  
+        r.Country,                    
+        r.DriverType.ToString(),  
         r.ReviewItems.Select(ri => new ReviewItemsDTO(
             ri.CarId,
             ri.Car.Model.Name,
@@ -50,14 +53,20 @@ namespace AppForSEII2526.API.Controllers
         )).ToList())
     ).FirstOrDefaultAsync();
 
-            if (review == null)
+                if (review == null)
+                {
+                    _logger.LogError($"Error: review with id {id} does not exist");
+                    return NotFound();
+                }
+
+                _logger.LogInformation($"Review with id {id} obtained successfully");
+                return Ok(review);
+            }
+            catch (Exception ex)
             {
-                _logger.LogError($"Error: review with id {id} does not exist");
+                _logger.LogError(ex.Message);
                 return NotFound();
             }
-
-
-            return Ok(review);
         }
         [HttpPost]
         [Route("[action]")]
@@ -90,9 +99,6 @@ namespace AppForSEII2526.API.Controllers
                    c.FuelType,
                    c.Manufacturer,
                    c.Color,
-
-
-
                 })
                  .ToList();
 

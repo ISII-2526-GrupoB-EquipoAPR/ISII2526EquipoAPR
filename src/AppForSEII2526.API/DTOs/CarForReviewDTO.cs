@@ -9,18 +9,16 @@ namespace AppForSEII2526.API.DTOs
 
         }
 
-        public CarForReviewDTO(int id, string Modelo, string Manufacturer, string Fueltype, string Color)
+        public CarForReviewDTO(int id, string modelo, string manufacturer, string fueltype, string color)
         {
             Id = id;
-           
-            Modelo = Modelo;
-            Manufacturer = Manufacturer;
-            FuelType = FuelType;
-            Color = Color;
+            Modelo = modelo;
+           Manufacturer = manufacturer;
+            FuelType = fueltype; 
+            Color = color;
         }
 
-
-public int Id { get; set; }
+        public int Id { get; set; }
 
 [StringLength(50, ErrorMessage = "El modelo debe tener una longitud máxima de 50 caracteres")]
 public string Modelo { get; set; }

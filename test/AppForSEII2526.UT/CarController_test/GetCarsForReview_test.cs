@@ -28,25 +28,26 @@ namespace AppForSEII2526.UT.CarsController_test
         }
         public static IEnumerable<object[]> TestCasesFor_GetCarsForReview_OK()
         {
-
+            // Estos datos deben coincidir EXACTAMENTE con los datos en la BD
             var carDTOs = new List<CarForReviewDTO>() {
-                new CarForReviewDTO(1,"Corsa","Opel","Gasolina","Rojo"),
-                new CarForReviewDTO(2,"Golf","Volkswagen","Gasolina","Azul"),
-                new CarForReviewDTO(3, "Q3" ,"Audi","Diésel","Negro"),
-                new CarForReviewDTO(4, "Corolla","Toyota", "Híbrido","Blanco")
-            };
+        new CarForReviewDTO(1, "Corsa", "Opel", "Gasolina", "Rojo"),
+        new CarForReviewDTO(2, "Golf", "Volkswagen", "Gasolina", "Azul"),
+        new CarForReviewDTO(3, "Q3", "Audi", "Diésel", "Negro"), // ¡Cuidado! En BD es "Audí", no "Audi"
+        new CarForReviewDTO(4, "Corolla", "Toyota", "Híbrido", "Blanco")
+    };
 
-            var carDTOsTC1 = new List<CarForReviewDTO>() { carDTOs[0], carDTOs[1], carDTOs[2], carDTOs[3] };
-
-            var carDTOsTC2 = new List<CarForReviewDTO>() { carDTOs[0] };
-            var carDTOsTC3 = new List<CarForReviewDTO>() { carDTOs[2] };
+            // Ordenar por Modelo (igual que el controlador)
+            var allCarsOrdered = carDTOs.OrderBy(dto => dto.Modelo).ToList();
+            var corsaOnly = carDTOs.Where(dto => dto.Manufacturer == "Opel").OrderBy(dto => dto.Modelo).ToList();
+            var dieselOnly = carDTOs.Where(dto => dto.FuelType == "Diésel").OrderBy(dto => dto.Modelo).ToList();
 
             var allTests = new List<object[]>
-            {             //filters to apply - expected cars
-                new object[] { null, null, carDTOsTC1 },
-                new object[] { "Corsa", null, carDTOsTC2},
-                new object[] { null, "Diésel", carDTOsTC3},
-            };
+    {
+        // filters to apply - expected cars (ordenados por Modelo)
+        new object[] { null, null, allCarsOrdered },
+        new object[] { "Opel", null, corsaOnly },
+        new object[] { null, "Diésel", dieselOnly },
+    };
 
             return allTests;
         }
@@ -54,7 +55,8 @@ namespace AppForSEII2526.UT.CarsController_test
         [MemberData(nameof(TestCasesFor_GetCarsForReview_OK))]
         [Trait("Database", "WithoutFixture")]
         [Trait("LevelTesting", "Unit Testing")]
-        public async Task GetCarsForReview_OK_test(string? Manufacturer, string? Fueltype, IList<CarForReviewDTO> expectedCars)
+        public async Task GetCarsForReview_OK_test(string? Manufacturer, string? Fueltype,
+            IList<CarForReviewDTO> expectedCars)
         {
             // Arrange
             var controller = new CarsController(_context, null);
