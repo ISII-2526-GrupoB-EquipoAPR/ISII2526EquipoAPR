@@ -28,9 +28,10 @@ namespace AppForSEII2526.Web
 
         public void AddCarToRental(CarForRentalDTO car)
         {
-            if (!Rental.RentalItems.Any(ri => ri.Model == car.Model))
+            if (!Rental.RentalItems.Any(ri => ri.CarId == car.Id))
                 Rental.RentalItems.Add(new RentalItemDTO()
                 {
+                    CarId = car.Id,
                     Model = car.Model,
                     Manufacturer = car.Manufacturer,
                     RentingPrice = car.PriceForRenting

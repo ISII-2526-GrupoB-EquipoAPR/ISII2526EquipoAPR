@@ -9,6 +9,7 @@
 
 
 
+
 <h3>Select Cars for Rental</h3>
 <div class="container-fluid">
     <div class="row alert alert-danger" role="alert" hidden="@hideErrors">
@@ -29,17 +30,7 @@
                         <input type="text" id="priceforrenting" @bind=priceforrenting class="form-control" placeholder="PriceForRenting" aria-label="PriceForRenting" aria-describedby="basic-addon1">
                     </div>
                 </div>
-                <div class="col">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Start</span>
-                        <InputDate @bind-Value="@From" id="startDate" />
-                    </div>
-                </div>
-                <div class="col">
-                    <span class="input-group-text">End</span>
-                    <InputDate id="endDate" @bind-Value="@To" />
 
-                </div>
                 <div class="col">
                     <button type="button" class="btn btn-primary" @onclick=@SearchCars id="searchCars">Search Cars</button>
                 </div>
@@ -109,14 +100,14 @@
 
 
 @code {
-
-
+    private string carModelSelected;
+    private ICollection<string>? modelsNames = new List<string>();
     private bool hideRentingCart { get { return rental.RentalItems.Count == 0; } }
     private ICollection<CarForRentalDTO> cars;
     private bool hideErrors { get { return errors.Length == 0; } }
     private string errors = "";
     private string carmodel { get; set; }
-    private float? priceforrenting { get; set; }
+    private double priceforrenting { get; set; }
 
     private DateTime _from;
     private DateTime From
@@ -167,7 +158,7 @@
     {
         try
         {
-            cars = await apiclient.GetCarForRentalAsync(carmodel, priceforrenting);
+            cars = await apiclient.GetCarForRentalAsync(carmodel,priceforrenting);
             errors = "";
         }
         catch (ApiException ex)
@@ -178,11 +169,17 @@
         StateHasChanged();
     }
 
-    protected override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
-        SearchCars();
-
-        return base.OnInitializedAsync();
+        try
+        {
+            modelsNames = await apiclient.GetModelsAsync(null);
+        }
+        catch (ApiException ex)
+        {
+            if (modelsNames == null) modelsNames = new List<string>() { "All" };
+            logger.LogError("Error! There was an error while connecting to the GetModelsAsync service");
+        }
     }
     private void RentCars()
     {
