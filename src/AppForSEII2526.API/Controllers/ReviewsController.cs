@@ -48,9 +48,8 @@ namespace AppForSEII2526.API.Controllers
             ri.Car.Color,
             ri.Car.FuelType,
             ri.Car.Manufacturer,
-            ri.Rating,
-            ri.Car.Description
-        )).ToList())
+          ri.Car.Description
+        )).ToList<ReviewItemsDTO>())
     ).FirstOrDefaultAsync();
 
                 if (review == null)
@@ -76,7 +75,7 @@ namespace AppForSEII2526.API.Controllers
         public async Task<ActionResult> CreateReview(ReviewForCreateDTO reviewForCreate)
         {
 
-            if (reviewForCreate.ReviewItems == null || reviewForCreate.ReviewItems.Count == 0)
+            if ( reviewForCreate.ReviewItems.Count == 0)
                 ModelState.AddModelError("ReviewItems", "Error! Debes seleccionar al menos un coche para reseñar");
 
             var user = _context.ApplicationUsers.FirstOrDefault(au => au.UserName == reviewForCreate.CustomerUserName);
@@ -88,8 +87,7 @@ namespace AppForSEII2526.API.Controllers
 
             var carIds = reviewForCreate.ReviewItems.Select(ri => ri.CarID).ToList();
 
-            var cars = _context.Cars
-                .Include(c => c.ReviewItems)
+            var cars = _context.Cars.Include(c => c.ReviewItems)
                     .ThenInclude(ri => ri.Review)
                 .Where(c => carIds.Contains(c.Id))
                 .Select(c => new
@@ -102,7 +100,7 @@ namespace AppForSEII2526.API.Controllers
                 })
                  .ToList();
 
-            var review = new Review(
+            Review   review = new Review(
                 DateTime.Now,
                reviewForCreate.CustomerUserName,
                reviewForCreate.Country,
@@ -126,7 +124,8 @@ namespace AppForSEII2526.API.Controllers
                 }
                 else
                 {
-                    review.ReviewItems.Add(new ReviewItem(item.CarID,review,item.ReviewDescription,item.Rating)); //item.description
+                    review.ReviewItems.Add(new ReviewItem(car.Id,review,item.ReviewDescription,
+                        item.Rating)); //item.description
                     
                 }
             }
@@ -135,7 +134,7 @@ namespace AppForSEII2526.API.Controllers
             if (ModelState.ErrorCount > 0)
                 return BadRequest(new ValidationProblemDetails(ModelState));
 
-            _context.Add(review);
+            _context.Reviews.Add(review);
 
             try
             {
@@ -149,7 +148,11 @@ namespace AppForSEII2526.API.Controllers
             }
 
             var reviewDetail = new ReviewDetailDTO(
-             
+             review.Id,
+             review.CustomerUserName,
+             review.Country,
+             review.DriverType,
+             reviewForCreate.ReviewItems
             );
 
             return CreatedAtAction("GetReview", new { id = review.Id }, reviewDetail);

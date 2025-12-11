@@ -8,6 +8,16 @@
         public ReviewItem()
         {
         }
+        public ReviewItem(Car car, Review review,string reviewdescription,int rating)
+        {
+            Car = car ?? throw new ArgumentNullException(nameof(car));
+            CarId = car.Id;
+            Rating = rating;
+            Description = reviewdescription;
+            ReviewId = review.Id;
+            Review = review ?? throw new ArgumentNullException(nameof(review));
+
+        }
         public ReviewItem(Car car,Review review)
         {
             Car = car ?? throw new ArgumentNullException(nameof(car));
@@ -31,7 +41,7 @@
         [StringLength(200, ErrorMessage = "La descripción no puede ser mayor de 200 caracteres.")]
         public string? Description { get; set; }
 
-        public int CarId { get; set; }
+        public int  CarId { get; set; }
 
         public int ReviewId { get; set; }
 

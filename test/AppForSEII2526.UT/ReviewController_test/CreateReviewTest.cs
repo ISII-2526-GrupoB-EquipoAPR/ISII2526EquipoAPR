@@ -65,7 +65,7 @@ namespace AppForSEII2526.UT.ReviewsController_test
                 new List<ReviewItemsDTO>() { new ReviewItemsDTO(99, "ModeloFalso", "Blanco", "Gasolina", "MarcaX", 4, "No existe") });
 
             var reviewInvalidRating = new ReviewForCreateDTO(_userName, _country, _driverType,
-                new List<ReviewItemsDTO>() { new ReviewItemsDTO(1, _car1Model, "Negro", "Diésel", "Audi", 7, "Rating inválido") });
+                new List<ReviewItemsDTO>() { new ReviewItemsDTO(6, _car1Model, "Negro", "Diésel", "Audi", 7, "Rating inválido") });
 
             var allTest = new List<object[]>
             {

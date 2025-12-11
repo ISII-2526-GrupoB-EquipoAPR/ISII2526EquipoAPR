@@ -17,16 +17,19 @@
            ReviewDescription = description;
         }
 
-        public ReviewItemsDTO(int carId, string name, string color, string fuelType, string manufacturer, int? rating, string? description)
+
+        public ReviewItemsDTO(int carId, string name, string color, string fuelType, string manufacturer, string? description)
         {
             CarID = carId;
-            this.name = name;
+            Model = name;
             Color = color;
             Fueltype = fuelType;
             Manufacturer = manufacturer;
-            this.rating = rating;
-            this.description = description;
+         
+            ReviewDescription = description;
         }
+
+
 
         public int CarID { get; set; }
 

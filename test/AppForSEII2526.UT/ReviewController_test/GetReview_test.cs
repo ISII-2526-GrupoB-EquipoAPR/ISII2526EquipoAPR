@@ -1,17 +1,23 @@
 ﻿using AppForSEII2526.API.Controllers;
+using AppForSEII2526.API.DTOs.PurchaseDTOs;
 using AppForSEII2526.API.DTOs.ReviewDTOs;
+using AppForSEII2526.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppForSEII2526.UT.PurchasesController_test
+namespace AppForSEII2526.UT.ReviewsController_test
 {
     public class GetReview_test : AppForSEII25264SqliteUT
     {
+        
         public GetReview_test()
         {
+           
+           ;
+
             var models = new List<Model>
             {
                 new Model ("Golf"),
@@ -24,10 +30,15 @@ namespace AppForSEII2526.UT.PurchasesController_test
                 new Car("SUV","Negro","Audi Q3","2.0","Audi",45000,2,"Diésel","18",models[1])
             };
 
-            ApplicationUser user = new ApplicationUser("1", "Ruben", "Cuesta", "ruben@uclm.es", "Calle OBISPOs s/n, Albacete");
+            ApplicationUser user = new ApplicationUser("1", "Rubén", "Cuesta", "ruben@uclm.es", "Calle OBISPOs s/n, Albacete");
 
-            var review = new Review(DateTime.Now,"Spain","Novato","Gasolina", new List<ReviewItem>(), user);
+           
+           
+
+            var review = new Review(DateTime.Now, "Rubén", "Spain", "Novato", new List<ReviewItem>(), user);
+
             review.ReviewItems.Add(new ReviewItem(cars[0],review));
+
 
             _context.ApplicationUsers.Add(user);
             _context.AddRange(models);
@@ -46,12 +57,11 @@ namespace AppForSEII2526.UT.PurchasesController_test
             ILogger<ReviewsController> logger = mock.Object;
 
             var controller = new ReviewsController(_context, logger);
-             
+
             //Act
             var result = await controller.GetReviews(0);
 
             //Assert
-            //we check that the response is OK and obtain the list of cars
             Assert.IsType<NotFoundResult>(result);
         }
 
@@ -63,21 +73,22 @@ namespace AppForSEII2526.UT.PurchasesController_test
             var mock = new Mock<ILogger<ReviewsController>>();
             ILogger<ReviewsController> logger = mock.Object;
 
-            var controller = new    ReviewsController(_context, logger);
+            var controller = new ReviewsController(_context, logger);
 
-            var expectedReview = new ReviewDetailDTO(1, "Ruben", "Spain","Novato",new List<ReviewItemsDTO>());
-            expectedReview.ReviewItems.Add(new ReviewItemsDTO(1, "Ruben", "Azul", "Gasolina", "Volkswagen",3,null));
+            var expectedReview = new ReviewDetailDTO(1, "Rubén", "Spain","Novato", new List<ReviewItemsDTO>());
+            expectedReview.ReviewItems.Add(new ReviewItemsDTO(1, "Golf", "Azul", "Gasolina", "Volkswagen", "Volkswagen Golf"));
             //Act
             var result = await controller.GetReviews(1);
 
             //Assert
-            //we check that the response is OK and obtain the purchase
+            //we check that the response is OK and obtain the review
             var okResult = Assert.IsType<OkObjectResult>(result);
             var reviewDTOActual = Assert.IsType<ReviewDetailDTO>(okResult.Value);
             var eq = expectedReview.Equals(reviewDTOActual);
 
             Assert.Equal(expectedReview, reviewDTOActual);
-        }
 
-    } 
-}
+
+        }
+        }
+    }
