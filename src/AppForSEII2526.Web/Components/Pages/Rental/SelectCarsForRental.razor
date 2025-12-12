@@ -107,7 +107,7 @@
     private bool hideErrors { get { return errors.Length == 0; } }
     private string errors = "";
     private string carmodel { get; set; }
-    private double priceforrenting { get; set; }
+    private double? priceforrenting { get; set; }
 
     private DateTime _from;
     private DateTime From
@@ -171,6 +171,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+ 
         try
         {
             modelsNames = await apiclient.GetModelsAsync(null);
@@ -180,6 +181,8 @@
             if (modelsNames == null) modelsNames = new List<string>() { "All" };
             logger.LogError("Error! There was an error while connecting to the GetModelsAsync service");
         }
+        if (priceforrenting == 0) priceforrenting = null;
+        SearchCars();
     }
     private void RentCars()
     {
