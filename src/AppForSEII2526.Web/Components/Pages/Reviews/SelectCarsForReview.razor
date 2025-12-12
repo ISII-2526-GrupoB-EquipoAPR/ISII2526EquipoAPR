@@ -20,13 +20,13 @@
                 <div class="col">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Filtrado Fabricante</span>
-                        <input type="text" id="inputTitle" @bind=carColor class="form-control" placeholder="Filtrado por Fabricante" aria-label="Filtrado por color" aria-describedby="basic-addon1">
+                        <input type="text" id="inputTitle" @bind=Manufacturer class="form-control" placeholder="Filtrado por Fabricante" aria-label="Filtrado por color" aria-describedby="basic-addon1">
                     </div>
                 </div>
                 <div class="col">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Filtrado Combustible</span>
-                        <input type="text" id="inputTitle" @bind=carModel class="form-control" placeholder="Filtrado por Combustible" aria-label="Filtrado por modelo" aria-describedby="basic-addon1">
+                        <input type="text" id="inputTitle" @bind=Fueltype class="form-control" placeholder="Filtrado por Combustible" aria-label="Filtrado por modelo" aria-describedby="basic-addon1">
                     </div>
                 </div>
                 <div class="col">
@@ -75,10 +75,10 @@
             <div class="row">
                 <h3>Shopping Cart</h3>
             </div>
-            @foreach ( item in review)
+            @foreach ( CarForReviewDTO item in review.ReviewItems)
             {
                 <div class="row">
-                    <button type="button" class="btn btn-light" id="removeMovie_@item.Model" @onclick="@(() => RemoveReviewItem(item))">x @item.Model - @item.PurchasingPrice€</button>
+                    <button type="button" class="btn btn-light" id="removeMovie_@item.Modelo" @onclick="@(() => RemoveReviewItem(item))">x</button>
                 </div>
             }
             <div class="row">
@@ -97,10 +97,10 @@
     private ICollection<CarForReviewDTO> cars;
     private bool hideErrors { get { return errors.Length == 0; } }
     private string errors = "";
-    private string carColor { get; set; }
-    private string carModel { get; set; }
+    private string Manufacturer { get; set; }
+    private string Fueltype { get; set; }
 
-    private CarForReviewDTO review => Rev;
+    private CarForReviewDTO review => reviewState.Review;
 
     private bool hiddenPurchaseCart = true;
 
@@ -109,7 +109,7 @@
         reviewState.AddCarToReview(car);
     }
 
-    private void RemoveReviewItem(ReviewDetailDTO item)
+    private void RemoveReviewItem(ReviewItemsDTO item)
     {
         reviewState.RemoveReviewItemToReview(item);
         if (review.ReviewItem.Count == 0) hiddenPurchaseCart = true;
@@ -119,7 +119,7 @@
     {
         try
         {
-            cars = await apiclient.GetCarForReviewAsync(carColor, carModel);
+            cars = await apiclient.GetCarForReviewAsync(Manufacturer,Fueltype);
             errors = "";
 
         }

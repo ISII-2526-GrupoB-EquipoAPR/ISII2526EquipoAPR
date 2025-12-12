@@ -19,19 +19,18 @@ public event Action? OnChange;
 
         public void AddCarToReview(CarForReviewDTO car)
         {
-            //before adding a car we checked whether it has been already added
-            if (!Review.ReviewItems.Any(ri => ri.CarID == car.Id))
-            //we add it if it is not in the list
-            Review.ReviewItems.Add(new ReviewItemsDTO()
+            if (!Review.ReviewItems.Any(ri => ri.Model == car.Modelo))
+                Review.ReviewItems.Add(new ReviewItemsDTO()
                 {
-                CarID = car.Id,
-                    Model =car.Modelo,
-                   Color = car.Color,
-                Fueltype = car.FuelType,
-                Manufacturer = car.Manufacturer,
-                Rating = 1,
-                ReviewDescription = ""
-            }
+                    CarID= car.Id,
+                    Model= car.Modelo,
+                    Color= car.Color,
+                    Fueltype = car.FuelType,
+                    Manufacturer= car.Manufacturer,
+                    Rating= 1, //default rating
+                    ReviewDescription =""
+
+                }
             );
 
         }
