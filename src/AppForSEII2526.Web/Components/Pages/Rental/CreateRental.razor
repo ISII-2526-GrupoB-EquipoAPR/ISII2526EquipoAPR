@@ -33,13 +33,28 @@
         <div class="col-md">
             <div class="form-floating mb-3">
                 <InputText @bind-Value="rental.CustomerNameSurname" class="form-control" id="Surname" />
-                <label for="Name">Name </label>
+                <label for="Surname">Surname </label>
             </div>
         </div>
         <div class="col-md">
             <div class="form-floating mb-3">
                 <InputText @bind-Value="rental.DeliveryAddress" class="form-control" id="DeliveryAddress" />
                 <label for="DeliveryAddress">Delivery Address</label>
+            </div>
+        </div>
+        <div class="row g-3">
+            <div class="col-md">
+                <div class="form-floating mb-3">
+                    <InputDate @bind-Value="rental.StartDate" class="form-control" id="StartDate" />
+                    <label for="StartDate">Start Date</label>
+                </div>
+            </div>
+
+            <div class="col-md">
+                <div class="form-floating mb-3">
+                    <InputDate @bind-Value="rental.EndDate" class="form-control" id="EndDate" />
+                    <label for="EndDate">End Date</label>
+                </div>
             </div>
         </div>
     </div>
@@ -104,16 +119,14 @@
     </div>
 
 </EditForm>
-
-@*a modal popup dialog for checking if user wants to proceed to rent*@
-
 @if (DialogIsOpen)
 {
-    <Dialog Caption="Rental movies"
-        Message="Do you want to proceed to rent the selected movies?"
-        OnClose="@OnDialogClose"
-        Type=Dialog.Category.SaveNot>
+    <Dialog Caption="Alquilar coches"
+         Message="¿Está seguro de que quiere alquilar los coches seleccionados?"
+         OnClose="@OnDialogClose"
+         Type=Dialog.Category.SaveNot>
     </Dialog>
+
 }
 
 
@@ -130,7 +143,7 @@
         get
         {
             int days = (rental.EndDate.DateTime - rental.StartDate.DateTime).Days;
-            double price = rental.RentalItems.Sum(ri => ri.RentingPrice * days);
+            double price = rental.RentalItems.Sum(ri => ri.RentingPrice * ri.Quantity * days);
             return Convert.ToDecimal(price);
         }
 
