@@ -1,0 +1,194 @@
+﻿@page "/rental/selectcarsforrental"
+
+@using AppForSEII2526.Web.API
+@using Microsoft.AspNetCore.Authorization
+@inject AppForSEII2526APIClient apiclient
+@inject ILogger<SelectCarsForRental> logger
+@inject RentalStateContainer rentalState
+@inject NavigationManager navigation
+
+
+
+
+<h3>Select Cars for Rental</h3>
+<div class="container-fluid">
+    <div class="row alert alert-danger" role="alert" hidden="@hideErrors">
+        <p id="ErrorsShown">Errors: @errors</p>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <div class="row">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Model</span>
+                        <input type="text" id="modelname" @bind=carmodel class="form-control" placeholder="Model" aria-label="Model" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Renting Price</span>
+                        <input type="text" id="priceforrenting" @bind=priceforrenting class="form-control" placeholder="PriceForRenting" aria-label="PriceForRenting" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+
+                <div class="col">
+                    <button type="button" class="btn btn-primary" @onclick=@SearchCars id="searchCars">Search Cars</button>
+                </div>
+
+
+
+            </div>
+            <div class="row">
+                @if (cars == null)
+                {
+                    <p>Loading cars....</p>
+                }
+                else
+                {
+                    <div class="mh-100 table-responsive">
+                        <table class="table table-condensed table-hover" id="TableOfCars">
+                            <thead>
+                                <tr>
+                                    <th>Model</th>
+                                    <th>Fuel Type</th>
+                                    <th>Manufacturer</th>
+                                    <th>Renting Price</th>
+                                    <th>Color</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var car in cars)
+                                {
+                                    <tr id="CarData_@car.Model">
+                                        <td>@car.Model</td>
+                                        <td>@car.FuelType</td>
+                                        <td>@car.Manufacturer</td>
+                                        <td>@car.PriceForRenting</td>
+                                        <td>@car.Color</td>
+                                        <td>
+                                            <button class="btn btn-outline-secondary" id="carToRent_@car.Model" @onclick="@(() => AddCar(car))">Add</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                }
+            </div>
+        </div>
+        <div class="col-2" hidden="@hideRentingCart">
+            <div class="row">
+                <h3>Shopping Cart</h3>
+            </div>
+            @foreach (RentalItemDTO item in rental.RentalItems)
+            {
+                <div class="row">
+                    <button type="button" class="btn btn-light" id="removeCar_@item.Model" @onclick="@(() => RemoveRentalItem(item))">x @item.Model - @item.RentingPrice€</button>
+                </div>
+            }
+            <div class="row">
+                <button type="button" class="btn btn-primary" id="rentCarButton" @onclick=@RentCars>Rent Cars</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@code {
+    private string carModelSelected;
+    private ICollection<string>? modelsNames = new List<string>();
+    private bool hideRentingCart { get { return rental.RentalItems.Count == 0; } }
+    private ICollection<CarForRentalDTO> cars;
+    private bool hideErrors { get { return errors.Length == 0; } }
+    private string errors = "";
+    private string carmodel { get; set; }
+    private double? priceforrenting { get; set; }
+
+    private DateTime _from;
+    private DateTime From
+    {
+        get { return _from; }
+        set
+        {
+            if (_from != value)
+            {
+                _from = value;
+                rental.StartDate = DateTime.SpecifyKind(_from, DateTimeKind.Utc);
+                rentalState.ClearRentingCart();
+            }
+        }
+    }
+
+    private DateTime _to;
+    private DateTime To
+    {
+        get { return _to; }
+        set
+        {
+            if (_to != value)
+            {
+                _to = value;
+                rental.EndDate = DateTime.SpecifyKind(_to, DateTimeKind.Utc);
+                rentalState.ClearRentingCart();
+            }
+        }
+    }
+
+    private RentalForCreateDTO rental => rentalState.Rental;
+
+    private bool hiddenRentingCart = true;
+
+    private void AddCar(CarForRentalDTO car)
+    {
+        rentalState.AddCarToRental(car);
+    }
+
+    private void RemoveRentalItem(RentalItemDTO item)
+    {
+        rentalState.RemoveRentalItemToRent(item);
+        if (rental.RentalItems.Count == 0) hiddenRentingCart = true;
+    }
+
+    public async void SearchCars()
+    {
+        try
+        {
+            cars = await apiclient.GetCarForRentalAsync(carmodel, priceforrenting);
+            errors = "";
+        }
+        catch (ApiException ex)
+        {
+            logger.LogError($"{DateTime.Now} Error: {ex}");
+            errors = "Error while connecting to the system";
+        }
+        StateHasChanged();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        try
+        {
+            modelsNames = await apiclient.GetModelsAsync(null);
+        }
+        catch (ApiException ex)
+        {
+            if (modelsNames == null) modelsNames = new List<string>() { "All" };
+            logger.LogError("Error! There was an error while connecting to the GetModelsAsync service");
+        }
+        if (priceforrenting == 0) priceforrenting = null;
+        SearchCars();
+    }
+    private void RentCars()
+    {
+        navigation.NavigateTo("/rental/createrental");
+    }
+
+
+}
+
