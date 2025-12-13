@@ -1,12 +1,13 @@
 ﻿@page "/rental/createrental"
 
 @inject NavigationManager navigation
-@using Microsoft.AspNetCore.Authorization
+@using AppForSEII2526.Web.Components.Shared
 @using AppForSEII2526.Web.API
+@using Microsoft.AspNetCore.Authorization
 @inject AppForSEII2526APIClient apiclient
 @inject ILogger<CreateRental> logger
 @inject RentalStateContainer rentalState
-@inject NavigationManager navigation
+
 @attribute [Authorize]
 
 <h3>Create Rental</h3>
@@ -15,7 +16,7 @@
     <div class="row">
 
         <DataAnnotationsValidator />
-        
+
         <ValidationSummary class="row alert alert-danger" />
     </div>
 
@@ -62,7 +63,6 @@
     <div class="row g-2">
         <div class="col-md">
             <div class="form-floating">
-                @*a dropdown for selecting the payment method*@
                 <InputSelect class="form-select" @bind-Value="@rental.PaymentMethod" id="PaymentMethod">
                     <option value="@PaymentMethodTypes.Visa" default> Visa</option>
                     <option value="@PaymentMethodTypes.GooglePay"> GooglePay</option>
@@ -74,8 +74,6 @@
 
         <div class="col-md">
             <div class="form-floating">
-                @*this button will be used to ask the user if he want to proceed to rent the cars*@
-
                 <button class="btn btn-primary" type="submit" id="Submit" disabled="@rentalButtonDisabled">
                     Rent your cars
                 </button>
@@ -111,7 +109,7 @@
                         <td>@item.RentingPrice</td>
                         <td><InputNumber @bind-Value="item.Quantity" class="form-control" id="@($"quantity{item.CarId}")" /></td>
 
-                       
+
                     </tr>
                 }
             </tbody>
@@ -122,40 +120,32 @@
 @if (DialogIsOpen)
 {
     <Dialog Caption="Alquilar coches"
-         Message="¿Está seguro de que quiere alquilar los coches seleccionados?"
-         OnClose="@OnDialogClose"
-         Type=Dialog.Category.SaveNot>
+            Message="¿Está seguro de que quiere alquilar los coches seleccionados?"
+            OnClose="@OnDialogClose"
+            Type=Dialog.Category.SaveNot>
     </Dialog>
 
 }
 
-
-
 @code {
     private string messageError = "";
     private bool hideErrors { get { return messageError.Length == 0; } }
+
     private bool rentalButtonDisabled { get { return (rental.RentalItems == null || rental.RentalItems.Count == 0); } }
-
     private bool DialogIsOpen;
-
     private decimal TotalCost
     {
         get
         {
             int days = (rental.EndDate.DateTime - rental.StartDate.DateTime).Days;
-            double price = rental.RentalItems.Sum(ri => ri.RentingPrice * ri.Quantity * days);
+            double price = rental.RentalItems.Sum(ri => ri.RentingPrice * days);
             return Convert.ToDecimal(price);
         }
-
-        
     }
     private void ModifyRentalItems()
     {
         navigation.NavigateTo("/rental/selectcarsforrental");
     }
-
-    private object? errors;
-
     private RentalForCreateDTO rental => rentalState.Rental;
 
     private void OpenDialog()
@@ -189,41 +179,54 @@
                             messageError = string.Join("(*) ", messageError, string.Join(" (*) ", errors));
                     }
                 }
+                catch (ApiException apiexception)
+                {
+                    //we need to inform user that there was some other error while processing the request
+                    messageError = "Error while processing your request, please try again later!";
 
-               catch (ApiException apiexception) {
-                //we need to inform user that there was some other error while processing the request
-                messageError = "Error while processing your request, please try again later!";
-               }
+                }
+
             }
-
+        }
+    }
+    protected override void OnInitialized()
+    {
+        // Inicializar fechas si no tienen valor o tienen valor por defecto
+        if (rental.StartDate == default || rental.StartDate.Year < 1900)
+        {
+            rental.StartDate = DateTimeOffset.Now;
         }
 
+        if (rental.EndDate == default || rental.EndDate <= rental.StartDate)
+        {
+            rental.EndDate = rental.StartDate.AddDays(1);
+        }
     }
+
     protected override async Task OnInitializedAsync()
     {
+
 
         if (authenticationState is not null)
         {
             var authState = await authenticationState;
             var user = authState?.User;
+            OnInitialized();
 
             if (user is not null)
             {
                 if (user.Identity is not null && user.Identity.IsAuthenticated)
                 {
-                    rental.CustomerNameSurname = user.Identity.Name;
+                    rental.CustomerUserName = user.Identity.Name;
                 }
             }
-            rental.CustomerNameSurname = rental.CustomerNameSurname == null ? "" : rental.CustomerNameSurname;
             rental.CustomerUserName = rental.CustomerUserName == null ? "" : rental.CustomerUserName;
+            rental.CustomerNameSurname = rental.CustomerNameSurname == null ? "" : rental.CustomerNameSurname;
             rental.DeliveryAddress = rental.DeliveryAddress == null ? "" : rental.DeliveryAddress;
 
         }
     }
 
-
     [CascadingParameter]
     private Task<AuthenticationState>? authenticationState { get; set; }
-
 }
-
