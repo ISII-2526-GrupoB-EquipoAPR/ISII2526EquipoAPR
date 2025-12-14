@@ -91,12 +91,16 @@ public class RabbitMQLogger : ILogger, IDisposable
                 Exception = exception?.ToString()
             };
 
+
             var message = JsonSerializer.Serialize(logEntry);
             var body = Encoding.UTF8.GetBytes(message);
 
+            // Determinar routing key basada en el nivel de log
+            string routingKey = GetRoutingKeyFromLogLevel(logLevel);
+
             _channel.BasicPublish(
                  exchange: _config.Exchange,
-                 routingKey: "",
+                 routingKey: routingKey,
                  basicProperties: _properties,
                  body: body);
 
@@ -107,6 +111,18 @@ public class RabbitMQLogger : ILogger, IDisposable
         }
 
 
+    }
+    private string GetRoutingKeyFromLogLevel(LogLevel logLevel)
+    {
+        return logLevel switch
+        {
+            LogLevel.Error or LogLevel.Critical => "log.error",
+            LogLevel.Warning => "log.warning",
+            LogLevel.Information => "log.info",
+            LogLevel.Debug => "log.debug",
+            LogLevel.Trace => "log.trace",
+            _ => "log.other"
+        };
     }
 
     public void Dispose()

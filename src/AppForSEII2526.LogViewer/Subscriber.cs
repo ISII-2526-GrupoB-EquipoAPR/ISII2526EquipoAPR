@@ -12,16 +12,17 @@ namespace AppForSEII2526.LogViewer
         private readonly string _userName = "guest"; //utilizar las credenciales de un usuario de RabbitMQ
         private readonly string _password = "guest";
         private readonly int _port = 5672; //reemplazar por el puerto AMQP de RabbitMQ
+        private readonly string _topicPattern;
 
 
         private readonly IConnection _connection;
         private readonly IModel _channel;
-        private readonly IBasicProperties _properties;
-
         private string _queueName;
 
-        public Subscriber()
+        public Subscriber(string topicPattern)
         {
+            _topicPattern = topicPattern ?? throw new ArgumentNullException(nameof(topicPattern));
+
             var factory = new ConnectionFactory()
             {
                 HostName = _hostname,
@@ -34,7 +35,8 @@ namespace AppForSEII2526.LogViewer
 
             _channel = _connection.CreateModel();
 
-            _channel.ExchangeDeclare(_exchangeName, ExchangeType.Fanout, true);
+            // Cambiar a ExchangeType.Topic
+            _channel.ExchangeDeclare(_exchangeName, ExchangeType.Topic, true);
 
             var tempQueue = _channel.QueueDeclare(
                 queue: "",  
@@ -45,7 +47,8 @@ namespace AppForSEII2526.LogViewer
             );
 
             _queueName = tempQueue.QueueName;
-            _channel.QueueBind(queue: _queueName, exchange: _exchangeName, routingKey: "");
+
+            _channel.QueueBind(queue: _queueName, exchange: _exchangeName, routingKey: _topicPattern);
 
         }
         public void StartConsuming()
@@ -55,8 +58,11 @@ namespace AppForSEII2526.LogViewer
             {
                 var body = ea.Body.ToArray(); //contenido del mensaje (array de bytes)
                 var message = Encoding.UTF8.GetString(body); //se convierte de vuelta a string
-                Console.WriteLine(message);
-                
+                var routingKey = ea.RoutingKey;
+
+                // Mostrar también la routing key
+                Console.WriteLine($"[{routingKey}] {message}");
+
             };
 
             _channel.BasicConsume(
