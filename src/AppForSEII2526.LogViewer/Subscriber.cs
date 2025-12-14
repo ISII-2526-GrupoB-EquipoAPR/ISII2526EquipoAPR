@@ -22,7 +22,7 @@ namespace AppForSEII2526.LogViewer
         public Subscriber(string topicPattern)
         {
             _topicPattern = topicPattern ?? throw new ArgumentNullException(nameof(topicPattern));
-
+            _hostname = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "localhost";
             var factory = new ConnectionFactory()
             {
                 HostName = _hostname,

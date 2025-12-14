@@ -11,6 +11,10 @@ class Program
         {
             topic = args[0];
         }
+        else if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("LOG_TOPIC")))
+        {
+            topic = Environment.GetEnvironmentVariable("LOG_TOPIC");
+        }
         else
         {
             Console.WriteLine("Ingrese el topic al que desea suscribirse:");
