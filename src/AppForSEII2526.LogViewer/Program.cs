@@ -4,23 +4,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        string topic = "";
-
-        // Leer el topic de los args o pedirlo por consola
-        if (args.Length > 0)
-        {
-            topic = args[0];
-        }
-        else if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("LOG_TOPIC")))
-        {
-            topic = Environment.GetEnvironmentVariable("LOG_TOPIC");
-        }
-        else
-        {
-            Console.WriteLine("Ingrese el topic al que desea suscribirse:");
-            Console.WriteLine("Ejemplos: log.error, log.info, log.*, log.#");
-            topic = Console.ReadLine() ?? "";
-        }
+        string topic = args.Length > 0 ? args[0] : "log.*";
 
         if (string.IsNullOrWhiteSpace(topic))
         {
@@ -28,15 +12,24 @@ class Program
             return;
         }
 
-        Subscriber subscriber = new Subscriber(topic); // Pasar el topic al constructor
+        Subscriber subscriber = new Subscriber(topic);
         try
         {
             Console.WriteLine($"Suscrito al topic: {topic}");
             subscriber.StartConsuming();
-            Console.WriteLine("Presione una tecla para salir");
-            Console.ReadLine();
-        }
-        finally { }
-    }
-}  
 
+            // Mantener en ejecución
+            Console.WriteLine("Presione Ctrl+C para salir");
+            var exitEvent = new ManualResetEvent(false);
+            Console.CancelKeyPress += (sender, e) => {
+                e.Cancel = true;
+                exitEvent.Set();
+            };
+            exitEvent.WaitOne();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+    }
+}
