@@ -20,65 +20,7 @@ namespace AppForSEII2526.API.Controllers
             _logger = logger;
         }
 
-        /*[HttpGet]
-        [Route("[action]")]
-        [ProducesResponseType(typeof(decimal), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
-        public async Task<ActionResult> ComputeDivision(decimal op1, decimal op2)
-        {
-            if (op2 == 0)
-            {
-                _logger.LogError($"{DateTime.Now} Exception: op2=0, division by 0");
-                return BadRequest("op2 must be different from 0");
-            }
-            decimal result = decimal.Round(op1 / op2, 2);
-            return Ok(result);
-        }
-        */
-        /*
-        [HttpGet]
-        [Route("[action]")]
-        [ProducesResponseType(typeof(IList<Car>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult> GetCarsForPurchasing()
-        {
-            IList<Car> cars = await _context.Cars.ToListAsync();
-            return Ok(cars);
-        }
-        */
-        /*
-        [HttpGet]
-        [Route("[action]")]
-        [ProducesResponseType(typeof(IList<CarForPurchaseDTO>), (int)HttpStatusCode.OK)]
 
-        public async Task<ActionResult> GetCarsForPurchasingDTO()
-        {
-            var coches = await _context.Cars
-                .Select(c => new CarForPurchaseDTO
-                {
-                    Id = c.Id,
-                    Modelo = c.Model.Name,
-                    Color = c.Color,
-                    FuelType = c.FuelType,
-                    Manufacturer = c.Manufacturer,
-                    PurchasePrice = c.PurchasingPrice
-                })
-                .ToListAsync();
-            return Ok(coches);
-
-        }
-        */
-        /*
-        [HttpGet]
-        [Route("[action]")]
-        [ProducesResponseType(typeof(IList<CarForPurchaseDTO>), (int)HttpStatusCode.OK)]
-        
-        public async Task<ActionResult> GetCarsForPurchasingDTO_Filter_Color(string? filtroColor)
-        {
-            var coches = await _context.Cars
-                .Where(c => c.Color.Contains(filtroColor) || (filtroColor == null ) )
-                .Select(c => new CarForPurchaseDTO
-
-        */
         [HttpGet]
         [Route("[action]")]
         [ProducesResponseType(typeof(IList<CarForPurchaseDTO>), (int)HttpStatusCode.OK)]
@@ -94,7 +36,7 @@ namespace AppForSEII2526.API.Controllers
                     && (carModel == null || c.Model.Name.Equals(carModel))
                     )
 
-                
+
 
                 .Select(c => new CarForPurchaseDTO
                 {
@@ -128,7 +70,7 @@ namespace AppForSEII2526.API.Controllers
                 .Where(c =>
                 c.QuantityForRenting > 0 &&
                 (model == null || c.Model.Name.Equals(model)) &&
-                (rentingPrice == null || c.RentingPrice <= rentingPrice)&&
+                (rentingPrice == null || c.RentingPrice <= rentingPrice) &&
                  (c.RentalItems.Count(ri => ri.Rental.StartDate <= endDate
                                             && ri.Rental.EndDate >= startDate) < c.QuantityForRenting)
 
@@ -158,24 +100,20 @@ namespace AppForSEII2526.API.Controllers
             IList<CarForReviewDTO> selectCars = await _context.Cars
                 .Include(c => c.Model)
                 .Include(c => c.ReviewItems).ThenInclude(ri => ri.Review)
-                .Where(c => (Manufacturer == null || c.Manufacturer.Contains(Manufacturer))
-                    && (Fueltype == null || c.FuelType.Equals(Fueltype))
-                    )
-                .OrderBy(c => c.Model)
+                .Where(c =>
+                    (Manufacturer == null || c.Manufacturer.Contains(Manufacturer))
+                    && (Fueltype == null || c.FuelType.ToLower() == Fueltype.ToLower())
+                )
+                .OrderBy(c => c.Model.Name)
                 .Select(c => new CarForReviewDTO
                 {
                     Id = c.Id,
                     Modelo = c.Model.Name,
-                    CarClass = c.CarClass,
                     Manufacturer = c.Manufacturer,
                     FuelType = c.FuelType,
                     Color = c.Color
                 })
                 .ToListAsync();
-
-
-
-
 
             return Ok(selectCars);
         }

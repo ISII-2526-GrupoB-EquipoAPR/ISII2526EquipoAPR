@@ -9,15 +9,17 @@ namespace AppForSEII2526.API.DTOs.ReviewDTOs
         {
         }
 
-        public ReviewForCreateDTO(int id, string customerUserName, string country, string driverType, IList<ReviewItemsDTO> reviewItems)
+        public ReviewForCreateDTO( string customerUserName, string country, string driverType, IList<ReviewItemsDTO> reviewItems)
         {
-            Id = id;
-            CustomerUserName = customerUserName ?? throw new ArgumentNullException(nameof(customerUserName));
-            Country = country ?? throw new ArgumentNullException(nameof(country));
-            DriverType = driverType ?? throw new ArgumentNullException(nameof(driverType));
+          
+            CustomerUserName = customerUserName;
+            Country = country;
+            DriverType = driverType;
+            ReviewItems = reviewItems; 
         }
-        
-        public int Id { get; set; }
+       
+
+     
 
         [EmailAddress]
 
@@ -31,7 +33,7 @@ namespace AppForSEII2526.API.DTOs.ReviewDTOs
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Por favor, introduzca su tipo de conductor")]
         public string DriverType { get; set; }
-       IList<ReviewItemsDTO> ReviewItems{ get; set; }  
+       public IList<ReviewItemsDTO> ReviewItems{ get; set; }  
 
 
 
@@ -39,7 +41,7 @@ namespace AppForSEII2526.API.DTOs.ReviewDTOs
         public override bool Equals(object? obj)
         {
             return obj is ReviewForCreateDTO dTO &&
-                     Id == dTO.Id &&
+                   
                      CustomerUserName == dTO.CustomerUserName &&
                      Country == dTO.Country &&
                      DriverType == dTO.DriverType &&
@@ -50,7 +52,7 @@ namespace AppForSEII2526.API.DTOs.ReviewDTOs
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Id, CustomerUserName, Country, DriverType,ReviewItems);
+            return HashCode.Combine( CustomerUserName, Country, DriverType,ReviewItems);
         }
     }
 }
