@@ -1,4 +1,5 @@
 ﻿using AppForSEII2526.API.DTOs.RentalDTOs;
+using AppForSEII2526.API.Models;
 
 
 namespace AppForSEII2526.API.Controllers
@@ -136,12 +137,15 @@ namespace AppForSEII2526.API.Controllers
                 }
                 else
                 {
-                    rental.RentalItems.Add(new RentalItem(car.Id, rental,car.RentingPrice));
+                    var rentalItem = new RentalItem(car.Id, rental, car.RentingPrice);
+                    rentalItem.Quantity = item.Quantity;   
+                    rental.RentalItems.Add(rentalItem);
+
                     item.RentingPrice = car.RentingPrice;
                 }
             }
 
-            rental.RentingPrice = rental.RentalItems.Sum(ri => ri.PriceForRenting * (decimal)numDays);
+            rental.RentingPrice = rental.RentalItems.Sum(ri => ri.PriceForRenting *ri.Quantity* (decimal)numDays);
 
             if (ModelState.ErrorCount > 0)
                 return BadRequest(new ValidationProblemDetails(ModelState));
