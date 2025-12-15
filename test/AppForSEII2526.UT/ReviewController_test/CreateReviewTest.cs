@@ -38,15 +38,20 @@ namespace AppForSEII2526.UT.ReviewsController_test
                 new Car("Sedan","Azul","Volkswagen Golf","1.4","Volkswagen",25000,3,"Gasolina","17",models[1]),
             };
 
+            _context.AddRange(models);
+            _context.AddRange(cars);
+            _context.SaveChanges();
+
+
             ApplicationUser user = new ApplicationUser("1", "Ruben", _customerNameSurname, _userName, "Avda. España s/n, Albacete");
+            _context.ApplicationUsers.Add(user);
 
             var review = new Review(DateTime.Now, _userName, _country, _driverType, new List<ReviewItem>(), user);
             review.ReviewItems.Add(new ReviewItem(cars[0].Id, review, "Muy buen coche", 5));
 
-            _context.ApplicationUsers.Add(user);
-            _context.AddRange(models);
-            _context.AddRange(cars);
-            _context.Add(review);
+           
+            
+           _context.Add(review);
             _context.SaveChanges();
         }
 
@@ -65,7 +70,7 @@ namespace AppForSEII2526.UT.ReviewsController_test
                 new List<ReviewItemsDTO>() { new ReviewItemsDTO(99, "ModeloFalso", "Blanco", "Gasolina", "MarcaX", 4, "No existe") });
 
             var reviewInvalidRating = new ReviewForCreateDTO(_userName, _country, _driverType,
-                new List<ReviewItemsDTO>() { new ReviewItemsDTO(6, _car1Model, "Negro", "Diésel", "Audi", 7, "Rating inválido") });
+                new List<ReviewItemsDTO>() { new ReviewItemsDTO(1, _car1Model, "Azul", "Gasolina", "Volkswagen", 7, "Rating inválido") });
 
             var allTest = new List<object[]>
             {
@@ -74,6 +79,8 @@ namespace AppForSEII2526.UT.ReviewsController_test
                 new object[] { reviewCarNonExistent, "Error! El coche 'ModeloFalso' no está disponible" },
                 new object[] { reviewInvalidRating, "Error! Rating must be greater than 0 and smaller than 6" },
             };
+
+
 
             return allTest;
         }

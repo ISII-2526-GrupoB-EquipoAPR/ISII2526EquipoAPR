@@ -32,6 +32,8 @@ public string FuelType { get; set; }
 [StringLength(50, ErrorMessage = "El color debe tener una longitud máxima de 50 caracteres")]
 public string Color { get; set; }
 
+
+
         
 
 

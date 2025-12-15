@@ -1,10 +1,9 @@
-﻿
-using AppForSEII2526.API.DTOs.RentalDTOs;
-using AppForSEII2526.API.DTOs.ReviewDTOs;
-using System.Linq;
+﻿using AppForSEII2526.API.DTOs.ReviewDTOs;
 
 namespace AppForSEII2526.API.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class ReviewsController: ControllerBase
     {
 
@@ -25,32 +24,32 @@ namespace AppForSEII2526.API.Controllers
         {
             try
             {
-                if (_context.Reviews == null)
+                if (_context.Reviews==null)
                 {
                     _logger.LogError("Error:Reviews table does not exist");
                     return NotFound();
                 }
 
                 var review = await _context.Reviews
-    .Where(r => r.Id == id)
-    .Include(r => r.ReviewItems)
-        .ThenInclude(ri => ri.Car)
-            .ThenInclude(car => car.Model)
-    .Include(r => r.ApplicationUser) 
-    .Select(r => new ReviewDetailDTO(
-        r.Id,
-        r.ApplicationUser.Name,  
-        r.Country,                    
-        r.DriverType.ToString(),  
-        r.ReviewItems.Select(ri => new ReviewItemsDTO(
-            ri.CarId,
-            ri.Car.Model.Name,
-            ri.Car.Color,
-            ri.Car.FuelType,
-            ri.Car.Manufacturer,
-          ri.Car.Description
-        )).ToList<ReviewItemsDTO>())
-    ).FirstOrDefaultAsync();
+                            .Where(r => r.Id == id)
+                            .Include(r => r.ReviewItems)
+                                .ThenInclude(ri => ri.Car)
+                                    .ThenInclude(car => car.Model)
+                            .Include(r => r.ApplicationUser) 
+                            .Select(r => new ReviewDetailDTO(
+                                r.Id,
+                                r.ApplicationUser.Name,  
+                                r.Country,                    
+                                r.DriverType.ToString(),  
+                                r.ReviewItems.Select(ri => new ReviewItemsDTO(
+                                    ri.CarId,
+                                    ri.Car.Model.Name,
+                                    ri.Car.Color,
+                                    ri.Car.FuelType,
+                                    ri.Car.Manufacturer,
+                                  ri.Car.Description
+                                )).ToList<ReviewItemsDTO>())
+                            ).FirstOrDefaultAsync();
 
                 if (review == null)
                 {
@@ -67,6 +66,8 @@ namespace AppForSEII2526.API.Controllers
                 return NotFound();
             }
         }
+
+
         [HttpPost]
         [Route("[action]")]
         [ProducesResponseType(typeof(ReviewDetailDTO), (int)HttpStatusCode.Created)]
