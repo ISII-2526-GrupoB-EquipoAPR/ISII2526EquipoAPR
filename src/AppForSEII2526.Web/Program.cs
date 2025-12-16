@@ -19,6 +19,7 @@ builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
 builder.Services.AddScoped<PurchaseStateContainer>();
 builder.Services.AddScoped<RentalStateContainer>();
+builder.Services.AddScoped<ReviewStateContainer>();
 
 builder.Services.AddAuthentication(options =>
     {
