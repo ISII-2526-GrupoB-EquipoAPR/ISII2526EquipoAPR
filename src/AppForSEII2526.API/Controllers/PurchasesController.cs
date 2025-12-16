@@ -20,7 +20,7 @@ namespace AppForSEII2526.API.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [ProducesResponseType(typeof(RentalDetailDTO), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(PurchaseDetailDTO), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult> GetPurchase(int id)
         {
@@ -62,7 +62,7 @@ namespace AppForSEII2526.API.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        [ProducesResponseType(typeof(RentalDetailDTO), (int)HttpStatusCode.Created)]
+        [ProducesResponseType(typeof(PurchaseDetailDTO), (int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.Conflict)]
         public async Task<ActionResult> CreatePurchase(PurchaseForCreateDTO purchaseForCreate)
@@ -123,6 +123,10 @@ namespace AppForSEII2526.API.Controllers
                 else if (item.Quantity > (car.QuantityForPurchasing - car.NumberOfPurchasedItems))
                 {
                     ModelState.AddModelError("PurchaseItems", $"Error! Car '{car.Model.Name}' does not have enough stock. Available: {car.QuantityForPurchasing - car.NumberOfPurchasedItems}, Requested: {item.Quantity}");
+                }
+                else if (item.Description == "" && item.Quantity == 2)
+                {
+                    ModelState.AddModelError("PurchaseItems", $"Error! Estás comprando demasiados coches sin descripción");
                 }
                 else
                 {
