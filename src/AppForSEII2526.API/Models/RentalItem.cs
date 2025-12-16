@@ -19,6 +19,13 @@
             CarId = carId;
             Rental = rental;
             PriceForRenting = priceForRenting;
+
+        }
+        public RentalItem(Car car, Rental rental,int quantity):this(car,rental)
+        {
+            PriceForRenting = Car.RentingPrice;
+            Quantity = quantity;
+
         }
         public Car Car { get; set; }
 

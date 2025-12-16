@@ -75,7 +75,7 @@ namespace AppForSEII2526.API.Controllers
                                             && ri.Rental.EndDate >= startDate) < c.QuantityForRenting)
 
 )
-                .OrderBy(c => c.Model.Name)
+                .OrderBy(c => c.Color)
                 .Select(c => new CarForRentalDTO
                 {
                     Id = c.Id,
