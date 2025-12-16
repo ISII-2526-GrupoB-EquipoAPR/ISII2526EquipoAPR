@@ -18,7 +18,7 @@ namespace AppForSEII2526.UT.ReviewsController_test
     {
         private const string _userName = "ruben@uclm.es";
         private const string _country = "Spain";
-        private const string _driverType = "Experto";
+        private const int _driverType = 1;
         private const string _customerNameSurname = "Ruben Cuesta";
 
         private const string _car1Model = "Q3";
