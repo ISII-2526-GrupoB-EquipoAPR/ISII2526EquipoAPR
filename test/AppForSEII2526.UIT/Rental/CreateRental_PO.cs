@@ -9,41 +9,33 @@ namespace AppForSEII2526.UIT.Rental
 {
     public class CreateRental_PO : PageObject
     {
-        private By _nameBy = By.Id("Name");
-        private By _surnameBy = By.Id("Surname");
-        private By _deliveryAddressBy = By.Id("DeliveryAddress");
-        private By _paymentMethodBy = By.Id("PaymentMethod");
-        private By _totalPriceBy = By.Id("TotalCost");
-        private By _submitButtonBy = By.Id("Submit");
-        private By _modifyCarsButtonBy = By.Id("ModifyCars");
-
-        private IWebElement _name() => _driver.FindElement(_nameBy);
-        private IWebElement _surname() => _driver.FindElement(_surnameBy);
-        private IWebElement _deliveryAddress() => _driver.FindElement(_deliveryAddressBy);
-        private IWebElement _paymentMethod() => _driver.FindElement(_paymentMethodBy);
-        private IWebElement _submitButton() => _driver.FindElement(_submitButtonBy);
-        private IWebElement _modifyCarsButton() => _driver.FindElement(_modifyCarsButtonBy);
+        private By _nameSurnameBy = By.Id("NameSurname");
+        private IWebElement _surname() => _driver.FindElement(_nameSurnameBy);
+        private IWebElement _deliveryAddress() => _driver.FindElement(By.Id("DeliveryAddress"));
+        private IWebElement _paymentMethod() => _driver.FindElement(By.Id("PaymentMethod"));
 
         public CreateRental_PO(IWebDriver driver, ITestOutputHelper output)
             : base(driver, output)
         {
         }
 
-        public void FillInRentalInfo(string name, string surname, string deliveryAddress, string paymentMethod)
+        public void FillInRentalInfo( string surname, string deliveryAddress, string paymentMethod)
         {
-            WaitForBeingVisible(_nameBy);
-            WaitForBeingVisible(_surnameBy);
-            WaitForBeingVisible(_deliveryAddressBy);
-            _name().SendKeys(name);
+          
+            WaitForBeingVisible(_nameSurnameBy);
             _surname().SendKeys(surname);
             _deliveryAddress().SendKeys(deliveryAddress);
 
-            //create select element object 
             SelectElement selectElement = new SelectElement(_paymentMethod());
 
-            //select Action from the dropdown menu
             selectElement.SelectByText(paymentMethod);
         }
+
+        public void FillInRentalQuantity(string purchaseQuantity, string carModel)
+        {
+            _driver.FindElement(By.Id("quantity" + carModel)).SendKeys(purchaseQuantity);
+        }
+        
 
         public void PressRentYourCars()
         {

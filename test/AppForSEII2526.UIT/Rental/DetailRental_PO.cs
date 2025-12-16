@@ -13,14 +13,12 @@ namespace AppForSEII2526.UIT.Rental
             : base(driver, output)
         {
         }
-        public bool CheckRentalDetail(string name, string surname, string delivery, string paymentMethod,
+        public bool CheckRentalDetail( string surname, string delivery, string paymentMethod,
             DateTime rentalDate, DateTime from, DateTime to, string totalPrice)
         {
 
             WaitForBeingVisible(By.Id("RentalTotalPrice"));
             bool result = true;
-
-            result = result && _driver.FindElement(By.Id("NameSurname")).Text.Contains(name);
 
             result = result && _driver.FindElement(By.Id("Surname")).Text.Contains(surname);
 
@@ -32,7 +30,7 @@ namespace AppForSEII2526.UIT.Rental
 
             var actualRentalDate = DateTime.Parse(_driver.FindElement(By.Id("RentalDate")).Text);
 
-            result = result && ((actualRentalDate - rentalDate) < new TimeSpan(12, 0, 0));
+            result = result && ((actualRentalDate - rentalDate) < new TimeSpan(0, 1, 0));
 
             result = result && _driver.FindElement(By.Id("RentalPeriod"))
                 .Text.Contains($"{from.ToShortDateString()} - {to.ToShortDateString()}");
