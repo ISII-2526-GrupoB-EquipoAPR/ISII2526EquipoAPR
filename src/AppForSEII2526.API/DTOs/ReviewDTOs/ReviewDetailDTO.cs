@@ -9,13 +9,13 @@ namespace AppForSEII2526.API.DTOs.ReviewDTOs
         {
         }
 
-        public ReviewDetailDTO(int id, string customerUserName, string country, string driverType,IList<ReviewItemsDTO> reviewItems)
+        public ReviewDetailDTO(int id, string customerUserName, string country, int driverType,IList<ReviewItemsDTO> reviewItems)
         {
             Id = id;
             CustomerUserName = customerUserName ?? throw new ArgumentNullException(nameof(customerUserName));
             Country= country ?? throw new ArgumentNullException(nameof(country));
-            DriverType = driverType ?? throw new ArgumentNullException(nameof(driverType));
-            ReviewItems = reviewItems ?? throw new ArgumentNullException(nameof(reviewItems)); ;
+            DriverType = driverType;
+            ReviewItems = reviewItems ?? throw new ArgumentNullException(nameof(reviewItems));
         }
         public int Id { get; set; }
 
@@ -30,7 +30,7 @@ namespace AppForSEII2526.API.DTOs.ReviewDTOs
         public string Country { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Por favor, introduzca su tipo de conductor")]
-        public string DriverType { get; set; }
+        public int DriverType { get; set; }
 
         public IList<ReviewItemsDTO> ReviewItems{ get; set; }
 
