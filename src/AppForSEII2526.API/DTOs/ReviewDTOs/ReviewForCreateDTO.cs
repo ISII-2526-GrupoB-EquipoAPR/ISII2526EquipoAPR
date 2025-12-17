@@ -9,7 +9,7 @@ namespace AppForSEII2526.API.DTOs.ReviewDTOs
         {
         }
 
-        public ReviewForCreateDTO( string customerUserName, string country, string driverType, IList<ReviewItemsDTO> reviewItems)
+        public ReviewForCreateDTO( string customerUserName, string country, int driverType, IList<ReviewItemsDTO> reviewItems)
         {
           
             CustomerUserName = customerUserName;
@@ -32,7 +32,7 @@ namespace AppForSEII2526.API.DTOs.ReviewDTOs
         public string Country { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Por favor, introduzca su tipo de conductor")]
-        public string DriverType { get; set; }
+        public int DriverType { get; set; }
        public IList<ReviewItemsDTO> ReviewItems{ get; set; }  
 
 
