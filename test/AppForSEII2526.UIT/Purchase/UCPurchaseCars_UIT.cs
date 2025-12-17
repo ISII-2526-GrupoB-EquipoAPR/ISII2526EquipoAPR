@@ -55,7 +55,7 @@ namespace AppForSEII2526.UIT.PurchaseCars
         [InlineData("Elena Navarro", "Calle de la Universidad 1, Albacete, 02006, España", "Paypal")]
         [InlineData("Elena Navarro", "Calle de la Universidad 1, Albacete, 02006, España", "GooglePay")]
         [Trait("LevelTesting", "Funcional Testing")]
-        public void UC1_BF_1_2_3(string surname, string deliveryAddress, string paymentMethod)
+        public void UC1_BF_1_2_3_FlujoBasico(string surname, string deliveryAddress, string paymentMethod)
         {
             //Arrange
             var createpurchase = new CreatePurchase_PO(_driver, _output);
@@ -78,15 +78,15 @@ namespace AppForSEII2526.UIT.PurchaseCars
                 deliveryAddress, paymentMethod, DateTime.Now, purchasingPrice1 + " €"),
                 "Error: detail purchase is not as expected");
 
-            var expectedRentalItems = new List<string[]>
+            var expectedPurchaseItems = new List<string[]>
                     { new string[] { carModel1, purchasingPrice1 + " €" , color1, quantity}, };
 
-            Assert.True(detailPurchase.CheckListOfPurchase(expectedRentalItems),
+            Assert.True(detailPurchase.CheckListOfPurchase(expectedPurchaseItems),
                 "Error: purchase items are not as expected");
         }
         [Fact]
         [Trait("LevelTesting", "Funcional Testing")]
-        public void UC1_AF0_4()
+        public void UC1_AF0_4_NoCoches()
         {
             //Arrange
             InitialStepsForPurchaseCars();
@@ -103,7 +103,7 @@ namespace AppForSEII2526.UIT.PurchaseCars
         [InlineData(manufacturer2, carModel2, color2, purchasingPrice2, fuelType2, "", "Golf")]
         [InlineData(manufacturer1, carModel1, color1, purchasingPrice1, fuelType1, "Gris", "CX-5")]
         [Trait("LevelTesting", "Funcional Testing")]
-        public void UC1_FA1_5_6_7(string manufacturer, string model, string color, string price, string fuel, string filterColor, string filterModel)
+        public void UC1_FA1_5_6_7_Filtrado(string manufacturer, string model, string color, string price, string fuel, string filterColor, string filterModel)
         {
             //Arrange
             var expectedCars = new List<string[]>
@@ -118,7 +118,7 @@ namespace AppForSEII2526.UIT.PurchaseCars
         }
         [Fact]
         [Trait("LevelTesting", "Funcional Testing")]
-        public void UC1_FA2_8()
+        public void UC1_FA2_8_CompraNoDisponible()
         {   
             //Arrange
             InitialStepsForPurchaseCars();
@@ -134,7 +134,7 @@ namespace AppForSEII2526.UIT.PurchaseCars
         }
         [Fact]
         [Trait("LevelTesting", "Funcional Testing")]
-        public void UC1_FA2_9() {
+        public void UC1_FA2_9_ModificacionCarrito() {
             //Arrange
             InitialStepsForPurchaseCars();
             //Act
@@ -154,7 +154,7 @@ namespace AppForSEII2526.UIT.PurchaseCars
         [InlineData("Elena Navarro", "", "The DeliveryAddress field is required")]
         [InlineData("Elena Navarro", "Calle", "The field DeliveryAddress must be a string with a minimum length of 10 and a maximum length of 50")]
         [Trait("LevelTesting", "Funcional Testing")]
-        public void UC2_12_13_14_15_AF5_testingErrorsMandatorydata(string nameSurname, string deliveryAddress,
+        public void UC2_12_13_14_15_AF5_AtributosObligatorios(string nameSurname, string deliveryAddress,
             string expectedMessageError)
         {
             //Arrange
@@ -176,7 +176,7 @@ namespace AppForSEII2526.UIT.PurchaseCars
 
         [Fact]
         [Trait("LevelTesting", "Funcional Testing")]
-        public void UC2_16_AF6_ModifyRentalItems()
+        public void UC2_16_AF6_ModificaPurchaseItems()
         {
             //Arrange
 
