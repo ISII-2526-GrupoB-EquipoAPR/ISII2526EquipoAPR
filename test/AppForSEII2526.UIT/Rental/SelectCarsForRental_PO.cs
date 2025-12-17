@@ -19,7 +19,7 @@ namespace AppForSEII2526.UIT.Rental
 
         private By _ShowRentingCartBy = By.Id("showRentingCart");
         private By _searchCarsBy = By.Id("searchCars");
-        private By _rentButtonBy = By.Id("Rent");
+        private By _rentButtonBy = By.Id("rentalCarButton");
 
         private By _tableOfCarsBy = By.Id("TableOfCars");
         private By _modalBy = By.Id("DialogOKSaveDelete");
@@ -39,7 +39,7 @@ namespace AppForSEII2526.UIT.Rental
         }
 
 
-        public void FilterCars(string model, float rentingprice)
+        public void FilterCars(string model, float? rentingprice)
         {
             WaitForBeingClickable(_carModelBy);
             _driver.FindElement(_carModelBy).SendKeys(model);

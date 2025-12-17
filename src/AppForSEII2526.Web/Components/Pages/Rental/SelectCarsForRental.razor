@@ -21,13 +21,13 @@
                 <div class="col">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Filtre por precio</span>
-                        <input type="text" id="inputTitle" @bind=priceforrenting class="form-control" placeholder="Precio" aria-label="Precio" aria-describedby="basic-addon1">
+                        <input type="text" id="rentingPrice" @bind=priceforrenting class="form-control" placeholder="Precio" aria-label="Precio" aria-describedby="basic-addon1">
                     </div>
                 </div>
                 <div class="col">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Filtre por modelo</span>
-                        <input type="text" id="inputTitle" @bind=carModel class="form-control" placeholder="Modelo" aria-label="Modelo" aria-describedby="basic-addon1">
+                        <input type="text" id="modelCar" @bind=carModel class="form-control" placeholder="Modelo" aria-label="Modelo" aria-describedby="basic-addon1">
                     </div>
                 </div>
                 <div class="col">
@@ -74,8 +74,9 @@
                 }
             </div>
         </div>
-        <div class="col-2" hidden="@hideRentingCart">
-            <div class="row">
+        <div class="col-2" hidden="@hideRentingCart"
+            id="showRentingCart">
+            <div class="row" ">
                 <h3>Carrito de alquiler</h3>
             </div>
             @foreach (RentalItemDTO item in rental.RentalItems)
@@ -85,7 +86,7 @@
                 </div>
             }
             <div class="row">
-                <button type="button" class="btn btn-primary" id="rentalCarButton" @onclick=@RentCars>Alquilar coche/s</button>
+                <button type="button" class="btn btn-primary" id="rentalCarButton" @onclick=@RentCars disabled="@(rental.RentalItems.Count == 0)">Alquilar coche/s</button>
             </div>
         </div>
 
