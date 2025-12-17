@@ -23,12 +23,12 @@ namespace AppForSEII2526.UIT.Rental
 
         }
 
-        private const int carId1 = 14;
-        private const string color1 = "Blanco";
-        private const string carModel1 = "Q3";
-        private const string rentingPrice1 = "4500";
-        private const string manufacturer1 = "Audi";
-        private const string fuelType1 = "Diésel";
+        private const int carId1 = 9;
+        private const string color1 = "Gris";
+        private const string carModel1 = "CX-5";
+        private const string rentingPrice1 = "3000";
+        private const string manufacturer1 = "Mazda";
+        private const string fuelType1 = "Gasolina";
 
 
         private const int carId2 = 16;
@@ -52,10 +52,10 @@ namespace AppForSEII2526.UIT.Rental
             selectcars.WaitForBeingClickable(By.Id("CreateRental"));
             _driver.FindElement(By.Id("CreateRental")).Click();
         }
-        
+
 
         [Theory]
-        [InlineData(carModel1, fuelType1, manufacturer1, rentingPrice1, color1, "Q3",null )]
+        [InlineData(carModel1, fuelType1, manufacturer1, rentingPrice1, color1, "CX-5", 3000f)]
         [InlineData(carModel2, fuelType2, manufacturer2, rentingPrice2, color2, "", 1500f)]
         [InlineData(carModel2, fuelType2, manufacturer2, rentingPrice2, color2, "Fiesta", 1500f)]
         [Trait("LevelTesting", "Funcional Testing")]
@@ -73,7 +73,7 @@ namespace AppForSEII2526.UIT.Rental
         }
 
 
-        
+
         [Fact]
         [Trait("LevelTesting", "Funcional Testing")]
         public void UC2_10_AF3_ModifySelectedCars()
@@ -89,7 +89,7 @@ namespace AppForSEII2526.UIT.Rental
             Assert.True(selectcars.CheckShoppingCart(rentingPrice1));
         }
 
-        
+
         [Fact]
         [Trait("LevelTesting", "Funcional Testing")]
         public void UC2_11_AF4_RentButtonNotAvailable()
@@ -104,23 +104,19 @@ namespace AppForSEII2526.UIT.Rental
             Assert.True(selectcars.CheckRentCarsDisabled(), "Rent button should be disabled");
         }
 
-        
-        
-       
+
+
+
         [Theory]
-        [InlineData("","Calle avn de España 123", "The CustomerNameSurname field is required.")]
+        [InlineData("", "Calle avn de España 123", "The CustomerNameSurname field is required.")]
         [InlineData("Elena Navarro maria", "", "The DeliveryAddress field is required.")]
-        [InlineData( "Elena ", "Calle avn de España 123", "The field CustomerNameSurname must be a string with a minimum length of 10 and a maximum length of 50.")]
+        [InlineData("Elena ", "Calle avn de España 123", "The field CustomerNameSurname must be a string with a minimum length of 10 and a maximum length of 50.")]
         [InlineData("Elena Navarro maria ", "Calle ", "The field DeliveryAddress must be a string with a minimum length of 10 and a maximum length of 50.")]
-      
+
         [Trait("LevelTesting", "Funcional Testing")]
-        public void UC2_FA4_testingErrorsMandatoryData( string namesurname, string deliveryAddress, string expectedMessageError)
+        public void UC2_FA4_testingErrorsMandatoryData(string namesurname, string deliveryAddress, string expectedMessageError)
         {
             var createRental = new CreateRental_PO(_driver, _output);
-
-            var from = DateTime.Today.AddDays(1);
-            var to = DateTime.Today.AddDays(2);
-            var renting = DateTime.Today.AddDays(1);
 
             InitialStepsForRentalCars();
 
@@ -129,7 +125,7 @@ namespace AppForSEII2526.UIT.Rental
             selectcars.SelectCars(new List<string> { carModel1 });
             selectcars.RentCars();
 
-            createRental.FillInRentalInfo(namesurname, deliveryAddress,"Visa");
+            createRental.FillInRentalInfo(namesurname, deliveryAddress, "Visa");
             createRental.PressRentYourCars();
 
 
@@ -138,21 +134,21 @@ namespace AppForSEII2526.UIT.Rental
                $"Expected error: {expectedMessageError}"
             );
         }
-        
+
 
         [Fact]
         [Trait("LevelTesting", "Funcional Testing")]
         public void UC2_16_AF6_ModifyRentalItems()
         {
-           
+
 
             var createrental = new CreateRental_PO(_driver, _output);
 
 
-            
+
             InitialStepsForRentalCars();
 
-            selectcars.FilterCars("",null);
+            selectcars.FilterCars("", null);
             selectcars.SelectCars(new List<string> { carModel1, carModel2 });
             selectcars.RentCars();
 
@@ -162,23 +158,22 @@ namespace AppForSEII2526.UIT.Rental
             selectcars.ModifyRentingCart(carModel2);
             selectcars.RentCars();
 
-            
-            var expectedRentalItems = new List<string[]> { new string[] { carModel1,manufacturer1, rentingPrice1 }, }; //aqui no se si deberia quitar alguno
+
+            var expectedRentalItems = new List<string[]> { new string[] { carModel1, manufacturer1, rentingPrice1 } };
             Assert.True(createrental.CheckListOfRentalItems(expectedRentalItems));
         }
 
 
 
-        //[Fact(Skip = "First change the quantifyofrenting of the movies to 0 using script dbo.Movies.QuantityForRenting0")]
-        [Fact]
+        [Fact(Skip = "Requiere ejecutar el script dbo.Cars.QuantityForRenting0.sql para poner la cantidad de coches disponibles a 0")]
         [Trait("LevelTesting", "Funcional Testing")]
         public void UC2_17_AF0_CarsNotAvailableForRentalPeriod()
         {
             var expectedMessage = "There are no cars available for being rented";
-           
+
             InitialStepsForRentalCars();
 
-           
+
             selectcars.FilterCars("", null);
 
 
@@ -186,49 +181,38 @@ namespace AppForSEII2526.UIT.Rental
 
         }
 
-        
 
-
-
-
-        /*
         [Theory]
         [InlineData("Elena Navarro", "Calle de la Universidad 1, Albacete, 02006, España", "Visa")]
         [InlineData("Elena Navarro", "Calle de la Universidad 1, Albacete, 02006, España", "Paypal")]
         [InlineData("Elena Navarro", "Calle de la Universidad 1, Albacete, 02006, España", "GooglePay")]
         [Trait("LevelTesting", "Funcional Testing")]
-        public void UC1_BF_1_2_3(string surname, string deliveryAddress, string paymentMethod)
+        public void UC2_BF_1_2_3(string nameSurname, string deliveryAddress, string paymentMethod)
         {
+            //Arrange
             var createrental = new CreateRental_PO(_driver, _output);
             var detailrental = new DetailRental_PO(_driver, _output);
 
-            var from = DateTime.Today.AddDays(1);
-            var to = DateTime.Today.AddDays(2);
-
-            
+            //Act
             InitialStepsForRentalCars();
 
             selectcars.FilterCars("", null);
             selectcars.SelectCars(new List<string> { carModel1 });
             selectcars.RentCars();
 
-            createrental.FillInRentalInfo(surname, deliveryAddress, paymentMethod);
+            createrental.FillInRentalInfo(nameSurname, deliveryAddress, paymentMethod);
             createrental.FillInRentalQuantity(quantity, carModel1);
             createrental.PressRentYourCars();
             createrental.PressOkModalDialog();
 
-
-            Assert.True(detailrental.CheckRentalDetail(surname,
-                deliveryAddress, paymentMethod, DateTime.Now, from, to, rentingPrice1 + " €"),
-                "Error: detail rental is not as expected");
-
+            //Assert
+            // Columnas de la tabla RentedCars: Modelo, Fabricante, Precio de alquiler, Cantidad
             var expectedRentalItems = new List<string[]>
-                    { new string[] { carModel1, rentingPrice1 + " €" , color1, quantity}, };
+                    { new string[] { carModel1, manufacturer1, rentingPrice1 + " €", quantity } };
 
             Assert.True(detailrental.CheckListOfCars(expectedRentalItems),
                 "Error: rental items are not as expected");
         }
-        */
-        
+
     }
 }

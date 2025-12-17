@@ -10,7 +10,7 @@ namespace AppForSEII2526.Web
             RentalItems = new List<RentalItemDTO>()
         };
 
-        
+
         public decimal TotalPrice
         {
             get
@@ -69,4 +69,3 @@ namespace AppForSEII2526.Web
         }
     }
 }
-    

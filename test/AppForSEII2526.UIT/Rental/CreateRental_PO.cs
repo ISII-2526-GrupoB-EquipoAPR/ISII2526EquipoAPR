@@ -19,23 +19,23 @@ namespace AppForSEII2526.UIT.Rental
         {
         }
 
-        public void FillInRentalInfo( string surname, string deliveryAddress, string paymentMethod)
+        public void FillInRentalInfo(string surname, string deliveryAddress, string paymentMethod)
         {
-          
+
             WaitForBeingVisible(_nameSurnameBy);
             _surname().SendKeys(surname);
             _deliveryAddress().SendKeys(deliveryAddress);
 
             SelectElement selectElement = new SelectElement(_paymentMethod());
 
-            selectElement.SelectByText(paymentMethod);
+            selectElement.SelectByValue(paymentMethod);
         }
 
         public void FillInRentalQuantity(string purchaseQuantity, string carModel)
         {
             _driver.FindElement(By.Id("quantity" + carModel)).SendKeys(purchaseQuantity);
         }
-        
+
 
         public void PressRentYourCars()
         {
@@ -59,7 +59,7 @@ namespace AppForSEII2526.UIT.Rental
         public new void PressOkModalDialog()
         {
             base.PressOkModalDialog();
-           
+
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
             wait.Until(d => d.Url.Contains("detailrental"));
         }
@@ -67,7 +67,3 @@ namespace AppForSEII2526.UIT.Rental
 
     }
 }
-
-
-
-
