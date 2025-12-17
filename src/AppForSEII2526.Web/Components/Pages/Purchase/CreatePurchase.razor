@@ -24,19 +24,19 @@
         <div class="col-md">
             <div class="form-floating mb-3">
                 <InputText @bind-Value="purchase.CustomerUserName" class="form-control" id="Email" />
-                <label for="Email">Email </label>
+                <label for="Name">Email </label>
             </div>
         </div>
         <div class="col-md">
             <div class="form-floating mb-3">
-                <InputText @bind-Value="purchase.CustomerNameSurname" class="form-control" id="Apellidos" />
-                <label for="Nombre y apellidos">Nombre y apellidos </label>
+                <InputText @bind-Value="purchase.CustomerNameSurname" class="form-control" id="NameSurname" />
+                <label for="NameSurname">Nombre y Apellidos </label>
             </div>
         </div>
         <div class="col-md">
             <div class="form-floating mb-3">
-                <InputText @bind-Value="purchase.DeliveryAddress" class="form-control" id="Dirección" />
-                <label for="Dirección">Dirección</label>
+                <InputText @bind-Value="purchase.DeliveryAddress" class="form-control" id="DeliveryAddress" />
+                <label for="DeliveryAddress">Dirección</label>
             </div>
         </div>
     </div>
@@ -44,10 +44,10 @@
         <div class="col-md">
             <div class="form-floating">
                 @*a dropdown for selecting the payment method*@
-                <InputSelect class="form-select" @bind-Value="@purchase.PaymentMethod" id="MetodoPago">
-                    <option value="@PaymentMethodTypes.Visa" default> Tarjeta de crédito</option>
-                    <option value="@PaymentMethodTypes.Paypal"> PayPal</option>
-                    <option value="@PaymentMethodTypes.GooglePay"> Google Pay</option>
+                <InputSelect class="form-select" @bind-Value="@purchase.PaymentMethod" id="PaymentMethod">
+                    <option value="@PaymentMethodTypes.Visa" default>Visa</option>
+                    <option value="@PaymentMethodTypes.Paypal">Paypal</option>
+                    <option value="@PaymentMethodTypes.GooglePay">GooglePay</option>
                 </InputSelect>
                 <label for="PaymentMethod">Método de pago</label>
             </div>
@@ -70,7 +70,7 @@
     </p>
 
     <div class="mh-100 table-responsive">
-        <table class="table table-condensed table-hover" id="TableOfPurchasedItems">
+        <table class="table table-condensed table-hover" id="TableOfPurchaseItems">
             <thead>
                 <tr>
                     <th>Modelo</th>
@@ -87,7 +87,7 @@
                         <td>@item.Color</td>
                         <td>@item.Description</td>
                         <td>@item.PurchasingPrice €</td>
-                        <td><InputNumber @bind-Value="item.Quantity" class="form-control" id="@($"Cantidad_{item.CarID}")" /></td>
+                        <td><InputNumber @bind-Value="item.Quantity" class="form-control" id="@($"quantity_{item.Model}")" /></td>
                     </tr>
                 }
             </tbody>

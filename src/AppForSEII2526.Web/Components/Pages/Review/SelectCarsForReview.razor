@@ -1,15 +1,15 @@
-﻿@page "/purchase/selectcarsforpurchase"
+﻿@page "/review/selectcarsforreview"
 
 @using Microsoft.AspNetCore.Authorization
 @using AppForSEII2526.Web.API
 @inject AppForSEII2526APIClient apiclient
-@inject ILogger<SelectCarsForPurchase> logger
-@inject PurchaseStateContainer purchaseState
+@inject ILogger<SelectCarsForReview> logger
+@inject ReviewStateContainer reviewState
 @inject NavigationManager navigation
 
-@attribute [Authorize]
 
-<h3>Seleccione los coches que desea comprar</h3>
+
+<h3>Select Cars For Review</h3>
 <div class="container-fluid">
     <div class="row alert alert-danger" role="alert" hidden="@hideErrors">
         <p id="ErrorsShown">Errors: @errors</p>
@@ -19,28 +19,25 @@
             <div class="row">
                 <div class="col">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Filtre por color</span>
-                        <input type="text" id="carColor" @bind=carColor class="form-control" placeholder="Color" aria-label="Color" aria-describedby="basic-addon1">
+                        <span class="input-group-text" id="basic-addon1">Filtrado Fabricante</span>
+                        <input type="text" id="inputTitle" @bind=Manufacturer class="form-control" placeholder="Filtrado por Fabricante" aria-label="Filtrado por color" aria-describedby="basic-addon1">
                     </div>
                 </div>
                 <div class="col">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Filtre por modelo</span>
-                        <input type="text" id="carModel" @bind=carModel class="form-control" placeholder="Modelo" aria-label="Modelo" aria-describedby="basic-addon1">
+                        <span class="input-group-text" id="basic-addon1">Filtrado Combustible</span>
+                        <input type="text" id="inputTitle" @bind=Fueltype class="form-control" placeholder="Filtrado por Combustible" aria-label="Filtrado por modelo" aria-describedby="basic-addon1">
                     </div>
                 </div>
                 <div class="col">
-                    <button type="button" class="btn btn-primary" @onclick=@SearchCars id="searchCars">Buscar coches</button>
+                    <button type="button" class="btn btn-primary" @onclick=@SearchCars id="searchCars">Search cars</button>
                 </div>
 
             </div>
             <div class="row">
-                @if (cars == null) {
-                    <p>Cargando coches....</p>
-                }
-                else if (cars.Count == 0 && string.IsNullOrEmpty(carColor) && string.IsNullOrEmpty(carModel))
+                @if (cars == null)
                 {
-                    <p>There are no cars available for being purchased.</p>
+                    <p>Loading cars....</p>
                 }
                 else
                 {
@@ -51,44 +48,41 @@
                                     <th>Fabricante</th>
                                     <th>Modelo</th>
                                     <th>Color</th>
-                                    <th>Precio de compra</th>
                                     <th>Tipo de combustible</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var car in cars) {
+                                @foreach (var car in cars)
+                                {
                                     <tr id="CarData_@car.Id">
                                         <td>@car.Manufacturer</td>
-                                        <td>@car.Model</td>
+                                        <td>@car.Modelo</td>
                                         <td>@car.Color</td>
-                                        <td>@car.PurchasingPrice</td>
                                         <td>@car.FuelType</td>
                                         <td>
-                                            <button class="btn btn-outline-secondary" id="carToPurchase_@car.Model" @onclick="@(() => AddCar(car))">Añadir</button>
+                                            <button class="btn btn-outline-secondary" id="movieToRent_@car.Modelo" @onclick="@(() => AddCar(car))">Add</button>
                                         </td>
                                     </tr>
                                 }
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
                     </div>
 
                 }
             </div>
         </div>
-        <div class="col-2" hidden="@hidePurchasingCart">
+        <div class="col-2" hidden="@hideReviewCart">
             <div class="row">
-                <h3>Carrito de compra</h3>
+                <h3>Shopping Cart</h3>
             </div>
-            @foreach (PurchaseItemDTO item in purchase.PurchaseItems) {
+            @foreach (ReviewItemsDTO item in review.ReviewItems)
+            {
                 <div class="row">
-                    <button type="button" class="btn btn-light" id="removeCar_@item.Model" @onclick="@(() => RemovePurchaseItem(item))">x @item.Model - @item.PurchasingPrice€</button>
+                    <button type="button" class="btn btn-light" id="removeMovie_@item.Model" @onclick="@(() => RemoveReviewItem(item))">x</button>
                 </div>
             }
             <div class="row">
-                <span id="showPurchasingCart" class="fw-bold">Total: @purchase.PurchaseItems.Sum(i => i.PurchasingPrice) €</span>
-            </div>
-            <div class="row">
-                <button type="button" class="btn btn-primary" id="Purchase" @onclick=@PurchaseCars>Comprar coche/s</button>
+                <button type="button" class="btn btn-primary" id="purchaseMovieButton" @onclick=@ReviewedCars>Reseñar coche</button>
             </div>
         </div>
 
@@ -99,33 +93,33 @@
 @code {
     private string carModelSelected;
     private ICollection<string>? modelsNames = new List<string>();
-    private bool hidePurchasingCart { get { return purchase.PurchaseItems.Count == 0; } }
-    private ICollection<CarForPurchaseDTO> cars;
+    private bool hideReviewCart { get { return review.ReviewItems.Count == 0; } }
+    private ICollection<CarForReviewDTO> cars;
     private bool hideErrors { get { return errors.Length == 0; } }
     private string errors = "";
-    private string carColor { get; set; }
-    private string carModel { get; set; }
+    private string Manufacturer { get; set; }
+    private string Fueltype { get; set; }
 
-    private PurchaseForCreateDTO purchase => purchaseState.Purchase;
+    private ReviewForCreateDTO review => reviewState.Review;
 
     private bool hiddenPurchaseCart = true;
 
-    private void AddCar(CarForPurchaseDTO car)
+    private void AddCar(CarForReviewDTO car)
     {
-        purchaseState.AddCarToPurchase(car);
+        reviewState.AddCarToReview(car);
     }
 
-    private void RemovePurchaseItem(PurchaseItemDTO item)
+    private void RemoveReviewItem(ReviewItemsDTO item)
     {
-        purchaseState.RemovePurchaseItemToPurchase(item);
-        if (purchase.PurchaseItems.Count == 0) hiddenPurchaseCart = true;
+        reviewState.RemoveReviewItemToReview(item);
+        if (review.ReviewItems.Count == 0) hiddenPurchaseCart = true;
     }
 
     public async void SearchCars()
     {
         try
         {
-            cars = await apiclient.GetCarForPurchaseAsync(carColor, carModel);
+            cars = await apiclient.GetCarForReviewAsync(Manufacturer, Fueltype);
             errors = "";
 
         }
@@ -155,8 +149,9 @@
         // return base.OnInitializedAsync();
     }
 
-    private void PurchaseCars()
+    private void ReviewedCars()
     {
-        navigation.NavigateTo("/purchase/createpurchase"); 
+        navigation.NavigateTo("/reviews/post");
     }
+
 }
