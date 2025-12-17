@@ -44,6 +44,7 @@ namespace AppForSEII2526.UIT.Rental
 
         public void PressModifyCars()
         {
+            WaitForBeingVisible(By.Id("ModifyCars"));
             _driver.FindElement(By.Id("ModifyCars")).Click();
         }
         public bool CheckListOfRentalItems(List<string[]> expectedRentalItems)

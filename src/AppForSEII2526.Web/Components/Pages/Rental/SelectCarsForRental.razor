@@ -38,7 +38,11 @@
             <div class="row">
                 @if (cars == null)
                 {
-                    <p>Cargando coches....</p>
+                    <p>Loading cars....</p>
+                }
+                else if (cars.Count == 0)
+                {
+                    <p><em>There are no cars available for being rented.</em></p>
                 }
                 else
                 {
