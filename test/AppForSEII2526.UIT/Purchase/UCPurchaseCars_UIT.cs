@@ -12,28 +12,31 @@ namespace AppForSEII2526.UIT.PurchaseCars
     {
         private SelectCarsForPurchase_PO selectcars;
         
+
         public UCPurchaseCars_UIT(ITestOutputHelper output) : base(output)
         {
             Initial_step_opening_the_web_page();
             selectcars = new SelectCarsForPurchase_PO(_driver, _output);
-           
+
         }
 
-        private const int carId1 = 14;
-        private const string color1 = "Blanco";
-        private const string carModel1 = "Q3";
-        private const string purchasingPrice1 = "42000";
-        private const string manufacturer1 = "Audi";
-        
-        
-        private const int carId2 = 2;
+        private const int carId1 = 9;
+        private const string color1 = "Gris";
+        private const string carModel1 = "CX-5";
+        private const string purchasingPrice1 = "26000";
+        private const string fuelType1 = "Gasolina";
+        private const string manufacturer1 = "Mazda";
+
+
+        private const int carId2 = 15;
         private const string color2 = "Rojo";
         private const string carModel2 = "Golf";
+        private const string fuelType2 = "Gasolina";
         private const string purchasingPrice2 = "20000";
         private const string manufacturer2 = "Volkswagen";
 
         private const string quantity = "1";
-        
+
         private void Precondition_perform_login()
         {
             Perform_login("elena@uclm.es", "Password1234%");
@@ -52,7 +55,7 @@ namespace AppForSEII2526.UIT.PurchaseCars
         [InlineData("Elena Navarro", "Calle de la Universidad 1, Albacete, 02006, España", "Paypal")]
         [InlineData("Elena Navarro", "Calle de la Universidad 1, Albacete, 02006, España", "GooglePay")]
         [Trait("LevelTesting", "Funcional Testing")]
-        public void UC1_BF_1_2_3 (string surname, string deliveryAddress, string paymentMethod)
+        public void UC1_BF_1_2_3(string surname, string deliveryAddress, string paymentMethod)
         {
             //Arrange
             var createpurchase = new CreatePurchase_PO(_driver, _output);
@@ -81,5 +84,122 @@ namespace AppForSEII2526.UIT.PurchaseCars
             Assert.True(detailPurchase.CheckListOfPurchase(expectedRentalItems),
                 "Error: purchase items are not as expected");
         }
+        [Fact]
+        [Trait("LevelTesting", "Funcional Testing")]
+        public void UC1_AF0_4()
+        {
+            //Arrange
+            InitialStepsForPurchaseCars();
+            var expectedMessage = "There are no cars available for being purchased.";
+            //Act
+            selectcars.FilterCars("", "");
+            //Assert
+            Assert.True(selectcars.CheckMessageErrorNotAvailableCars(expectedMessage));
+
+        }
+
+        [Theory]
+        [InlineData(manufacturer1, carModel1, color1, purchasingPrice1, fuelType1, "Gris", "")]
+        [InlineData(manufacturer2, carModel2, color2, purchasingPrice2, fuelType2, "", "Golf")]
+        [InlineData(manufacturer1, carModel1, color1, purchasingPrice1, fuelType1, "Gris", "CX-5")]
+        [Trait("LevelTesting", "Funcional Testing")]
+        public void UC1_FA1_5_6_7(string manufacturer, string model, string color, string price, string fuel, string filterColor, string filterModel)
+        {
+            //Arrange
+            var expectedCars = new List<string[]>
+            {
+                new string[] { manufacturer, model, color, price, fuel }
+            };
+            //Act
+            InitialStepsForPurchaseCars();
+            selectcars.FilterCars(filterModel, filterColor);
+            //Assert            
+            Assert.True(selectcars.CheckListOfCars(expectedCars));
+        }
+        [Fact]
+        [Trait("LevelTesting", "Funcional Testing")]
+        public void UC1_FA2_8()
+        {   
+            //Arrange
+            InitialStepsForPurchaseCars();
+
+            //Act 
+            selectcars.FilterCars("", "");
+            selectcars.SelectCars(new List<string> { carModel1 });
+            selectcars.ModifyPurchasingCart(carModel1);
+
+            //Assert 
+            Assert.True(selectcars.PurchasingNotAvailable());
+            
+        }
+        [Fact]
+        [Trait("LevelTesting", "Funcional Testing")]
+        public void UC1_FA2_9() {
+            //Arrange
+            InitialStepsForPurchaseCars();
+            //Act
+            
+
+            selectcars.FilterCars("", "");
+            selectcars.SelectCars(new List<string> { carModel1, carModel2 });
+            selectcars.ModifyPurchasingCart(carModel2);
+
+
+            //Assert            
+            Assert.True(selectcars.CheckShoppingCart(purchasingPrice1));
+        }
+        [Theory]
+        [InlineData("", "Calle de la Universidad 1, Albacete, 02006, España", "The CustomerNameSurname field is required")]
+        [InlineData("Elena", "Calle de la Universidad 1, Albacete, 02006, España", "The field CustomerNameSurname must be a string with a minimum length of 10 and a maximum length of 50")]
+        [InlineData("Elena Navarro", "", "The DeliveryAddress field is required")]
+        [InlineData("Elena Navarro", "Calle", "The field DeliveryAddress must be a string with a minimum length of 10 and a maximum length of 50")]
+        [Trait("LevelTesting", "Funcional Testing")]
+        public void UC2_12_13_14_15_AF5_testingErrorsMandatorydata(string nameSurname, string deliveryAddress,
+            string expectedMessageError)
+        {
+            //Arrange
+            InitialStepsForPurchaseCars();
+            CreatePurchase_PO createpurchase = new CreatePurchase_PO(_driver, _output);
+            //Act
+
+
+            selectcars.FilterCars("", "");
+            selectcars.SelectCars(new List<string> { carModel1 });
+            selectcars.PurchaseCars();
+            createpurchase.FillInPurchaseInfo(nameSurname, deliveryAddress, "Visa");
+            createpurchase.PressPurchaseYourCars();
+
+            //Assert
+            //the expected error is shown in the view
+            Assert.True(createpurchase.CheckValidationError(expectedMessageError), $"Expected error: {expectedMessageError}");
+        }
+
+        [Fact]
+        [Trait("LevelTesting", "Funcional Testing")]
+        public void UC2_16_AF6_ModifyRentalItems()
+        {
+            //Arrange
+
+            var createpurchase = new CreatePurchase_PO(_driver, _output);
+
+
+            //Act
+            InitialStepsForPurchaseCars();
+
+            selectcars.FilterCars("", "");
+            selectcars.SelectCars(new List<string> { carModel1, carModel2 });
+            selectcars.PurchaseCars();
+            createpurchase.PressModifyCars();
+            //we remove carModel2 from the purchasingcart
+            selectcars.ModifyPurchasingCart(carModel2);
+            selectcars.PurchaseCars();
+
+            //Assert
+            //the list of cars must change
+            var expectedPurchaseItems = new List<string[]> { new string[] { carModel1, color1, purchasingPrice1 + " €" }, };
+            Assert.True(createpurchase.CheckListOfPurchaseItems(expectedPurchaseItems));
+        }
+
+
     }
 }

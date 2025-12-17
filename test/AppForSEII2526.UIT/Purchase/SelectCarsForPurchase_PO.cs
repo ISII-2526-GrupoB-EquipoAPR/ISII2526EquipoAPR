@@ -38,11 +38,7 @@ namespace AppForSEII2526.UIT.PurchaseCars
             WaitForBeingVisible(_carColorBy);
 
             _carColor().SendKeys(carColor);
-
-            if (carModel == "") carModel = "All";
-
-            SelectElement selectElement = new SelectElement(_carModel());
-            selectElement.SelectByText(carModel);
+            _carModel().SendKeys(carModel);
 
             _searchCarButton().Click();
 
@@ -66,10 +62,9 @@ namespace AppForSEII2526.UIT.PurchaseCars
             _purchaseButton().Click();
         }
 
-        public void ModifyRentingCart(string model)
+        public void ModifyPurchasingCart(string model)
         {
-            _showPurchasingCartButton().Click();
-            WaitForBeingVisible(By.Id($"removeCar_{model}"));
+            WaitForBeingClickable(By.Id($"removeCar_{model}"));
             _driver.FindElement(By.Id($"removeCar_{model}")).Click();
         }
 
@@ -79,10 +74,9 @@ namespace AppForSEII2526.UIT.PurchaseCars
             return CheckBodyTable(expectedCars, _tableOfCarsBy);
         }
 
-        public bool CheckPurchaseCarsDisabled()
+        public bool PurchasingNotAvailable()
         {
-            //we return true if the button is disabled
-            return !(_purchaseButton().Enabled);
+            return _driver.FindElement(_purchaseButtonBy).Displayed == false;
         }
 
         public bool CheckShoppingCart(string price)
@@ -90,15 +84,9 @@ namespace AppForSEII2526.UIT.PurchaseCars
             return _showPurchasingCartButton().Text.Contains(price);
         }
 
-        public bool CheckMessageErrorNotAvaibleMovies(string expectedError)
+        public bool CheckMessageErrorNotAvailableCars(string expectedError)
         {
             return _driver.PageSource.Contains(expectedError);
-
-        }
-
-        public bool CheckMessageError(string expectedError)
-        {
-            return CheckModalBodyText(expectedError, _modalBy);
         }
 
     }
