@@ -17,8 +17,12 @@ else
 {
     <table class="table table-borderless table-sm">
         <tr>
-            <th>Nombre y apellidos</th>
-            <td id="NameSurname">@purchase.CustomerUserName @purchase.CustomerUserName</td>
+            <th>Nombre</th>
+            <td id="Name">@purchase.CustomerUserName</td>
+        </tr>
+        <tr>
+            <th>Apellidos</th>
+            <td id="Surname">@purchase.CustomerNameSurname</td>
         </tr>
         <tr>
             <th>Dirección</th>
@@ -36,7 +40,7 @@ else
 
     <h4>Coches comprados</h4>
 
-    <table class="table" id="CochesComprados">
+    <table class="table" id="PurchasedCars">
         <thead>
             <tr>
                 <th scope="col">Modelo</th>

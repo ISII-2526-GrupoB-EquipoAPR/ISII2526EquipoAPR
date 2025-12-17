@@ -20,13 +20,13 @@
                 <div class="col">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Filtre por color</span>
-                        <input type="text" id="inputTitle" @bind=carColor class="form-control" placeholder="Color" aria-label="Color" aria-describedby="basic-addon1">
+                        <input type="text" id="carColor" @bind=carColor class="form-control" placeholder="Color" aria-label="Color" aria-describedby="basic-addon1">
                     </div>
                 </div>
                 <div class="col">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Filtre por modelo</span>
-                        <input type="text" id="inputTitle" @bind=carModel class="form-control" placeholder="Modelo" aria-label="Modelo" aria-describedby="basic-addon1">
+                        <input type="text" id="carModel" @bind=carModel class="form-control" placeholder="Modelo" aria-label="Modelo" aria-describedby="basic-addon1">
                     </div>
                 </div>
                 <div class="col">
@@ -37,6 +37,10 @@
             <div class="row">
                 @if (cars == null) {
                     <p>Cargando coches....</p>
+                }
+                else if (cars.Count == 0 && string.IsNullOrEmpty(carColor) && string.IsNullOrEmpty(carModel))
+                {
+                    <p>There are no cars available for being purchased.</p>
                 }
                 else
                 {
@@ -81,7 +85,10 @@
                 </div>
             }
             <div class="row">
-                <button type="button" class="btn btn-primary" id="purchaseCarButton" @onclick=@PurchaseCars>Comprar coche/s</button>
+                <span id="showPurchasingCart" class="fw-bold">Total: @purchase.PurchaseItems.Sum(i => i.PurchasingPrice) €</span>
+            </div>
+            <div class="row">
+                <button type="button" class="btn btn-primary" id="Purchase" @onclick=@PurchaseCars>Comprar coche/s</button>
             </div>
         </div>
 
