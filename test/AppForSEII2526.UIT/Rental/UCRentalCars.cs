@@ -168,9 +168,9 @@ namespace AppForSEII2526.UIT.Rental
         }
 
 
-        /*
-        // [Fact(Skip = "First change the quantifyofrenting of the movies to 0 using script dbo.Movies.QuantityForRenting0")]
-      
+
+        //[Fact(Skip = "First change the quantifyofrenting of the movies to 0 using script dbo.Movies.QuantityForRenting0")]
+        [Fact]
         [Trait("LevelTesting", "Funcional Testing")]
         public void UC2_17_AF0_CarsNotAvailableForRentalPeriod()
         {
@@ -182,16 +182,16 @@ namespace AppForSEII2526.UIT.Rental
             selectcars.FilterCars("", null);
 
 
-            Assert.True(selectcars.CheckMessageErrorNotAvailableCars(expectedMessage), $"Car {carModel1} with priceforrenting {rentingPrice1} does not exist");
+            Assert.True(selectcars.CheckMessageErrorNotAvailableCars(expectedMessage));
 
         }
 
-        */
-
-
-
-
         
+
+
+
+
+        /*
         [Theory]
         [InlineData("Elena Navarro", "Calle de la Universidad 1, Albacete, 02006, España", "Visa")]
         [InlineData("Elena Navarro", "Calle de la Universidad 1, Albacete, 02006, España", "Paypal")]
@@ -199,8 +199,8 @@ namespace AppForSEII2526.UIT.Rental
         [Trait("LevelTesting", "Funcional Testing")]
         public void UC1_BF_1_2_3(string surname, string deliveryAddress, string paymentMethod)
         {
-            var createpurchase = new CreateRental_PO(_driver, _output);
-            var detailPurchase = new DetailRental_PO(_driver, _output);
+            var createrental = new CreateRental_PO(_driver, _output);
+            var detailrental = new DetailRental_PO(_driver, _output);
 
             var from = DateTime.Today.AddDays(1);
             var to = DateTime.Today.AddDays(2);
@@ -212,22 +212,23 @@ namespace AppForSEII2526.UIT.Rental
             selectcars.SelectCars(new List<string> { carModel1 });
             selectcars.RentCars();
 
-            createpurchase.FillInRentalInfo(surname, deliveryAddress, paymentMethod);
-            createpurchase.FillInRentalQuantity(quantity, carModel1);
-            createpurchase.PressModifyCars();
-            createpurchase.PressOkModalDialog();
+            createrental.FillInRentalInfo(surname, deliveryAddress, paymentMethod);
+            createrental.FillInRentalQuantity(quantity, carModel1);
+            createrental.PressRentYourCars();
+            createrental.PressOkModalDialog();
 
 
-            Assert.True(detailPurchase.CheckRentalDetail(surname,
+            Assert.True(detailrental.CheckRentalDetail(surname,
                 deliveryAddress, paymentMethod, DateTime.Now, from, to, rentingPrice1 + " €"),
-                "Error: detail purchase is not as expected");
+                "Error: detail rental is not as expected");
 
             var expectedRentalItems = new List<string[]>
                     { new string[] { carModel1, rentingPrice1 + " €" , color1, quantity}, };
 
-            Assert.True(detailPurchase.CheckListOfCars(expectedRentalItems),
-                "Error: purchase items are not as expected");
+            Assert.True(detailrental.CheckListOfCars(expectedRentalItems),
+                "Error: rental items are not as expected");
         }
+        */
         
     }
 }

@@ -17,7 +17,7 @@ namespace AppForSEII2526.UIT.Rental
             DateTime rentalDate, DateTime from, DateTime to, string totalPrice)
         {
 
-            WaitForBeingVisible(By.Id("RentalTotalPrice"));
+            WaitForBeingVisible(By.Id("TotalPrice"));
             bool result = true;
 
             result = result && _driver.FindElement(By.Id("Surname")).Text.Contains(surname);
@@ -33,7 +33,7 @@ namespace AppForSEII2526.UIT.Rental
             result = result && ((actualRentalDate - rentalDate) < new TimeSpan(0, 1, 0));
 
             result = result && _driver.FindElement(By.Id("RentalPeriod"))
-                .Text.Contains($"{from.ToShortDateString()} - {to.ToShortDateString()}");
+                .Text.Contains($"{from:dd/MM/yyyy} - {to:dd/MM/yyyy}");
 
             return result;
         }

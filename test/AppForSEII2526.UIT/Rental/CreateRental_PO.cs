@@ -56,6 +56,14 @@ namespace AppForSEII2526.UIT.Rental
             return _driver.PageSource.Contains(expectedError);
         }
 
+        public new void PressOkModalDialog()
+        {
+            base.PressOkModalDialog();
+           
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
+            wait.Until(d => d.Url.Contains("detailrental"));
+        }
+
 
     }
 }
