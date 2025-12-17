@@ -84,7 +84,8 @@ namespace AppForSEII2526.UIT.PurchaseCars
             Assert.True(detailPurchase.CheckListOfPurchase(expectedPurchaseItems),
                 "Error: purchase items are not as expected");
         }
-        [Fact]
+        
+        [Fact(Skip = "Primero cambie la QuantityForPurchasing a 0 con el script dbo.Cars.QuantityForPurchasing0")]
         [Trait("LevelTesting", "Funcional Testing")]
         public void UC1_AF0_4_NoCoches()
         {
