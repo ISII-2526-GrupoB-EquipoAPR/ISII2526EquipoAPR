@@ -1,4 +1,4 @@
-﻿using AppForMovies.UIT.Shared;
+﻿using AppForSEII2526.UIT.Shared;
 using AppForSEII2526.Web.Components.Pages.Rental;
 using Humanizer;
 using Microsoft.VisualBasic.FileIO;
