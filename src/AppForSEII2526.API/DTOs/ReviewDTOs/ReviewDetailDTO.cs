@@ -32,7 +32,7 @@ namespace AppForSEII2526.API.DTOs.ReviewDTOs
         [Required(AllowEmptyStrings = false, ErrorMessage = "Por favor, introduzca su tipo de conductor")]
         public string DriverType { get; set; }
 
-        IList<ReviewItemsDTO> ReviewItems{ get; set; }
+        public IList<ReviewItemsDTO> ReviewItems{ get; set; }
 
 
 

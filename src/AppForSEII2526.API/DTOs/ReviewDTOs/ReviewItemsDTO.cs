@@ -13,8 +13,21 @@
            ReviewDescription = description;
         }
 
-      
-       public int CarID { get; set; }
+
+        public ReviewItemsDTO(int carId, string name, string color, string fuelType, string manufacturer, string? description)
+        {
+            CarID = carId;
+            Model = name;
+            Color = color;
+            Fueltype = fuelType;
+            Manufacturer = manufacturer;
+         
+            ReviewDescription = description;
+        }
+
+
+
+        public int CarID { get; set; }
 
             [StringLength(50, ErrorMessage = "El modelo debe tener una longitud máxima de 50 caracteres")]
             public string Model { get; set; }
