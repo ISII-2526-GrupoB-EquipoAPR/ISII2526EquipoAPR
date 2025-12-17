@@ -1,0 +1,1 @@
+UPDATE [dbo].[Cars] SET [QuantityForRenting]=0

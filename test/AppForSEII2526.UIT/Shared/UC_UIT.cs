@@ -3,10 +3,8 @@ using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 
 
-namespace AppForSEII2526.UIT.Shared
-{
-    public class UC_UIT : IDisposable
-    {
+namespace AppForSEII2526.UIT.Shared {
+    public class UC_UIT : IDisposable {
 
         private bool _pipeline = false;
 

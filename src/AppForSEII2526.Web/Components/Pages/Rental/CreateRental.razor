@@ -28,13 +28,13 @@
         <div class="col-md">
             <div class="form-floating mb-3">
                 <InputText @bind-Value="rental.CustomerUserName" class="form-control" id="Name" />
-                <label for="Name">Name </label>
+                <label for="Name">User </label>
             </div>
         </div>
         <div class="col-md">
             <div class="form-floating mb-3">
-                <InputText @bind-Value="rental.CustomerNameSurname" class="form-control" id="Surname" />
-                <label for="Surname">Surname </label>
+                <InputText @bind-Value="rental.CustomerNameSurname" class="form-control" id="NameSurname" />
+                <label for="Surname">Name and Surname </label>
             </div>
         </div>
         <div class="col-md">
@@ -107,7 +107,7 @@
                         <td>@item.Model</td>
                         <td>@item.Manufacturer</td>
                         <td>@item.RentingPrice</td>
-                        <td><InputNumber @bind-Value="item.Quantity" class="form-control" id="@($"quantity{item.CarId}")" /></td>
+                        <td><InputNumber @bind-Value="item.Quantity" class="form-control" id="@($"quantity{item.Model}")" /></td>
 
 
                     </tr>
@@ -127,18 +127,23 @@
 
 }
 
+
 @code {
     private string messageError = "";
     private bool hideErrors { get { return messageError.Length == 0; } }
 
     private bool rentalButtonDisabled { get { return (rental.RentalItems == null || rental.RentalItems.Count == 0); } }
     private bool DialogIsOpen;
+    private bool DialogOKIsOpen;
+
     private decimal TotalCost
     {
         get
         {
             int days = (rental.EndDate.DateTime - rental.StartDate.DateTime).Days;
-            double price = rental.RentalItems.Sum(ri => ri.RentingPrice * days);
+            double price = rental.RentalItems.Sum(
+                 ri => ri.RentingPrice * days * ri.Quantity
+            );
             return Convert.ToDecimal(price);
         }
     }
@@ -152,14 +157,15 @@
     {
         DialogIsOpen = true;
     }
+   
 
     private async Task OnDialogClose(bool isOk)
     {
-
+        
         DialogIsOpen = false;
         if (isOk)
         {
-            // Process the data introduced by the user if they are valid
+            
             if (rental.RentalItems.Count > 0)
             {
                 try
@@ -182,7 +188,8 @@
                 catch (ApiException apiexception)
                 {
                     //we need to inform user that there was some other error while processing the request
-                    messageError = "Error while processing your request, please try again later!";
+                    messageError = $"Error: {apiexception.Message} - Status: {apiexception.StatusCode} - Response: {apiexception.Response}";
+
 
                 }
 
