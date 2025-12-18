@@ -36,6 +36,8 @@ namespace AppForSEII2526.UIT.PurchaseCars
         public void FilterCars (string carModel, string carColor)
         {
             WaitForBeingVisible(_carColorBy);
+            _carColor().Clear();
+            _carModel().Clear();
 
             _carColor().SendKeys(carColor);
             _carModel().SendKeys(carModel);

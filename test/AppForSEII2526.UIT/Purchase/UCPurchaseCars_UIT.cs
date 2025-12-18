@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualBasic.FileIO;
+﻿using AppForSEII2526.Web.Components.Pages.Purchase;
+using Microsoft.VisualBasic.FileIO;
+using OpenQA.Selenium.DevTools.V137.FedCm;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -85,7 +87,7 @@ namespace AppForSEII2526.UIT.PurchaseCars
                 "Error: purchase items are not as expected");
         }
         
-        [Fact(Skip = "Primero cambie la QuantityForPurchasing a 0 con el script dbo.Cars.QuantityForPurchasing0")]
+        [Fact]
         [Trait("LevelTesting", "Funcional Testing")]
         public void UC1_AF0_4_NoCoches()
         {
@@ -155,7 +157,7 @@ namespace AppForSEII2526.UIT.PurchaseCars
         [InlineData("Elena Navarro", "", "The DeliveryAddress field is required")]
         [InlineData("Elena Navarro", "Calle", "The field DeliveryAddress must be a string with a minimum length of 10 and a maximum length of 50")]
         [Trait("LevelTesting", "Funcional Testing")]
-        public void UC2_12_13_14_15_AF5_AtributosObligatorios(string nameSurname, string deliveryAddress,
+        public void UC1_12_13_14_15_AF5_AtributosObligatorios(string nameSurname, string deliveryAddress,
             string expectedMessageError)
         {
             //Arrange
@@ -172,12 +174,13 @@ namespace AppForSEII2526.UIT.PurchaseCars
 
             //Assert
             //the expected error is shown in the view
+            System.Threading.Thread.Sleep(1000);
             Assert.True(createpurchase.CheckValidationError(expectedMessageError), $"Expected error: {expectedMessageError}");
         }
 
         [Fact]
         [Trait("LevelTesting", "Funcional Testing")]
-        public void UC2_16_AF6_ModificaPurchaseItems()
+        public void UC1_16_AF6_ModificaPurchaseItems()
         {
             //Arrange
 
@@ -198,7 +201,47 @@ namespace AppForSEII2526.UIT.PurchaseCars
             //Assert
             //the list of cars must change
             var expectedPurchaseItems = new List<string[]> { new string[] { carModel1, color1, purchasingPrice1 + " €" }, };
+            System.Threading.Thread.Sleep(1000);
             Assert.True(createpurchase.CheckListOfPurchaseItems(expectedPurchaseItems));
+        }
+
+        [Theory]
+        [InlineData("Elena Navarro", "Calle de la Universidad 1, Albacete, 02006, España", "Visa")]
+        [Trait("LevelTesting", "Funcional Testing")]
+        public void UC1_BF_AF1_Examen(string name, string delivery, string payment)
+        {
+            //Arrange
+            
+            var createpurchase = new CreatePurchase_PO(_driver, _output);
+            var detailPurchase = new DetailPurchase_PO(_driver, _output);
+            InitialStepsForPurchaseCars();
+            //Act
+
+            selectcars.FilterCars("", color1);
+            selectcars.SelectCars(new List<string> { carModel1 });
+            selectcars.FilterCars(carModel2, "");
+            selectcars.SelectCars(new List<string> { carModel2 });
+            selectcars.ModifyPurchasingCart(carModel1);
+            selectcars.PurchaseCars();
+            
+
+            createpurchase.FillInPurchaseInfo(name, delivery, payment);
+            createpurchase.FillInPurchaseQuantity(quantity, carModel2);
+            createpurchase.PressPurchaseYourCars();
+            createpurchase.PressOkModalDialog();
+
+            //Assert
+            //the expected error is shown in the view
+            Assert.True(detailPurchase.CheckPurchaseDetail(name,
+                delivery, payment, DateTime.Now, purchasingPrice2 + " €"),
+                "Error: detail purchase is not as expected");
+
+            var expectedPurchaseItems = new List<string[]>
+                    { new string[] { carModel2, purchasingPrice2 + " €" , color2, quantity}, };
+
+            Assert.True(detailPurchase.CheckListOfPurchase(expectedPurchaseItems),
+                "Error: purchase items are not as expected");
+
         }
 
 
