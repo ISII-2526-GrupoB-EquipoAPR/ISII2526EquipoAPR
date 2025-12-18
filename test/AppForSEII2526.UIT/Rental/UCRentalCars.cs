@@ -127,7 +127,7 @@ namespace AppForSEII2526.UIT.Rental
 
             createRental.FillInRentalInfo(namesurname, deliveryAddress, "Visa");
             createRental.PressRentYourCars();
-
+            Thread.Sleep(1000);
 
             Assert.True(
                createRental.CheckValidationError(expectedMessageError),
@@ -165,7 +165,8 @@ namespace AppForSEII2526.UIT.Rental
 
 
 
-        [Fact(Skip = "Requiere ejecutar el script dbo.Cars.QuantityForRenting0.sql para poner la cantidad de coches disponibles a 0")]
+        //[Fact(Skip = "Requiere ejecutar el script dbo.Cars.QuantityForRenting0.sql para poner la cantidad de coches disponibles a 0")]
+        [Fact]
         [Trait("LevelTesting", "Funcional Testing")]
         public void UC2_17_AF0_CarsNotAvailableForRentalPeriod()
         {
@@ -214,5 +215,45 @@ namespace AppForSEII2526.UIT.Rental
                 "Error: rental items are not as expected");
         }
 
+        //[Fact(Skip = "Requiere ejecutar el script dbo.Cars.QuantityForRenting0.sql para poner la cantidad de coches disponibles a 0")]
+        [Fact]
+        [Trait("LevelTesting", "Funcional Testing")]
+        public void UC2_Examen()
+        {
+           
+            var createrental = new CreateRental_PO(_driver, _output);
+            var detailrental = new DetailRental_PO(_driver, _output);
+
+            
+            InitialStepsForRentalCars();
+
+            selectcars.FilterCars(carModel2, null);
+            selectcars.SelectCars(new List<string> { carModel2 });
+            selectcars.FilterCars("", float.Parse(rentingPrice1));
+            selectcars.SelectCars(new List<string> { carModel1 });
+            selectcars.RentCars();
+
+            createrental.PressModifyCars();
+
+            selectcars.ModifyRentingCart(carModel2);
+            selectcars.RentCars();
+
+            createrental.FillInRentalInfo("Adela Jerez Sánchez", "Calle José Martin,2008,234", "Visa");
+            createrental.FillInRentalQuantity(quantity, carModel1);
+            createrental.PressRentYourCars();
+            createrental.PressOkModalDialog();
+
+            //Assert
+            // Columnas de la tabla RentedCars: Modelo, Fabricante, Precio de alquiler, Cantidad
+            var expectedRentalItems = new List<string[]>
+                    { new string[] { carModel1, manufacturer1, rentingPrice1 + " €", quantity } };
+
+            Assert.True(detailrental.CheckListOfCars(expectedRentalItems),
+                "Error: rental items are not as expected");
+            
+        }
+
+
+
     }
-}
+    }
