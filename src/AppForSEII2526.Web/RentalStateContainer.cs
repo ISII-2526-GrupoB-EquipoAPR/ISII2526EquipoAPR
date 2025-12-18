@@ -38,7 +38,7 @@ namespace AppForSEII2526.Web
                     Model = car.Model,
                     Manufacturer = car.Manufacturer,
                     RentingPrice = car.PriceForRenting,
-                    Quantity = 1   // ← AQUÍ ESTÁ LO IMPORTANTE
+                    Quantity = 0   // ← AQUÍ ESTÁ LO IMPORTANTE
                 });
             }
             else

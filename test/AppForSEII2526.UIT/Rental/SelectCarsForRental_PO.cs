@@ -42,6 +42,10 @@ namespace AppForSEII2526.UIT.Rental
         public void FilterCars(string model, float? rentingprice)
         {
             WaitForBeingClickable(_carModelBy);
+
+            _driver.FindElement(_carModelBy).Clear();
+            _driver.FindElement(_rentingPriceBy).Clear();
+
             _driver.FindElement(_carModelBy).SendKeys(model);
             _driver.FindElement(_rentingPriceBy).SendKeys(rentingprice.ToString());
             _driver.FindElement(_searchCarsBy).Click();
