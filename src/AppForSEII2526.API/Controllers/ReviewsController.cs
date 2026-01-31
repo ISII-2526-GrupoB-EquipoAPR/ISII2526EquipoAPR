@@ -40,7 +40,7 @@ namespace AppForSEII2526.API.Controllers
                                 r.Id,
                                 r.ApplicationUser.Name,  
                                 r.Country,                    
-                                r.DriverType.ToString(),  
+                                r.DriverType, 
                                 r.ReviewItems.Select(ri => new ReviewItemsDTO(
                                     ri.CarId,
                                     ri.Car.Model.Name,

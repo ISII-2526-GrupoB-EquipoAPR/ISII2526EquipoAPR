@@ -35,7 +35,7 @@ namespace AppForSEII2526.UT.ReviewsController_test
            
            
 
-            var review = new Review(DateTime.Now, "Rubén", "Spain", "Novato", new List<ReviewItem>(), user);
+            var review = new Review(DateTime.Now, "Rubén", "Spain", 0, new List<ReviewItem>(), user);
 
             review.ReviewItems.Add(new ReviewItem(cars[0],review));
 
@@ -75,7 +75,7 @@ namespace AppForSEII2526.UT.ReviewsController_test
 
             var controller = new ReviewsController(_context, logger);
 
-            var expectedReview = new ReviewDetailDTO(1, "Rubén", "Spain","Novato", new List<ReviewItemsDTO>());
+            var expectedReview = new ReviewDetailDTO(1, "Rubén", "Spain",0, new List<ReviewItemsDTO>());
             expectedReview.ReviewItems.Add(new ReviewItemsDTO(1, "Golf", "Azul", "Gasolina", "Volkswagen", "Volkswagen Golf"));
             //Act
             var result = await controller.GetReviews(1);
