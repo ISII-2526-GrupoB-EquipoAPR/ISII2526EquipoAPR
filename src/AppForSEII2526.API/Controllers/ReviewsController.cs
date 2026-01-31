@@ -20,10 +20,20 @@ namespace AppForSEII2526.API.Controllers
         [Route("[action]")]
         [ProducesResponseType(typeof(ReviewDetailDTO), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<ActionResult> GetReviews(int id)
+        public async Task<ActionResult> GetReviews(int? id) //he modificado la entrada
         {
             try
             {
+                //modificacion examen sprint 2
+                if (id == null )
+                {
+                    _logger.LogError("Not found el id es nulo");
+                    return NotFound();
+                }
+
+
+
+
                 if (_context.Reviews==null)
                 {
                     _logger.LogError("Error:Reviews table does not exist");
@@ -40,7 +50,7 @@ namespace AppForSEII2526.API.Controllers
                                 r.Id,
                                 r.ApplicationUser.Name,  
                                 r.Country,                    
-                                r.DriverType.ToString(),  
+                                r.DriverType,  
                                 r.ReviewItems.Select(ri => new ReviewItemsDTO(
                                     ri.CarId,
                                     ri.Car.Model.Name,
