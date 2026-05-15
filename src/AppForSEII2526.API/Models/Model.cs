@@ -8,6 +8,11 @@
         {
             Name = name;
         }
+        public enum DriverType
+        {
+            Novato = 0,
+            Experto = 1,
+        }
         public int Id { get; set; }
 
         [StringLength(50, ErrorMessage = "Title name cannot be longer than 50 characters.", MinimumLength = 4)]

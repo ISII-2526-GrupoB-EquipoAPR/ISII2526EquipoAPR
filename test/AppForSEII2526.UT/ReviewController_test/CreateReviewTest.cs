@@ -46,7 +46,7 @@ namespace AppForSEII2526.UT.ReviewsController_test
             ApplicationUser user = new ApplicationUser("1", "Ruben", _customerNameSurname, _userName, "Avda. España s/n, Albacete");
             _context.ApplicationUsers.Add(user);
 
-            var review = new Review(DateTime.Now, _userName, _country, _driverType, new List<ReviewItem>(), user);
+            var review = new Review(DateTime.Now, _userName, _country, Enum.Parse<DriverType>(_driverType, true), new List<ReviewItem>(), user);
             review.ReviewItems.Add(new ReviewItem(cars[0].Id, review, "Muy buen coche", 5));
 
            
