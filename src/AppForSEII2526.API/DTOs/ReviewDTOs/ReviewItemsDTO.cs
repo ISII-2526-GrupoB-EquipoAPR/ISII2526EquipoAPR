@@ -2,6 +2,8 @@
 {
     public class ReviewItemsDTO
     {
+        public ReviewItemsDTO() { }
+
         public ReviewItemsDTO(int carId, string name, string color, string fuelType, string manufacturer, int rating, string? description)
         {
            CarID = carId;

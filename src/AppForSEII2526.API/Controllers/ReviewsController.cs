@@ -1,12 +1,15 @@
 ﻿using AppForSEII2526.API.DTOs.ReviewDTOs;
+using AppForSEII2526.API.Models;
+using AppForSEII2526.API.Data;
+using System.Net;
+using Microsoft.EntityFrameworkCore;
 
 namespace AppForSEII2526.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReviewsController: ControllerBase
+    public class ReviewsController : ControllerBase
     {
-
         private readonly ApplicationDbContext _context;
         private readonly ILogger<ReviewsController> _logger;
 
@@ -24,32 +27,33 @@ namespace AppForSEII2526.API.Controllers
         {
             try
             {
-                if (_context.Reviews==null)
+                if (_context.Reviews == null)
                 {
                     _logger.LogError("Error:Reviews table does not exist");
                     return NotFound();
                 }
 
                 var review = await _context.Reviews
-                            .Where(r => r.Id == id)
-                            .Include(r => r.ReviewItems)
-                                .ThenInclude(ri => ri.Car)
-                                    .ThenInclude(car => car.Model)
-                            .Include(r => r.ApplicationUser) 
-                            .Select(r => new ReviewDetailDTO(
-                                r.Id,
-                                r.ApplicationUser.Name,  
-                                r.Country,                    
-                                r.DriverType.ToString(),  
-                                r.ReviewItems.Select(ri => new ReviewItemsDTO(
-                                    ri.CarId,
-                                    ri.Car.Model.Name,
-                                    ri.Car.Color,
-                                    ri.Car.FuelType,
-                                    ri.Car.Manufacturer,
-                                  ri.Car.Description
-                                )).ToList<ReviewItemsDTO>())
-                            ).FirstOrDefaultAsync();
+                    .Where(r => r.Id == id)
+                    .Include(r => r.ReviewItems)
+                        .ThenInclude(ri => ri.Car)
+                            .ThenInclude(car => car.Model)
+                    .Include(r => r.ApplicationUser)
+                    .Select(r => new ReviewDetailDTO(
+                        r.Id,
+                        r.ApplicationUser.Name,
+                        r.Country,
+                        r.DriverType.ToString(),
+                        r.ReviewItems.Select(ri => new ReviewItemsDTO(
+                            ri.CarId,
+                            ri.Car.Model.Name,
+                            ri.Car.Color,
+                            ri.Car.FuelType,
+                            ri.Car.Manufacturer,
+                            ri.Rating ?? 0,
+                            ri.Description
+                        )).ToList()
+                    )).FirstOrDefaultAsync();
 
                 if (review == null)
                 {
@@ -67,7 +71,6 @@ namespace AppForSEII2526.API.Controllers
             }
         }
 
-
         [HttpPost]
         [Route("[action]")]
         [ProducesResponseType(typeof(ReviewDetailDTO), (int)HttpStatusCode.Created)]
@@ -75,8 +78,7 @@ namespace AppForSEII2526.API.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.Conflict)]
         public async Task<ActionResult> CreateReview(ReviewForCreateDTO reviewForCreate)
         {
-
-            if ( reviewForCreate.ReviewItems.Count == 0)
+            if (reviewForCreate.ReviewItems.Count == 0)
                 ModelState.AddModelError("ReviewItems", "Error! Debes seleccionar al menos un coche para reseñar");
 
             var user = _context.ApplicationUsers.FirstOrDefault(au => au.UserName == reviewForCreate.CustomerUserName);
@@ -88,34 +90,35 @@ namespace AppForSEII2526.API.Controllers
 
             var carIds = reviewForCreate.ReviewItems.Select(ri => ri.CarID).ToList();
 
-            var cars = _context.Cars.Include(c => c.ReviewItems)
+            var cars = _context.Cars
+                .Include(c => c.ReviewItems)
                     .ThenInclude(ri => ri.Review)
                 .Where(c => carIds.Contains(c.Id))
                 .Select(c => new
                 {
-                   c.Id,
-                   c.Model.Name,
-                   c.FuelType,
-                   c.Manufacturer,
-                   c.Color,
+                    c.Id,
+                    c.Model.Name,
+                    c.FuelType,
+                    c.Manufacturer,
+                    c.Color,
                 })
-                 .ToList();
+                .ToList();
 
-            Review   review = new Review(
+            var driverTypeEnum = Enum.Parse<DriverType>(reviewForCreate.DriverType, true);
+
+            Review review = new Review(
                 DateTime.Now,
-               reviewForCreate.CustomerUserName,
-               reviewForCreate.Country,
-               reviewForCreate.DriverType,
+                reviewForCreate.CustomerUserName,
+                reviewForCreate.Country,
+                driverTypeEnum,
                 new List<ReviewItem>(),
                 user
+            );
 
-
-         );
-
-               foreach (var item in reviewForCreate.ReviewItems)
+            foreach (var item in reviewForCreate.ReviewItems)
             {
                 var car = cars.FirstOrDefault(c => c.Id == item.CarID);
-                if (car == null )
+                if (car == null)
                 {
                     ModelState.AddModelError("ReviewItems", $"Error! El coche '{item.Model}' no está disponible");
                 }
@@ -125,12 +128,9 @@ namespace AppForSEII2526.API.Controllers
                 }
                 else
                 {
-                    review.ReviewItems.Add(new ReviewItem(car.Id,review,item.ReviewDescription,
-                        item.Rating)); //item.description
-                    
+                    review.ReviewItems.Add(new ReviewItem(car.Id, review, item.ReviewDescription, item.Rating));
                 }
             }
-
 
             if (ModelState.ErrorCount > 0)
                 return BadRequest(new ValidationProblemDetails(ModelState));
@@ -149,19 +149,14 @@ namespace AppForSEII2526.API.Controllers
             }
 
             var reviewDetail = new ReviewDetailDTO(
-             review.Id,
-             review.CustomerUserName,
-             review.Country,
-             review.DriverType,
-             reviewForCreate.ReviewItems
+                review.Id,
+                reviewForCreate.CustomerUserName,
+                review.Country,
+                review.DriverType.ToString(),
+                reviewForCreate.ReviewItems
             );
 
-            return CreatedAtAction("GetReview", new { id = review.Id }, reviewDetail);
+            return CreatedAtAction("GetReviews", new { id = review.Id }, reviewDetail);
         }
-
     }
-
-
-
-
 }
