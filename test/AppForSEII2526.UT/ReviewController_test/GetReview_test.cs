@@ -75,7 +75,7 @@ namespace AppForSEII2526.UT.ReviewsController_test
 
             var controller = new ReviewsController(_context, logger);
 
-            var expectedReview = new ReviewDetailDTO(1, "Rubén", "Spain","Novato", new List<ReviewItemsDTO>());
+            var expectedReview = new ReviewDetailDTO(1, "ruben@uclm.es", "Spain","Novato", new List<ReviewItemsDTO>());
             expectedReview.ReviewItems.Add(new ReviewItemsDTO(1, "Golf", "Azul", "Gasolina", "Volkswagen", 0, null));
             //Act
             var result = await controller.GetReviews(1);

@@ -20,13 +20,13 @@
                 <div class="col">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Filtrado Fabricante</span>
-                        <input type="text" id="inputTitle" @bind=Manufacturer class="form-control" placeholder="Filtrado por Fabricante" aria-label="Filtrado por color" aria-describedby="basic-addon1">
+                        <input type="text" id="inputManufacturer" @bind=Manufacturer class="form-control" placeholder="Filtrado por Fabricante" aria-label="Filtrado por color" aria-describedby="basic-addon1">
                     </div>
                 </div>
                 <div class="col">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Filtrado Combustible</span>
-                        <input type="text" id="inputTitle" @bind=Fueltype class="form-control" placeholder="Filtrado por Combustible" aria-label="Filtrado por modelo" aria-describedby="basic-addon1">
+                        <input type="text" id="inputFuelType" @bind=Fueltype class="form-control" placeholder="Filtrado por Combustible" aria-label="Filtrado por modelo" aria-describedby="basic-addon1">
                     </div>
                 </div>
                 <div class="col">
@@ -54,13 +54,13 @@
                             <tbody>
                                 @foreach (var car in cars)
                                 {
-                                    <tr id="CarData_@car.Id">
+                                    <tr id="CarData_@car.Modelo">
                                         <td>@car.Manufacturer</td>
                                         <td>@car.Modelo</td>
                                         <td>@car.Color</td>
                                         <td>@car.FuelType</td>
                                         <td>
-                                            <button class="btn btn-outline-secondary" id="movieToRent_@car.Modelo" @onclick="@(() => AddCar(car))">Add</button>
+                                            <button class="btn btn-outline-secondary" id="carToReview_@car.Id" @onclick="@(() => AddCar(car))">Add</button>
                                         </td>
                                     </tr>
                                 }
@@ -78,11 +78,11 @@
             @foreach (ReviewItemsDTO item in review.ReviewItems)
             {
                 <div class="row">
-                    <button type="button" class="btn btn-light" id="removeMovie_@item.Model" @onclick="@(() => RemoveReviewItem(item))">x</button>
+                    <button type="button" class="btn btn-light" id="removeCar_@item.CarID" @onclick="@(() => RemoveReviewItem(item))">x @item.Manufacturer @item.Model (@item.Color)</button>
                 </div>
             }
-            <div class="row">
-                <button type="button" class="btn btn-primary" id="purchaseMovieButton" @onclick=@ReviewedCars>Reseñar coche</button>
+            <div class="row mt-2">
+                <button type="button" class="btn btn-primary" id="continueReviewButton" @onclick=@ReviewedCars>Continuar</button>
             </div>
         </div>
 
@@ -107,6 +107,7 @@
     private void AddCar(CarForReviewDTO car)
     {
         reviewState.AddCarToReview(car);
+        StateHasChanged();
     }
 
     private void RemoveReviewItem(ReviewItemsDTO item)
@@ -151,7 +152,7 @@
 
     private void ReviewedCars()
     {
-        navigation.NavigateTo("/reviews/post");
+        navigation.NavigateTo("/review/createreview");
     }
 
 }

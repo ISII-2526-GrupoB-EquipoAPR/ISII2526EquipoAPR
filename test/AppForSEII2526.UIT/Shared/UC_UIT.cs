@@ -1,4 +1,4 @@
-﻿using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 
@@ -21,7 +21,7 @@ namespace AppForSEII2526.UIT.Shared {
         {
             get
             {
-                //set url of your web page 
+                //set url of your web page
                 return "https://localhost:7081/";
 
             }

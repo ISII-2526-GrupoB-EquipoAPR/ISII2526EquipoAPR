@@ -41,7 +41,7 @@ namespace AppForSEII2526.API.Controllers
                     .Include(r => r.ApplicationUser)
                     .Select(r => new ReviewDetailDTO(
                         r.Id,
-                        r.ApplicationUser.Name,
+                        r.ApplicationUser.UserName,
                         r.Country,
                         r.DriverType.ToString(),
                         r.ReviewItems.Select(ri => new ReviewItemsDTO(
