@@ -28,7 +28,7 @@ namespace AppForSEII2526.UIT.UC_Review
 
         [Fact]
         [Trait("LevelTesting", "Functional Testing")]
-        public void UC4_01() // No poder continuar sin coches seleccionados
+        public void UC3_01() // No poder continuar sin coches seleccionados
         {
             // Arrange
             InitialStepsForReview();
@@ -44,7 +44,7 @@ namespace AppForSEII2526.UIT.UC_Review
 
         [Fact]
         [Trait("LevelTesting", "Functional Testing")]
-        public void UC4_02() // Quitar un coche seleccionado para reseña
+        public void UC3_02() // Quitar un coche seleccionado para reseña
         {
             // Arrange
             InitialStepsForReview();
@@ -67,7 +67,7 @@ namespace AppForSEII2526.UIT.UC_Review
 
         [Fact]
         [Trait("LevelTesting", "Functional Testing")]
-        public void UC4_03() // Filtrar coches por fabricante
+        public void UC3_03() // Filtrar coches por fabricante
         {
             // Arrange
             InitialStepsForReview();
@@ -90,7 +90,7 @@ namespace AppForSEII2526.UIT.UC_Review
 
         [Fact]
         [Trait("LevelTesting", "Functional Testing")]
-        public void UC4_04() // Filtrar coches por tipo de combustible
+        public void UC3_04() // Filtrar coches por tipo de combustible
         {
             // Arrange
             InitialStepsForReview();
@@ -112,7 +112,7 @@ namespace AppForSEII2526.UIT.UC_Review
 
         [Fact]
         [Trait("LevelTesting", "Functional Testing")]
-        public void UC4_05() // Filtrar coches por fabricante y tipo de combustible
+        public void UC3_05() // Filtrar coches por fabricante y tipo de combustible
         {
             // Arrange
             InitialStepsForReview();
@@ -134,7 +134,7 @@ namespace AppForSEII2526.UIT.UC_Review
 
         [Fact]
         [Trait("LevelTesting", "Functional Testing")]
-        public void UC4_06() // Filtrar coches por fabricante y tipo de combustible sin resultados
+        public void UC3_06() // Filtrar coches por fabricante y tipo de combustible sin resultados
         {
             // Arrange
             InitialStepsForReview();
@@ -156,7 +156,7 @@ namespace AppForSEII2526.UIT.UC_Review
 
         [Fact]
         [Trait("LevelTesting", "Functional Testing")]
-        public void UC4_07() // Reseña completa de un coche
+        public void UC3_07() // Reseña completa de un coche
         {
             // Arrange
             InitialStepsForReview();
@@ -187,7 +187,7 @@ namespace AppForSEII2526.UIT.UC_Review
 
         [Fact]
         [Trait("LevelTesting", "Functional Testing")]
-        public void UC4_08() // Modificar coches seleccionados y completar reseña
+        public void UC3_08() // Modificar coches seleccionados y completar reseña
         {
             // Arrange
             InitialStepsForReview();
@@ -226,7 +226,7 @@ namespace AppForSEII2526.UIT.UC_Review
 
         [Fact]
         [Trait("LevelTesting", "Functional Testing")]
-        public void UC4_09() // Falta de datos (CustomerUserName vacío)
+        public void UC3_09() // Falta de datos (CustomerUserName vacío)
         {
             // Arrange
             InitialStepsForReview();
@@ -258,7 +258,7 @@ namespace AppForSEII2526.UIT.UC_Review
 
         [Fact]
         [Trait("LevelTesting", "Functional Testing")]
-        public void UC4_10() // Falta de datos (Pais)
+        public void UC3_10() // Falta de datos (Pais)
         {
             // Arrange
             InitialStepsForReview();
@@ -289,7 +289,7 @@ namespace AppForSEII2526.UIT.UC_Review
 
         [Fact]
         [Trait("LevelTesting", "Functional Testing")]
-        public void UC4_11() // Falta de datos (Tipo de conductor)
+        public void UC3_11() // Falta de datos (Tipo de conductor)
         {
             // Arrange
             InitialStepsForReview();
@@ -320,7 +320,7 @@ namespace AppForSEII2526.UIT.UC_Review
 
         [Fact]
         [Trait("LevelTesting", "Functional Testing")]
-        public void UC4_12() // Falta de datos (CustomerUserName con formato de email incorrecto)
+        public void UC3_12() // Falta de datos (CustomerUserName con formato de email incorrecto)
         {
             // Arrange
             InitialStepsForReview();
@@ -356,7 +356,7 @@ namespace AppForSEII2526.UIT.UC_Review
 
         [Fact]
         [Trait("LevelTesting", "Functional Testing")]
-        public void UC4_13() // Intentar crear reseña con usuario inexistente
+        public void UC3_13() // Intentar crear reseña con usuario inexistente
         {
             // Arrange
             InitialStepsForReview();
@@ -393,7 +393,7 @@ namespace AppForSEII2526.UIT.UC_Review
 
         [Fact]
         [Trait("LevelTesting", "Functional Testing")]
-        public void UC4_14() // Intentar crear reseña con valoración fuera de rango
+        public void UC3_14() // Intentar crear reseña con valoración fuera de rango
         {
             // Arrange
             InitialStepsForReview();
@@ -423,7 +423,7 @@ namespace AppForSEII2526.UIT.UC_Review
 
         [Fact]
         [Trait("LevelTesting", "Functional Testing")]
-        public void UC4_15() // Intentar crear reseña con descripción vacía
+        public void UC3_15() // Intentar crear reseña con descripción vacía
         {
             // Arrange
             InitialStepsForReview();
