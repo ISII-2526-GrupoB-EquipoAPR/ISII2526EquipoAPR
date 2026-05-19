@@ -34,4 +34,8 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Review\Documento_casos_de_prueba\" />
+  </ItemGroup>
+
 </Project>

@@ -14,6 +14,7 @@ namespace AppForSEII2526.Web
 
 
         public event Action? OnChange;
+        private void NotifyStateChanged() => OnChange?.Invoke();
 
         public void AddCarToReview(CarForReviewDTO car)
         {
